@@ -62,8 +62,7 @@ namespace DarkSideDiv
     }
 
 
-    // EIGENTLICH IST DAS EINE FACTORY METHODE
-    public void FillCornerGrid(int idx, int col, int row, DsUniformGridComponent grid_of_grid_component, SKColor fill_color)
+    public IDsDiv CreateCornerDiv(int idx, int col, int row, SKColor fill_color)
     {
       var attribs = new DsDivAttribs()
       {
@@ -73,13 +72,10 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000"),
       };
       var ds_div = new DsDiv(attribs);
-      grid_of_grid_component.Attach(col, row, ds_div);
+      return ds_div;
     }
 
-
-
-    // DAS AUCH. REfACTORING
-    public void FillMiddleGrid(int idx, int col, int row, DsUniformGridComponent grid_of_grid_component)
+    public IDsDiv CreateMiddleDiv(int idx, int col, int row)
     {
       var attribs = new DsDivAttribs()
       {
@@ -88,37 +84,43 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000")
       };
       var ds_div = new DsDiv(attribs);
-      grid_of_grid_component.Attach(col, row, ds_div);
+      return ds_div;
+
     }
 
+    public SKColor CreateCornerDivColor(int base_grid_sector, int grid_sector)
+    {
+      // if the div is in the middle use the color of the base_grid_sector
+      if (grid_sector != 4)
+      {
+        return GetColorByIdx(base_grid_sector);
+      }
 
-    public void FillGridInGrid(int base_grid_sector, int grid_sector, DsUniformGridComponent grid_component)
+      return GetColorByIdx(grid_sector);
+    }
+
+    public IDsDiv CreateUnderlaidGridDiv(int base_grid_sector, int grid_sector)
     {
       if (base_grid_sector == 4)
       {
-        FillMiddleGrid(grid_sector, grid_sector % 3, grid_sector / 3, grid_component);
+        var middle_grid = CreateMiddleDiv(grid_sector, grid_sector % 3, grid_sector / 3);
+        return middle_grid;
       }
-      else
-      {
-        var fill_color = SKColor.Empty;
-        if (grid_sector != 4)
-        {
-          fill_color = GetColorByIdx(base_grid_sector);
-        }
-        else
-        {
-          fill_color = GetColorByIdx(grid_sector);
-        }
-        FillCornerGrid(grid_sector, grid_sector % 3, grid_sector / 3, grid_component, fill_color);
-      }
+
+      var fill_color = CreateCornerDivColor(base_grid_sector, grid_sector);
+      var corner_grid = CreateCornerDiv(grid_sector, grid_sector % 3, grid_sector / 3, fill_color);
+
+      return corner_grid;
+
     }
-    public void FillTopLevelGrid(int base_grid_sector, int base_grid_col, int base_grid_row, DsUniformGridComponent base_grid)
+    public IDsDiv CreateUnderlaidGrid(int base_grid_sector, int base_grid_col, int base_grid_row)
     {
-      var grid_component = new DsUniformGridComponent(3, 3);
+      var base_grid_comp = new DsUniformGridComponent(3, 3);
 
       for (int i = 0; i < 9; i++)
       {
-        FillGridInGrid(base_grid_sector, i, grid_component);
+        var grid_div = CreateUnderlaidGridDiv(base_grid_sector, i);
+        base_grid_comp.Attach(i % 3, i / 3, grid_div);
       }
 
 
@@ -132,8 +134,9 @@ namespace DarkSideDiv
       };
 
       var div = new DsDiv(attribs);
-      div.Append(grid_component);
-      base_grid.Attach(base_grid_col, base_grid_row, div);
+      div.Append(base_grid_comp);
+
+      return div;
     }
 
     public DsLotusBuilder(SKRect pic_rect)
@@ -142,7 +145,9 @@ namespace DarkSideDiv
 
       for (int i = 0; i < 9; i++)
       {
-        FillTopLevelGrid(i, i % 3, i / 3, base_grid);
+        var grid = CreateUnderlaidGrid(i, i % 3, i / 3);
+        base_grid.Attach(i % 3, i / 3, grid);
+
       }
 
       var attribs = new DsDivAttribs()
