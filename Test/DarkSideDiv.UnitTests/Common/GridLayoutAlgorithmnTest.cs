@@ -26,7 +26,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -50,7 +50,7 @@ namespace Test.Common
         ColOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
       };
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -75,7 +75,7 @@ namespace Test.Common
         RowOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
       };
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -101,7 +101,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -132,7 +132,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -161,7 +161,7 @@ namespace Test.Common
       };
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -187,7 +187,7 @@ namespace Test.Common
       };
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -217,7 +217,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -246,7 +246,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -274,7 +274,7 @@ namespace Test.Common
 
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -300,7 +300,7 @@ namespace Test.Common
       };
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -325,7 +325,7 @@ namespace Test.Common
       };
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -362,7 +362,7 @@ namespace Test.Common
       };
 
       // Act
-      var it = grid_layout.GetRects(settings, inp_rect);
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {

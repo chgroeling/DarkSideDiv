@@ -9,21 +9,6 @@ namespace Test.Common
 
   public class DsDivComponentAlignedTextTest
   {
-    static Mock<IAbsoluteLayout> HelperIAbsLayoutAnyArgumentsReturnsRect(Rect ret)
-    {
-      var mock = new Mock<IAbsoluteLayout>();
-      mock.Setup(f => f.GetAbsRect(
-       It.IsAny<Rect>(),
-       It.IsAny<Rect>(),
-       It.IsAny<DsAlignment>(),
-       It.IsAny<float>(),
-       It.IsAny<float>()
-     )).Returns(ret);
-
-      return mock;
-    }
-
-
     static DsDivComponentAlignedTextAttribs CreateDefaultArguments(string text)
     {
       var attribs = new DsDivComponentAlignedTextAttribs()
@@ -34,93 +19,6 @@ namespace Test.Common
       };
 
       return attribs;
-    }
-
-    [Fact]
-    public void Draw_SingleLine_GetRectCalledWithCorrectRowOptions()
-    {
-      // Arrange
-      var test_text = "Line1";
-      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
-      var mock_grid_layout = new Mock<IGridLayout>();
-
-      stub_device.Setup(foo => foo.MeasureText(
-        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
-      );
-
-      var attribs = CreateDefaultArguments(test_text);
-      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
-      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
-
-      // Act
-      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
-
-      // Assert
-      var expected_RowOptions = new List<Quantity>() {
-          (QuantityType.FixedInPixel, 20f),
-      };
-
-      mock_grid_layout.Verify(gl => gl.GetRects(
-        It.Is<GridLayoutOptions>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
-        It.IsAny<Rect>()
-      ));
-    }
-
-    [Fact]
-    public void Draw_MultiLine_GetRectCalledWithCorrectRowOptions()
-    {
-      // Arrange
-      var test_text = "Line1\nLine2";
-      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
-      var mock_grid_layout = new Mock<IGridLayout>();
-     
-      stub_device.Setup(foo => foo.MeasureText(
-        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
-      );
-
-      var attribs = CreateDefaultArguments(test_text);
-      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
-      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
-
-      // Act
-      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
-
-      // Assert
-      var expected_RowOptions = new List<Quantity>() {
-          (QuantityType.FixedInPixel, 20f),
-          (QuantityType.FixedInPixel, 20f)
-      };
-
-      mock_grid_layout.Verify(gl => gl.GetRects(
-        It.Is<GridLayoutOptions>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
-        It.IsAny<Rect>()
-      ));
-    }
-
-    [Fact]
-    public void Draw_MultiLine_CallGetRects()
-    {
-      // Arrange
-      var test_text = "Line1\nLine2";
-      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
-      var mock_grid_layout = new Mock<IGridLayout>();
-
-      stub_device.Setup(foo => foo.MeasureText(
-        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
-      );
-
-      var attribs = CreateDefaultArguments(test_text);
-      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
-      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
-
-      // Act
-      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
-
-      // Assert
-      mock_grid_layout.Verify(gl => gl.GetRects(It.IsAny<GridLayoutOptions>(), new Rect(490f, 480f, 510f, 520f)));
     }
 
 
@@ -204,7 +102,6 @@ namespace Test.Common
 
       mock.Setup(foo => foo.MeasureText("Line1AAAAAAA")).Returns(new Rect(0f, 0f, 300.0f, 20.0f));
 
-      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(-25f, 490f, 275f, 510f));
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
       // Wie geht man mit Algorithmen bzw. Helper Methoden um
@@ -244,7 +141,7 @@ namespace Test.Common
     }
 
      [Fact]
-    public void Draw_CenterTooLongTextAutowrapEnabledSpaceInLine_PlacedCorrectly()
+    public void Draw_CenterTooLongTextAutowrapEnabledSpaceIn2ndLine_PlacedCorrectly()
     {
       // Arrange
       var test_text = "Line1A Line1B Line A";

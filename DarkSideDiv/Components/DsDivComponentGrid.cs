@@ -7,11 +7,6 @@ namespace DarkSideDiv.Components
   public class DsDivComponentGrid : IDsDivComponent
   {
 
-    public IGridLayout GridLayoutAlgorithmn { 
-      get; 
-      set; 
-    } = new GridLayoutAlgorithmn();
-
     public DsDivComponentGrid() : this(1, 1)
     {
     }

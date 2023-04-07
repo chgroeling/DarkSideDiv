@@ -6,12 +6,6 @@ namespace DarkSideDiv.Components
 
   public class DsDivComponentAlignedText : IDsDivComponent
   {
-    public IGridLayout GridLayoutAlgorithmn
-    {
-      get;
-      set;
-    } = new GridLayoutAlgorithmn();
-
     public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device) : this(device, new DsDivComponentAlignedTextAttribs())
     {
     }
@@ -139,8 +133,7 @@ namespace DarkSideDiv.Components
       // V
       var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
 
-      var grid_layout = GridLayoutAlgorithmn;
-
+   
       var row_options = new List<Quantity>();
       for (int row = 0; row < lines.Count(); row++)
       {
@@ -155,7 +148,7 @@ namespace DarkSideDiv.Components
         RowOptions = row_options
       };
 
-      var rects_enum = grid_layout.GetRects(options, abs_rect);
+      var rects_enum = GridLayoutAlgorithmn.GetRects(options, abs_rect);
       var rects = rects_enum.ToArray();
 
       if (rects.Count() != lines.Count())
