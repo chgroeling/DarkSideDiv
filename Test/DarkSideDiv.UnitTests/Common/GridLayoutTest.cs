@@ -9,6 +9,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects1c1r_Return1Rect()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(1, 1);
 
@@ -27,6 +30,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects1c2r_Return2Rects()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(1, 2);
 
@@ -46,6 +52,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects1c2rRowPropFactorChanged_Return2Rects()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(1, 2);
 
@@ -65,6 +74,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects2c1r_Return2Rects()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(2, 1);
 
@@ -84,6 +96,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects2c1rColPropFactorChanged_Return2Rects()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(2, 1);
       grid_layout.SetColPropFactor(0, 3f);
@@ -127,6 +142,9 @@ namespace Test.Common
     [Fact]
     public void TestGridLayout_GetRects2c2rBottomRightPropFactorsChanged_Return4Rects()
     {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
       // Arrange
       var grid_layout = new GridLayout(2, 2);
 
