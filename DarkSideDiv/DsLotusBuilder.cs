@@ -273,7 +273,7 @@ namespace DarkSideDiv
     DsAlignment Alignment {
       get;
       set;
-    } = DsAlignment.Bottom;
+    } = DsAlignment.Center;
   }
 
 }

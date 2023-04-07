@@ -77,23 +77,13 @@ namespace DarkSideDiv
 
       CalcOrigin(draw_rect, new_rect, out x, out y);
 
-
-      //var meas = -textBounds.Top;
-      //SKPaint paint_border = new SKPaint();
-      //canvas.DrawRect(x,y-meas, 100f, meas, paint_border);
-
-      //canvas.Save();
-      // canvas.Translate(draw_rect.Left,
-      //  draw_rect.Bottom);
-      //canvas.Scale(0.5f,0.5f);
-
       float y_offset;
       switch (_attribs.alignment)
       {
         case DsAlignment.TopRight:
         case DsAlignment.TopLeft:
         case DsAlignment.Top:
-          y_offset =  0f;
+          y_offset = 0f;
           break;
 
         case DsAlignment.BottomLeft:
@@ -110,8 +100,32 @@ namespace DarkSideDiv
       }
       foreach (var l in lines)
       {
+        float x_d;
+
+        switch (_attribs.alignment)
+        {
+          case DsAlignment.TopLeft:
+          case DsAlignment.Left:
+          case DsAlignment.BottomLeft:
+            x_d = 0f;
+            break;
+
+          case DsAlignment.TopRight:
+          case DsAlignment.Right:
+          case DsAlignment.BottomRight:
+            x_d = new_rect.Right - l.TextBounds.Width;
+            break;
+
+          
+          case DsAlignment.Top:
+          case DsAlignment.Center:
+          case DsAlignment.Bottom:
+          default:
+            x_d = new_rect.Left + (new_rect.Right - new_rect.Left) * 0.5f - l.TextBounds.Width * 0.5f;
+            break;
+        }
         canvas.DrawText(l.Value,
-          x,
+          x + x_d,
           y + y_offset,
           textPaint
         );

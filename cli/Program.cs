@@ -71,7 +71,7 @@ internal class Program
     var lotus_builder = new DsLotusBuilder(graph_rect);
     lotus_builder.AddLevel1("I\nMultiline");
     lotus_builder.AddLevel2("A");
-    lotus_builder.AddLevel3("A1\nMultiline");
+    lotus_builder.AddLevel3("A1\nA1.1");
     lotus_builder.AddLevel3("A2");
     lotus_builder.AddLevel3("A3");
     lotus_builder.AddLevel3("A4");
