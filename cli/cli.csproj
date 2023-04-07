@@ -4,6 +4,10 @@
     <ProjectReference Include="..\darkside_div\darkside_div.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="skiasharp" Version="2.88.3" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
