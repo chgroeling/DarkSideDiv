@@ -1,7 +1,8 @@
 using DarkSideDiv;
 using SkiaSharp;
+using Xunit;
 
-namespace tests;
+namespace tests {
 
 public class DsRectDimensionsTest
 {
@@ -16,7 +17,7 @@ public class DsRectDimensionsTest
       Assert.Equal(290.0f, result.Bottom);
     }
 
-        [Fact]
+    [Fact]
     public void TestCalculateContentRect()
     {
       var dut = new DsRectDimensions();
@@ -26,4 +27,5 @@ public class DsRectDimensionsTest
       Assert.Equal(13.0f, result.Left);
       Assert.Equal(287.0f, result.Bottom);
     }
+}
 }
