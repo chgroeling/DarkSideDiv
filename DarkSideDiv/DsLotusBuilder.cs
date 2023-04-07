@@ -29,7 +29,7 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000"),
       };
       var ds_div = new DsDiv(attribs);
-      var text_attribs = new DsDivAlignedTextComponentAttribs()
+      var text_attribs = new DsDivComponentAlignedText()
       {
         text = _grid_texts[base_grid_idx, idx],
         text_size = FontSize,
@@ -49,7 +49,7 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000")
       };
       var ds_div = new DsDiv(attribs);
-      var text_attribs = new DsDivAlignedTextComponentAttribs()
+      var text_attribs = new DsDivComponentAlignedText()
       {
         text = _grid_texts[4, idx],
         text_size = FontSize,
@@ -88,7 +88,7 @@ namespace DarkSideDiv
     }
     public IDsDiv CreateUnderlaidGrid(int base_grid_sector, int base_grid_col, int base_grid_row)
     {
-      var base_grid_comp = new DsUniformGridComponent(3, 3);
+      var base_grid_comp = new DsDivComponentUniformGrid(3, 3);
 
       for (int i = 0; i < 9; i++)
       {
@@ -131,7 +131,7 @@ namespace DarkSideDiv
     public DsRoot Build()
     {
 
-      var base_grid = new DsUniformGridComponent(3, 3);
+      var base_grid = new DsDivComponentUniformGrid(3, 3);
 
       for (int i = 0; i < 9; i++)
       {

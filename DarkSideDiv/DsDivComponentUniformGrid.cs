@@ -4,14 +4,14 @@ namespace DarkSideDiv
 {
 
 
-  public class DsUniformGridComponent : IDsDivComponent
+  public class DsDivComponentUniformGrid : IDsDivComponent
   {
 
-    public DsUniformGridComponent() : this(1, 1)
+    public DsDivComponentUniformGrid() : this(1, 1)
     {
     }
 
-    public DsUniformGridComponent(int cols, int rows)
+    public DsDivComponentUniformGrid(int cols, int rows)
     {
       _grid = new IDsDiv?[cols, rows];
       _cols = cols;

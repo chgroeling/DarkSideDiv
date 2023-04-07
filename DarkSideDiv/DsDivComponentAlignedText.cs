@@ -2,7 +2,7 @@ using SkiaSharp;
 
 namespace DarkSideDiv
 {
-  public struct DsDivAlignedTextComponentAttribs
+  public struct DsDivComponentAlignedText
   {
     public string text;
     public DsAlignment alignment;
@@ -16,7 +16,7 @@ namespace DarkSideDiv
     {
     }
 
-    public DsDivAlignedTextComponent(DsDivAlignedTextComponentAttribs attribs)
+    public DsDivAlignedTextComponent(DsDivComponentAlignedText attribs)
     {
       _attribs = attribs;
     }
@@ -226,6 +226,6 @@ namespace DarkSideDiv
       }
     }
 
-    private DsDivAlignedTextComponentAttribs _attribs;
+    private DsDivComponentAlignedText _attribs;
   }
 }
