@@ -66,87 +66,125 @@ namespace DarkSideDiv
 
       var lines = SplitLines(text, textPaint);
 
-      var max_width = (from i in lines select i.TextBounds.Width).Max();
-      var accu_height = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
+      var max_width_of_lines = (from i in lines select i.TextBounds.Width).Max();
+      var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
 
-      var new_rect = new SKRect(
+      // This returns the rectangle of the text
+      var combined_rect = new SKRect(
         lines[0].TextBounds.Left,
         lines[0].TextBounds.Top,
-        max_width,
-        accu_height);
+        max_width_of_lines,
+        accumulated_height_of_lines);
 
-      CalcOrigin(draw_rect, new_rect, out x, out y);
+      // Skia coordinate system
+      // ----> x
+      // |
+      // | y
+      // V
+      CalcOrigin(draw_rect, combined_rect, out x, out y);
 
+      // take BOTTOM value here, since measureText returns a negative top value to include the ascent
+      float y_offset = CalcVerticalTextOffset(combined_rect.Bottom, lines[0].TextBounds.Height);
+
+      foreach (var l in lines)
+      {
+        float x_offset = CalcHorizontalElementAlignmentOffset(
+          combined_rect.Left, 
+          combined_rect.Right, 
+          l.TextBounds.Width);
+
+        // The text origin (0,0) is the bottom left corner of the text
+        // the top coordinate is therefore negative
+        canvas.DrawText(
+          l.Value,
+          x + x_offset,
+          y + y_offset,
+          textPaint);
+        y_offset = y_offset + l.TextBounds.Height;
+      }
+      //canvas.Restore();
+    }
+
+    private float CalcVerticalTextOffset(float block_bottom, float line_height)
+    {
+      // The origin of every line is the bottom left corner.
+      // -->The text is displayed shifted by one line.
       float y_offset;
       switch (_attribs.alignment)
       {
         case DsAlignment.TopRight:
         case DsAlignment.TopLeft:
         case DsAlignment.Top:
-          y_offset = 0f;
+          y_offset = 0;
           break;
 
         case DsAlignment.BottomLeft:
         case DsAlignment.BottomRight:
         case DsAlignment.Bottom:
-          y_offset = -(accu_height - lines[0].TextBounds.Height) * 1.0f;
+          y_offset = -(block_bottom - line_height) ;
           break;
 
         case DsAlignment.Left:
         case DsAlignment.Right:
+        case DsAlignment.Center:
         default:
-          y_offset = -(accu_height - lines[0].TextBounds.Height) * 0.5f;
+          y_offset = -(block_bottom - line_height) * 0.5f;
           break;
       }
-      foreach (var l in lines)
+
+      return y_offset;
+    }
+
+    private float CalcHorizontalElementAlignmentOffset(float left, float right, float element_width)
+    {
+      float x_offset;
+
+      switch (_attribs.alignment)
       {
-        float x_d;
+        case DsAlignment.TopLeft:
+        case DsAlignment.Left:
+        case DsAlignment.BottomLeft:
+          x_offset = left;
+          break;
 
-        switch (_attribs.alignment)
-        {
-          case DsAlignment.TopLeft:
-          case DsAlignment.Left:
-          case DsAlignment.BottomLeft:
-            x_d = 0f;
-            break;
+        case DsAlignment.TopRight:
+        case DsAlignment.Right:
+        case DsAlignment.BottomRight:
+          x_offset = right - element_width;
+          break;
 
-          case DsAlignment.TopRight:
-          case DsAlignment.Right:
-          case DsAlignment.BottomRight:
-            x_d = new_rect.Right - l.TextBounds.Width;
-            break;
 
-          
-          case DsAlignment.Top:
-          case DsAlignment.Center:
-          case DsAlignment.Bottom:
-          default:
-            x_d = new_rect.Left + (new_rect.Right - new_rect.Left) * 0.5f - l.TextBounds.Width * 0.5f;
-            break;
-        }
-        canvas.DrawText(l.Value,
-          x + x_d,
-          y + y_offset,
-          textPaint
-        );
-        y_offset = y_offset + l.TextBounds.Height;
+        case DsAlignment.Top:
+        case DsAlignment.Center:
+        case DsAlignment.Bottom:
+        default:
+          x_offset = left + (right - left) * 0.5f - element_width * 0.5f;
+          break;
       }
-      //canvas.Restore();
+      return x_offset;
     }
 
     private void CalcOrigin(SKRect draw_rect, SKRect content_rect, out float x, out float y)
     {
+      // the origin of a block is always the bottom left corner of it.
+      // |
+      // |
+      // |X <--
+      // ------
       x = draw_rect.Left;
       y = draw_rect.Bottom;
+
+      
       switch (_attribs.alignment)
       {
+    
         case DsAlignment.Left:
           x = draw_rect.Left;
           y = draw_rect.Bottom + (draw_rect.Top - draw_rect.Bottom) * 0.5f - content_rect.Top * 0.5f;
           break;
 
         case DsAlignment.TopLeft:
-          x = draw_rect.Left;
+          x = draw_rect.Left; 
           y = draw_rect.Top - content_rect.Top;
           break;
 
