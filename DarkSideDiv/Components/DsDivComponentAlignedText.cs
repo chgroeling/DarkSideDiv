@@ -49,9 +49,14 @@ namespace DarkSideDiv.Components
 
     public void Draw(Rect draw_rect)
     {
-      _device.Setup(_attribs);
+      var font_metrics = _device.Setup(_attribs);
+      var line_height = -font_metrics.Ascent + font_metrics.Descent + font_metrics.Leading;
 
       var text = _attribs.text;
+      if (text.StartsWith("Wünsche"))
+      {
+        ;
+      }
       var lines = SplitLines(text, _device);
 
       var new_lines = new List<Line>();
@@ -81,7 +86,8 @@ namespace DarkSideDiv.Components
 
             if (textBounds.Width > rect_width)
             {
-              if (last_item ==null) {
+              if (last_item == null)
+              {
                 last_item = item;
                 break;
               }
@@ -122,9 +128,9 @@ namespace DarkSideDiv.Components
       // This returns the rectangle of the text
       var combined_rect = new Rect(
         lines[0].TextBounds.Left,
-        lines[0].TextBounds.Top,
+        font_metrics.Ascent,
         max_width_of_lines,
-        lines[0].TextBounds.Top + accumulated_height_of_lines);
+        font_metrics.Ascent + line_height * lines.Count());
 
       // Skia coordinate system
       // ----> x
@@ -133,12 +139,12 @@ namespace DarkSideDiv.Components
       // V
       var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
 
-   
+
       var row_options = new List<Quantity>();
       for (int row = 0; row < lines.Count(); row++)
       {
         var actual_line = lines[row];
-        row_options.Add((QuantityType.FixedInPixel, actual_line.TextBounds.Height));
+        row_options.Add((QuantityType.FixedInPixel, line_height));
       }
 
       var options = new GridLayoutOptions
@@ -170,7 +176,7 @@ namespace DarkSideDiv.Components
 
 
         // The origin (0,0) is the bottom left corner of the text
-        float top_offset = r.rect.Top + l.TextBounds.Height;
+        float top_offset = r.rect.Top + line_height - font_metrics.Descent - font_metrics.Leading;
         _device.DrawText(
           l.Value,
           left_offset,

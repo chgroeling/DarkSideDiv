@@ -17,7 +17,7 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
     _canvas = canvas;
   }
 
-  public void Setup(DsDivComponentAlignedTextAttribs attribs)
+  public FontMetrics Setup(DsDivComponentAlignedTextAttribs attribs)
   {
     _text_paint = new SKPaint() // with object initializer
     {
@@ -28,6 +28,14 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
       Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold,
             SKFontStyleWidth.Normal,
             SKFontStyleSlant.Upright)
+    };
+
+    var fm = _text_paint.FontMetrics;
+    return new FontMetrics()
+    {
+      Leading = fm.Leading,
+      Ascent = fm.Ascent,
+      Descent = fm.Descent
     };
   }
 
@@ -40,6 +48,7 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
 
     var textBounds = new SKRect();
     _text_paint.MeasureText(str, ref textBounds);
+    var fm = _text_paint.FontMetrics;
     return ConversionFactories.ToRect(textBounds);
   }
 

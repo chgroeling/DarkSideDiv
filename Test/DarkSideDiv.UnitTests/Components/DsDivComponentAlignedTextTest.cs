@@ -21,19 +21,13 @@ namespace Test.Common
       return attribs;
     }
 
-
     [Fact]
-    public void Draw_CenterSinglelineText_PlacedCorrectly()
+    public void Draw_ArbitaryLine_SetupIsCalled()
     {
       // Arrange
       var test_text = "Line1";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
       
-      mock.Setup(foo => foo.MeasureText(
-        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
-      );
-
-
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
   
@@ -42,7 +36,38 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1", 490.0f, 510f));
+      mock.Verify(call => call.Setup(attribs));
+    }
+
+
+    [Fact]
+    public void Draw_CenterSinglelineText_PlacedCorrectly()
+    {
+      // Arrange
+      var test_text = "Line1";
+      var mock = new Mock<IDsDivComponentAlignedTextDevice>();
+      var attribs = CreateDefaultArguments(test_text);
+
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
+
+      mock.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 2.0f)
+      );
+
+      
+      var dut = new DsDivComponentAlignedText(mock.Object, attribs);
+  
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      // Center Rect is 490f .. 510f ... Ascent is 15 means Draw Text should be called with 505
+      mock.Verify(foo => foo.DrawText("Line1", 490.0f, 505f));
     }
 
     [Fact]
@@ -57,6 +82,11 @@ namespace Test.Common
       );
 
       var attribs = CreateDefaultArguments(test_text);
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
 
       // Act
@@ -64,8 +94,8 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1", 490.0f, 500f));
-      mock.Verify(foo => foo.DrawText("Line2", 490.0f, 520f));
+      mock.Verify(foo => foo.DrawText("Line1", 490.0f, 495f));
+      mock.Verify(foo => foo.DrawText("Line2", 490.0f, 515f));
     }
 
      [Fact]
@@ -81,6 +111,12 @@ namespace Test.Common
 
 
       var attribs = CreateDefaultArguments(test_text);
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
+
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
     
       // Act
@@ -88,8 +124,8 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1", 25.0f, 500f));
-      mock.Verify(foo => foo.DrawText("Line2", 25.0f, 520f));
+      mock.Verify(foo => foo.DrawText("Line1", 25.0f, 495f));
+      mock.Verify(foo => foo.DrawText("Line2", 25.0f, 515f));
     }
 
 
@@ -103,6 +139,11 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line1AAAAAAA")).Returns(new Rect(0f, 0f, 300.0f, 20.0f));
 
       var attribs = CreateDefaultArguments(test_text);
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
       // Wie geht man mit Algorithmen bzw. Helper Methoden um
       ///dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
@@ -112,7 +153,7 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1AAAAAAA", -25.0f, 510f));
+      mock.Verify(foo => foo.DrawText("Line1AAAAAAA", -25.0f, 505f));
     }
 
      [Fact]
@@ -129,6 +170,11 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line2A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
 
       var attribs = CreateDefaultArguments(test_text);
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
     
       // Act
@@ -136,8 +182,8 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 500f));
-      mock.Verify(foo => foo.DrawText("Line2A", 75.0f, 520f));
+      mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 495f));
+      mock.Verify(foo => foo.DrawText("Line2A", 75.0f, 515f));
     }
 
      [Fact]
@@ -156,6 +202,11 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
 
       var attribs = CreateDefaultArguments(test_text);
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
     
       // Act
@@ -163,8 +214,8 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 500f));
-      mock.Verify(foo => foo.DrawText("Line A", 75.0f, 520f));
+      mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 495f));
+      mock.Verify(foo => foo.DrawText("Line A", 75.0f, 515f));
     }
 
 

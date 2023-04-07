@@ -2,9 +2,10 @@ using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Components
 {
+  
   public interface IDsDivComponentAlignedTextDevice
   {
-    void Setup(DsDivComponentAlignedTextAttribs attribs);
+    FontMetrics Setup(DsDivComponentAlignedTextAttribs attribs);
 
     Rect MeasureText(string str);
 
