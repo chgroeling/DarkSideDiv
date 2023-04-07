@@ -10,18 +10,18 @@ namespace DarkSideDiv.Divs
     public SKColor content_fill_color;
 
 
-    public DsDivRectDistance Border
+    public RectDistance Border
     {
       get;
       set;
     }
 
-    public DsDivRectDistance Margin
+    public RectDistance Margin
     {
       get;
       set;
     }
-    public DsDivRectDistance Padding
+    public RectDistance Padding
     {
       get;
       set;

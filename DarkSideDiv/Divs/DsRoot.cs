@@ -1,11 +1,12 @@
 using SkiaSharp;
 using System;
+using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Divs
 {
   public class DsRoot
   {
-    public DsRoot(SKRect root_rect)
+    public DsRoot(Rect root_rect)
     {
       _root_rect = root_rect;
     }
@@ -29,7 +30,7 @@ namespace DarkSideDiv.Divs
       parent.Draw(canvas, _root_rect);
     }
 
-    private SKRect _root_rect;
+    private Rect _root_rect;
     private IDsDiv? _root_div;
   }
 }

@@ -1,17 +1,16 @@
 using DarkSideDiv.Common;
-using SkiaSharp;
 using Xunit;
 
 namespace Test.Common
 {
 
-  public class DsRectDimensionsTest
+  public class RectDimensionsTest
   {
     [Fact]
     public void TestCalculateBorderRect()
     {
-      var dut = new DsRectDimensions();
-      var rect = new SKRect(0.0f, 100.0f, 200.0f, 300.0f);
+      var dut = new RectDimensions();
+      var rect = new Rect(0.0f, 100.0f, 200.0f, 300.0f);
       var result = dut.CalculateBorderRect(rect, 10.0f);
 
       Assert.Equal(10.0f, result.Left);
@@ -21,8 +20,8 @@ namespace Test.Common
     [Fact]
     public void TestCalculateContentRect()
     {
-      var dut = new DsRectDimensions();
-      var rect = new SKRect(0.0f, 100.0f, 200.0f, 300.0f);
+      var dut = new RectDimensions();
+      var rect = new Rect(0.0f, 100.0f, 200.0f, 300.0f);
       var result = dut.CalculateContentRect(rect, 10.0f, 1.0f, 2.0f);
 
       Assert.Equal(13.0f, result.Left);

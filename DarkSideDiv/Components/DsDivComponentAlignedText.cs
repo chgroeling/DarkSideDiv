@@ -1,5 +1,6 @@
 using DarkSideDiv.Enums;
 using SkiaSharp;
+using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Components
 {
@@ -20,7 +21,7 @@ namespace DarkSideDiv.Components
     {
       public string Value { get; set; } = string.Empty;
 
-      public SKRect TextBounds { get; set; }
+      public Rect TextBounds { get; set; }
     }
 
 
@@ -30,18 +31,18 @@ namespace DarkSideDiv.Components
       var ret = lines.SelectMany((line) =>
       {
         var result = new List<Line>();
-        SKRect textBounds = new SKRect();
+        var textBounds = new SKRect();
         paint.MeasureText(line, ref textBounds);
-        result.Add(new Line() { Value = line, TextBounds = textBounds });
+        result.Add(new Line() { Value = line, TextBounds = ConversionFactories.ToRect(textBounds) });
 
         return result.ToArray();
       }).ToArray();
 
       return ret;
     }
-    public void Draw(SKCanvas canvas, SKRect draw_rect)
-    {
 
+    public void Draw(SKCanvas canvas, Rect draw_rect)
+    {
       var textPaint = new SKPaint() // with object initializer
       {
         IsAntialias = true,
@@ -66,7 +67,7 @@ namespace DarkSideDiv.Components
       var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
 
       // This returns the rectangle of the text
-      var combined_rect = new SKRect(
+      var combined_rect = new Rect(
         lines[0].TextBounds.Left,
         lines[0].TextBounds.Top,
         max_width_of_lines,
@@ -160,7 +161,7 @@ namespace DarkSideDiv.Components
       return x_offset;
     }
 
-    private void CalcOrigin(SKRect draw_rect, SKRect content_rect, out float x, out float y)
+    private void CalcOrigin(Rect draw_rect, Rect content_rect, out float x, out float y)
     {
       // the origin of a block is always the bottom left corner of it.
       // |

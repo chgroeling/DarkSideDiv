@@ -9,9 +9,9 @@ namespace Application.Builders
 {
   public class DsLotusBuilder
   {
-    private static DsDivRectDistance CalculateCellBorder(int col, int row, float value, float value_outline)
+    private static RectDistance CalculateCellBorder(int col, int row, float value, float value_outline)
     {
-      var border = new DsDivRectDistance();
+      var border = new RectDistance();
       border.distance_from_left = col == 0 ? value : 0f;
       border.distance_from_right = col == 2 ? value : 0f;
       border.distance_from_top = row == 0 ? value : 0f;
@@ -91,7 +91,7 @@ namespace Application.Builders
     }
     public IDsDiv CreateUnderlaidGrid(int base_grid_sector, int base_grid_col, int base_grid_row)
     {
-      var base_grid_comp = new DsDivComponentUniformGrid(3, 3);
+      var base_grid_comp = new DsDivComponentGrid(3, 3);
 
       for (int i = 0; i < 9; i++)
       {
@@ -134,7 +134,7 @@ namespace Application.Builders
     public DsRoot Build()
     {
 
-      var base_grid = new DsDivComponentUniformGrid(3, 3);
+      var base_grid = new DsDivComponentGrid(3, 3);
       base_grid.SetColPropFactor(1,2f);
       base_grid.SetRowPropFactor(1,2f);    
 
@@ -155,7 +155,7 @@ namespace Application.Builders
       var div = new DsDiv(attribs);
       div.Append(base_grid);
 
-      var root_div = new DsRoot(_pic_rect);
+      var root_div = new DsRoot(ConversionFactories.ToRect(_pic_rect));
       root_div.Attach(div);
       return root_div;
     }

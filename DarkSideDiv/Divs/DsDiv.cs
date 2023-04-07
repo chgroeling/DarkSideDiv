@@ -22,7 +22,7 @@ namespace DarkSideDiv.Divs
       _components.Add(component);
     }
 
-    public void Draw(SKCanvas canvas, SKRect draw_rect)
+    public void Draw(SKCanvas canvas, Rect draw_rect)
     {
       // BORDER
       var border_rect = _dim_algo.CalculateBorderRect(
@@ -33,7 +33,8 @@ namespace DarkSideDiv.Divs
       SKPaint paint_border = new SKPaint();
       paint_border.Color = _div_attribs.border_color;
       paint_border.IsAntialias = true;
-      canvas.DrawRect(border_rect, paint_border);
+
+      canvas.DrawRect(ConversionFactories.FromRect(border_rect), paint_border);
 
       // CONTENT
       var content_rec = _dim_algo.CalculateContentRect(
@@ -44,7 +45,8 @@ namespace DarkSideDiv.Divs
       );
 
       SKPaint paint_content = new SKPaint() { Color = _div_attribs.content_fill_color, IsAntialias = true };
-      canvas.DrawRect(content_rec, paint_content);
+      canvas.DrawRect(ConversionFactories.FromRect(content_rec), paint_content);
+
       foreach (var i in _components)
       {
         i.Draw(canvas, content_rec);
@@ -53,7 +55,7 @@ namespace DarkSideDiv.Divs
 
     private DsDivAttribs _div_attribs;
 
-    private DsRectDimensions _dim_algo = new DsRectDimensions();
+    private RectDimensions _dim_algo = new RectDimensions();
 
     private List<IDsDivComponent> _components;
   }

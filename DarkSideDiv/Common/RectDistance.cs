@@ -1,10 +1,10 @@
 namespace DarkSideDiv.Common
 {
-  public struct DsDivRectDistance
+  public struct RectDistance
   {
-    public static implicit operator DsDivRectDistance(float value)
+    public static implicit operator RectDistance(float value)
     {
-      var ret = new DsDivRectDistance()
+      var ret = new RectDistance()
       {
         distance_from_left = value,
         distance_from_right = value,
@@ -14,9 +14,9 @@ namespace DarkSideDiv.Common
       return ret;
     }
 
-    public static implicit operator DsDivRectDistance((float left, float top, float right, float bottom) value)
+    public static implicit operator RectDistance((float left, float top, float right, float bottom) value)
     {
-      var ret = new DsDivRectDistance()
+      var ret = new RectDistance()
       {
         distance_from_left = value.left,
         distance_from_right = value.right,
@@ -30,9 +30,9 @@ namespace DarkSideDiv.Common
     public float distance_from_right;
     public float distance_from_bottom;
 
-    public static DsDivRectDistance operator +(DsDivRectDistance a, DsDivRectDistance b)
+    public static RectDistance operator +(RectDistance a, RectDistance b)
     {
-      var ret = new DsDivRectDistance()
+      var ret = new RectDistance()
       {
         distance_from_left = a.distance_from_left + b.distance_from_left,
         distance_from_top = a.distance_from_top + b.distance_from_top,

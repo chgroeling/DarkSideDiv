@@ -1,14 +1,15 @@
 using DarkSideDiv.Divs;
+using DarkSideDiv.Common;
 using SkiaSharp;
 
 namespace DarkSideDiv.Components
 {
-  public class DsDivComponentUniformGrid : IDsDivComponent
+  public class DsDivComponentGrid : IDsDivComponent
   {
 
     GridLayout _grid_layout;
 
-    public DsDivComponentUniformGrid() : this(1, 1)
+    public DsDivComponentGrid() : this(1, 1)
     {
     }
 
@@ -20,7 +21,7 @@ namespace DarkSideDiv.Components
       _grid_layout.SetColPropFactor(col, factor);
     }
 
-    public DsDivComponentUniformGrid(int cols, int rows)
+    public DsDivComponentGrid(int cols, int rows)
     {
       _grid = new IDsDiv[cols, rows];
       _cols = cols;
@@ -33,11 +34,11 @@ namespace DarkSideDiv.Components
       _grid[col, row] = div;
     }
 
-    public void Draw(SKCanvas canvas, SKRect draw_rect)
+    public void Draw(SKCanvas canvas, Rect draw_rect)
     {
       foreach (var tuple in _grid_layout.GetRects(draw_rect))
       {
-        (int col, int row, SKRect rect) = tuple;
+        (int col, int row, Rect rect) = tuple;
         if (_grid[col, row] is null)
         {
           continue;
