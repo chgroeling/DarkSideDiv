@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DarkSideDiv\DarkSideDiv.csproj" />
+    <ProjectReference Include="..\..\DarkSideDiv\DarkSideDiv.csproj" />
   </ItemGroup>
 
 </Project>
