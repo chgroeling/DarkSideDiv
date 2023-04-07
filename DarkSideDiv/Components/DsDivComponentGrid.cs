@@ -16,10 +16,21 @@ namespace DarkSideDiv.Components
       _row_options[row] = (QuantityType.Weight, factor);
     }
 
+    public void SetRowFixedInPixel(int row, float value)
+    {
+      _row_options[row] = (QuantityType.FixedInPixel, value);
+    }
+
     public void SetColPropFactor(int col, float factor)
     {
       _col_options[col] = (QuantityType.Weight, factor);
     }
+
+    public void SetColFixedInPixel(int col, float value)
+    {
+      _col_options[col] = (QuantityType.FixedInPixel, value);
+    }
+
 
     public void SetDivSpacing(float spacing) {
       _div_spacing = spacing;

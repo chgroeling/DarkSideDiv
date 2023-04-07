@@ -129,5 +129,52 @@ namespace Test.Common
       mocks[1, 1].Verify(call => call.Draw(new Rect(500f, 250f, 1000f, 750f)));
       mocks[1, 2].Verify(call => call.Draw(new Rect(500f, 750f, 1000f, 1000f)));
     }
+
+
+    [Fact]
+    public void Draw_2x3GridFixedFactorChangedRow1_CorrectDrawCalls()
+    {
+      var grid_comp = new DsDivComponentGrid(2, 3);
+      var mocks = SetupIDsDivMocks(2, 3, grid_comp);
+
+      grid_comp.SetRowFixedInPixel(1, 200f);
+
+      var rect = new Rect(0f, 0f, 1000f, 1000f);
+      grid_comp.Draw(rect);
+
+      // Col 0
+      mocks[0, 0].Verify(call => call.Draw(new Rect(0f, 0f, 500f, 400f)));
+      mocks[0, 1].Verify(call => call.Draw(new Rect(0f, 400f, 500f, 600f)));
+      mocks[0, 2].Verify(call => call.Draw(new Rect(0f, 600f, 500f, 1000f)));
+
+      // Col 1
+      mocks[1, 0].Verify(call => call.Draw(new Rect(500f, 0f, 1000f, 400f)));
+      mocks[1, 1].Verify(call => call.Draw(new Rect(500f, 400f, 1000f, 600f)));
+      mocks[1, 2].Verify(call => call.Draw(new Rect(500f, 600f, 1000f, 1000f)));
+    }
+
+     [Fact]
+    public void Draw_3x2GridFixedInPixelCol1_CorrectDrawCalls()
+    {
+      var grid_comp = new DsDivComponentGrid(3, 2);
+      var mocks = SetupIDsDivMocks(3, 2, grid_comp);
+
+      grid_comp.SetColFixedInPixel(1, 200f);
+
+
+      var rect = new Rect(0f, 0f, 1000f, 1000f);
+      grid_comp.Draw(rect);
+
+      // Row 0
+      mocks[0, 0].Verify(call => call.Draw(new Rect(0f, 0f, 400f, 500f)));
+      mocks[1, 0].Verify(call => call.Draw(new Rect(400f, 0f, 600f, 500f)));
+      mocks[2, 0].Verify(call => call.Draw(new Rect(600f, 0f, 1000f, 500f)));
+
+      // Row 1
+      mocks[0, 1].Verify(call => call.Draw(new Rect(0f, 500f, 400f, 1000f)));
+      mocks[1, 1].Verify(call => call.Draw(new Rect(400f, 500f, 600f, 1000f)));
+      mocks[2, 1].Verify(call => call.Draw(new Rect(600f, 500f, 1000f, 1000f)));
+    }
   }
+
 }
