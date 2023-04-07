@@ -7,8 +7,10 @@ namespace Test.Common
 {
   public class GridLayoutAlgorithmnTest
   {
+    // Signature
+    // Grid1x1
     [Fact]
-    public void GetRects_1ProportionalColumn1ProportionalRows_ReturnSourceRect()
+    public void GetRects_Grid1x1Default_ReturnSourceRect()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -24,7 +26,6 @@ namespace Test.Common
         Rows = 1
       };
 
-
       // Act
       var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
 
@@ -35,7 +36,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1FixedColumn1ProportionalRow_ReturnSmallerRect()
+    public void GetRects_Grid1x1Col0FixedInPixel_ReturnSmallerRect()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -59,7 +60,33 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1ProportionalColumn1FixedRow_ReturnSmallerRect()
+    public void GetRects_Grid1x1Col0Percent_ReturnSmallerRect()
+    {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
+      // Arrange
+      var grid_layout = new GridLayoutAlgorithmn();
+      var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var settings = new GridLayoutOptions
+      {
+        Cols = 1,
+        Rows = 1,
+        ColOptions = new List<Quantity>() { (QuantityType.Percent, 25f) }
+      };
+      // Act
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
+
+      // Assert
+      Assert.Equal(new List<(int, int, Rect)>() {
+        (0, 0, new Rect(0f, 0f, 250f, 1000f))
+      }, it);
+    }
+
+
+
+    [Fact]
+    public void GetRects_Grid1x1Row0FixedInPixel_ReturnSmallerRect()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -84,7 +111,34 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1ProportionalColumn1FixedRow1ProportionalRow_Return2Rects()
+    public void GetRects_Grid1x1Row0Percent_ReturnSmallerRect()
+    {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
+      // Arrange
+      var grid_layout = new GridLayoutAlgorithmn();
+      var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+
+      var settings = new GridLayoutOptions
+      {
+        Cols = 1,
+        Rows = 1,
+        RowOptions = new List<Quantity>() { (QuantityType.Percent, 25f) }
+      };
+      // Act
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
+
+      // Assert
+      Assert.Equal(new List<(int, int, Rect)>() {
+        (0, 0, new Rect(0f, 0f, 1000f, 250f))
+      }, it);
+    }
+
+    
+
+    [Fact]
+    public void GetRects_Grid1x2Row0FixedInPixel_Return2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -111,7 +165,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1ProportionalColumn2FixedRows_Returns2Rects()
+    public void GetRects_Grid1x2Row0FixedInPixelRow1FixedInPixel_Returns2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -141,10 +195,10 @@ namespace Test.Common
       }, it);
     }
 
-
+   
 
     [Fact]
-    public void GetRects_1FixedColumn1ProportionalColumn1ProportionalRow_Returns2Rects()
+    public void GetRects_Grid2x1Col0FixedInPixel_Returns2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -171,7 +225,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1FixedColumn2ProportionalColumn1ProportionalRow_Returns3Rects()
+    public void GetRects_Grid3x1Col0FixedInPixel_Returns3Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -199,7 +253,7 @@ namespace Test.Common
 
 
     [Fact]
-    public void GetRects_1ProportionalColumn2ProportionalRows_Return2EventSplitRects()
+    public void GetRects_Grid1x2Default_Return2EventSplitRects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -229,7 +283,7 @@ namespace Test.Common
 
 
     [Fact]
-    public void GetRects_1ProportionalColumn2ProportionalRowsFirstRowHasDifferentWeight_Return2Rects()
+    public void GetRects_Grid1x2Row0Weight_Return2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -256,7 +310,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_2ProportionalColumns1ProportionalRow_Return2EventSplitRects()
+    public void GetRects_Grid2x1Default_Return2EventSplitRects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -284,7 +338,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_2ProportionalColumns1ProportionalRowFirstColumnHasDifferentWeight_Return2Rects()
+    public void GetRects_Grid2x1Col0Weight_Return2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -311,7 +365,7 @@ namespace Test.Common
 
 
     [Fact]
-    public void GetRects_2ProportionalColumns2ProportionalRows_Return4EvenlySpacedRects()
+    public void GetRects_Grid2x2Default_Return4EvenlySpacedRects()
     {
       // Arrange
       var grid_layout = new GridLayoutAlgorithmn();
@@ -338,7 +392,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_2ProportionalColumns2ProportionalRowsWithDivSpacing100_Return4EvenlySpacedRects()
+    public void GetRects_Grid2x2CellSpacing100_Return4EvenlySpacedRects()
     {
       // Arrange
       var grid_layout = new GridLayoutAlgorithmn();
@@ -368,7 +422,7 @@ namespace Test.Common
     
 
      [Fact]
-    public void GetRects_2ProportionalColumns2ProportionalRowsWeightOfRow1AndCol1ChangedWithDivSpacing100_Return4EvenlySpacedRects()
+    public void GetRects_Grid2x2CellSpacing100Row01WeightChangedCol01WeightChanged_Return4EvenlySpacedRects()
     {
       // Arrange
       var grid_layout = new GridLayoutAlgorithmn();
@@ -405,7 +459,7 @@ namespace Test.Common
 
 
     [Fact]
-    public void GetRects_2ProportionalColumns2ProportionalRowsWeightOfRow1AndCol1Changed_Return4Rects()
+    public void GetRects_Grid2x2Row01WeightChangedCol01WeightChanged_Return4Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
@@ -440,5 +494,43 @@ namespace Test.Common
       }, it);
 
     }
+
+    [Fact]
+    public void GetRects_Grid2x2Row0PercentRow1WeightCol0PercentCol1Weight_Return4Rects()
+    {
+      // Info: All values used in the test have an accurate float representation
+      // therefore direct comparision works as expected.
+
+      // Arrange
+      var grid_layout = new GridLayoutAlgorithmn();
+
+      var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var settings = new GridLayoutOptions
+      {
+        Cols = 2,
+        Rows = 2,
+        RowOptions = new List<Quantity>() {
+          (QuantityType.Percent, 25f),
+          (QuantityType.Weight, 1f)
+        },
+        ColOptions = new List<Quantity>() {
+          (QuantityType.Percent, 25f),
+          (QuantityType.Weight, 1f)
+        }
+      };
+
+      // Act
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
+
+      // Assert
+      Assert.Equal(new List<(int, int, Rect)>() {
+        (0, 0, new Rect(0f, 0f, 250f, 250f)),      // top left
+        (0, 1, new Rect(0f, 250f, 250f, 1000f)),   // bottom left
+        (1, 0, new Rect(250f, 0f, 1000f, 250f)),   // top right
+        (1, 1, new Rect(250f, 250f, 1000f, 1000f)) // bottom right
+      }, it);
+
+    }
+
   }
 }

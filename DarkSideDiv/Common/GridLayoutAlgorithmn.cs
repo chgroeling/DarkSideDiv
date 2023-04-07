@@ -54,6 +54,10 @@ namespace DarkSideDiv.Common
         {
           reduced_height -= row_attribs[row].Value;
         }
+        else if (row_attribs[row].QType == QuantityType.Percent)
+        {
+          reduced_height -= row_attribs[row].Value * 0.01f * draw_rect.Height;
+        }
       }
 
       // Remove the spacing from the reduced height
@@ -66,6 +70,10 @@ namespace DarkSideDiv.Common
         if (row_attribs[row].QType == QuantityType.FixedInPixel)
         {
           height_row = row_attribs[row].Value;
+        }
+        else if (row_attribs[row].QType == QuantityType.Percent)
+        {
+          height_row = row_attribs[row].Value * 0.01f * draw_rect.Height;
         }
         else
         {
@@ -122,6 +130,10 @@ namespace DarkSideDiv.Common
         {
           reduced_width -= col_attribs[col].Value;
         }
+        else if (col_attribs[col].QType == QuantityType.Percent)
+        {
+          reduced_width -= col_attribs[col].Value * 0.01f * draw_rect.Width;
+        }
       }
 
       // Remove the spacing from the reduced height
@@ -133,6 +145,10 @@ namespace DarkSideDiv.Common
         if (col_attribs[col].QType == QuantityType.FixedInPixel)
         {
           width_col = col_attribs[col].Value;
+        }
+        else if (col_attribs[col].QType == QuantityType.Percent)
+        {
+          width_col = col_attribs[col].Value * 0.01f * draw_rect.Width;
         }
         else
         {
