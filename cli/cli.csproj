@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DarkSideDiv\DarkSideDiv.csproj" />
+    <ProjectReference Include="..\MarkDigFacade\MarkDigFacade.csproj" />
   </ItemGroup>
 
   <ItemGroup>

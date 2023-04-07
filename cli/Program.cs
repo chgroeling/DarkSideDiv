@@ -1,6 +1,7 @@
 ﻿using SkiaSharp;
 using DarkSideDiv;
 using System;
+using MarkDigFacade;
 
 internal class Program
 {
@@ -62,6 +63,8 @@ internal class Program
 
   private static void Main(string[] args)
   {
+    MarkDigExample.Test("# dfdf\ndfdf","");
+
     // Create an image and fill it blue
     SKBitmap bmp = new SKBitmap(1024, 800);
     using SKCanvas canvas = new SKCanvas(bmp);
