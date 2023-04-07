@@ -240,7 +240,7 @@ namespace DarkSideDiv
       _subtopic_idx++;
       // jump over middle element
       _subtopic_idx = _subtopic_idx == 4 ? _subtopic_idx + 1 : _subtopic_idx;
-      
+
       _grid_texts[_topic_idx, _subtopic_idx] = label;
 
       
@@ -254,7 +254,7 @@ namespace DarkSideDiv
     {
       get;
       set;
-    } = 20.0f;
+    } = 25.0f;
 
     public float Border
     {
