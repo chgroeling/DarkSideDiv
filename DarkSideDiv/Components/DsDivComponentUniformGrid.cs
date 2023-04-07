@@ -12,12 +12,12 @@ namespace DarkSideDiv.Components
     {
     }
 
-    public void SetRowFactor(int row, float factor) {
-      _grid_layout.SetRowFactor(row, factor);
+    public void SetRowPropFactor(int row, float factor) {
+      _grid_layout.SetRowPropFactor(row, factor);
     }
 
-    public void SetColFactor(int col, float factor) {
-      _grid_layout.SetColFactor(col, factor);
+    public void SetColPropFactor(int col, float factor) {
+      _grid_layout.SetColPropFactor(col, factor);
     }
 
     public DsDivComponentUniformGrid(int cols, int rows)

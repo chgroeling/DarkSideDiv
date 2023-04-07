@@ -47,13 +47,13 @@ namespace Test.Common
     }
 
     [Fact]
-    public void TestGridLayout_GetRects1c2rRowFactorChanged_Return2Rects()
+    public void TestGridLayout_GetRects1c2rRowPropFactorChanged_Return2Rects()
     {
       // Arrange
       var grid_layout = new GridLayout(1,2);
 
       var inp_rect = new SKRect(0f, 0f, 1000f, 1000f);
-      grid_layout.SetRowFactor(0, 3f);
+      grid_layout.SetRowPropFactor(0, 3f);
 
       // Act
       var it = grid_layout.GetRects(inp_rect);
@@ -85,11 +85,11 @@ namespace Test.Common
     }
 
     [Fact]
-    public void TestGridLayout_GetRects2c1rColFactorChanged_Return2Rects()
+    public void TestGridLayout_GetRects2c1rColPropFactorChanged_Return2Rects()
     {
       // Arrange
       var grid_layout = new GridLayout(2,1);
-      grid_layout.SetColFactor(0, 3f);
+      grid_layout.SetColPropFactor(0, 3f);
 
       var inp_rect = new SKRect(0f, 0f, 1000f, 1000f);
       
@@ -128,14 +128,14 @@ namespace Test.Common
     }
 
     [Fact]
-    public void TestGridLayout_GetRects2c2rBottomRightFactorsChanged_Return4Rects()
+    public void TestGridLayout_GetRects2c2rBottomRightPropFactorsChanged_Return4Rects()
     {
       // Arrange
       var grid_layout = new GridLayout(2,2);
 
       var inp_rect = new SKRect(0f, 0f, 1000f, 1000f);
-      grid_layout.SetColFactor(1,3f);      
-      grid_layout.SetRowFactor(1,3f);      
+      grid_layout.SetColPropFactor(1,3f);      
+      grid_layout.SetRowPropFactor(1,3f);      
 
       // Act
       var it = grid_layout.GetRects(inp_rect);

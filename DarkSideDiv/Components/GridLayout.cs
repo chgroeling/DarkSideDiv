@@ -25,15 +25,15 @@ namespace DarkSideDiv.Components
 
     }
 
-    public void SetRowFactor(int row, float factor)
+    public void SetRowPropFactor(int row, float prop_factor)
     {
-      row_factors[row] = factor;
+      row_factors[row] = prop_factor;
       row_factors_sum = row_factors.Sum();
     }
 
-    public void SetColFactor(int col, float factor)
+    public void SetColPropFactor(int col, float prop_factor)
     {
-      col_factors[col] = factor;
+      col_factors[col] = prop_factor;
       col_factors_sum = col_factors.Sum();
     }
 
@@ -60,7 +60,7 @@ namespace DarkSideDiv.Components
 
           SKRect rect = new SKRect(left, top, right, bottom);
           yield return (col, row, rect);
-          
+
           row_offset += height_row;
         }
         col_offset += width_col;

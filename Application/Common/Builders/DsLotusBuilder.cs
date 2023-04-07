@@ -135,8 +135,8 @@ namespace Application.Builders
     {
 
       var base_grid = new DsDivComponentUniformGrid(3, 3);
-      base_grid.SetColFactor(1,2f);
-      base_grid.SetRowFactor(1,2f);    
+      base_grid.SetColPropFactor(1,2f);
+      base_grid.SetRowPropFactor(1,2f);    
 
       for (int i = 0; i < 9; i++)
       {
