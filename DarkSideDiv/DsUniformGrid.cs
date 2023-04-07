@@ -1,17 +1,12 @@
 using SkiaSharp;
 
-namespace DarkSideDiv;
+namespace DarkSideDiv {
 
 public struct DsUniformDivAttribs
 {
-  public DsUniformDivAttribs()
-  {
-
-  }
-
   public static DsUniformDivAttribs Default()
   {
-    DsUniformDivAttribs attribs = new()
+    DsUniformDivAttribs attribs = new DsUniformDivAttribs()
     {
       border = 10,
       border_color = SKColor.Parse("000000"),
@@ -47,13 +42,13 @@ public class DsUniformGrid : IDsDiv
   public DsUniformGrid(DsUniformDivAttribs attribs)
   {
     _attribs = attribs;
-    _base_div = new(DeriveDsAttribs(attribs));
+    _base_div = new DsDiv (DeriveDsAttribs(attribs));
     _grid = new IDsDiv?[_attribs.cols, _attribs.rows];
   }
 
   private static DsDivAttribs DeriveDsAttribs(DsUniformDivAttribs attribs)
   {
-    DsDivAttribs div = new()
+    DsDivAttribs div = new DsDivAttribs()
     {
       border = attribs.border,
       margin = attribs.margin,
@@ -98,7 +93,7 @@ public class DsUniformGrid : IDsDiv
         var top = content_rec.Top + ((float)row * height_row);
         var bottom = content_rec.Top + ((float)(row + 1) * height_row);
 
-        SKRect rect = new(left, top, right, bottom);
+        SKRect rect = new SKRect(left, top, right, bottom);
         _grid[col, row]?.Draw(canvas, rect);
       }
     }
@@ -110,7 +105,8 @@ public class DsUniformGrid : IDsDiv
 
   DsUniformDivAttribs _attribs;
 
-  private DsRectDimensions dim_algo = new();
+  private DsRectDimensions dim_algo = new DsRectDimensions();
 
 
+}
 }

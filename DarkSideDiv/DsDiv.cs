@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace DarkSideDiv;
+namespace DarkSideDiv {
 
 public class DsRectDimensions
 {
@@ -25,11 +25,6 @@ public class DsRectDimensions
 
 public struct DsDivAttribs
 {
-  public DsDivAttribs()
-  {
-
-  }
-
   public float margin;
   public float border;
 
@@ -50,7 +45,7 @@ public class DsDiv : IDsDiv
   public DsDiv()
   {
     //default attributes
-    _div_attribs = new (){
+    _div_attribs = new DsDivAttribs(){
       border = 10,
       border_color = SKColor.Parse("000000"),
       content_fill_color = SKColor.Parse("DAE8FC")
@@ -70,7 +65,9 @@ public class DsDiv : IDsDiv
       _div_attribs.margin
     );
 
-    SKPaint paint_border = new() { Color = _div_attribs.border_color, IsAntialias = true };
+    SKPaint paint_border = new SKPaint();
+    paint_border.Color = _div_attribs.border_color;
+    paint_border.IsAntialias = true;
     canvas.DrawRect(border_rect, paint_border);
 
     // CONTENT
@@ -81,13 +78,14 @@ public class DsDiv : IDsDiv
       _div_attribs.padding
     );
 
-    SKPaint paint_content = new() { Color = _div_attribs.content_fill_color, IsAntialias = true };
+    SKPaint paint_content = new SKPaint() { Color = _div_attribs.content_fill_color, IsAntialias = true };
     canvas.DrawRect(content_rec, paint_content);
   }
 
   private DsDivAttribs _div_attribs;
 
-  private DsRectDimensions dim_algo = new();
+  private DsRectDimensions dim_algo =  new DsRectDimensions();
 
 
+}
 }

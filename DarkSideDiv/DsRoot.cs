@@ -1,6 +1,7 @@
 using SkiaSharp;
+using System;
 
-namespace DarkSideDiv;
+namespace DarkSideDiv {
 
 public class DsRoot
 {
@@ -30,4 +31,5 @@ public class DsRoot
 
   private SKRect _root_rect;
   private IDsDiv? _root_div;
+}
 }
