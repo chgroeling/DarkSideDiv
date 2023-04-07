@@ -47,16 +47,68 @@ namespace DarkSideDiv.Components
       return ret;
     }
 
+    List<Line> SplitString(string str, float rect_width)
+    {
+      var new_lines = new List<Line>();
+      var list = str.Split(' ');
+
+      Line? last_item = null;
+      string accu = "";
+
+      for (int j = 0; j < list.Count(); j++)
+      {
+        var element = list[j];
+        accu += element;
+
+        var textBounds = _device.MeasureText(accu);
+        var item = new Line()
+        {
+          Value = accu,
+          TextBounds = textBounds
+        };
+
+        if (textBounds.Width > rect_width)
+        {
+          if (last_item == null)
+          {
+            last_item = item;
+            break;
+          }
+          new_lines.Add(last_item);
+          accu = element;
+
+          textBounds = _device.MeasureText(element);
+
+          last_item = new Line()
+          {
+            Value = accu,
+            TextBounds = textBounds
+          };
+          accu += " ";
+        }
+        else
+        {
+          last_item = item;
+          accu += " ";
+        }
+      }
+
+      if (last_item == null)
+      {
+        throw new Exception("Last item was null");
+      }
+      new_lines.Add(last_item);
+
+      return new_lines;
+    }
+
     public void Draw(Rect draw_rect)
     {
       var font_metrics = _device.Setup(_attribs);
       var line_height = -font_metrics.Ascent + font_metrics.Descent + font_metrics.Leading;
 
       var text = _attribs.text;
-      if (text.StartsWith("Wünsche"))
-      {
-        ;
-      }
+
       var lines = SplitLines(text, _device);
 
       var new_lines = new List<Line>();
@@ -66,52 +118,8 @@ namespace DarkSideDiv.Components
         var rect_width = draw_rect.Width;
         if (line_width > rect_width)
         {
-          var list = lines[i].Value.Split(' ');
-
-          Line? last_item = null;
-          string accu = "";
-
-          for (int j = 0; j < list.Count(); j++)
-          {
-            var element = list[j];
-            accu += element;
-
-            var textBounds = _device.MeasureText(accu);
-
-            var item = new Line()
-            {
-              Value = accu,
-              TextBounds = textBounds
-            };
-
-            if (textBounds.Width > rect_width)
-            {
-              if (last_item == null)
-              {
-                last_item = item;
-                break;
-              }
-              new_lines.Add(last_item);
-              accu = element;
-
-              textBounds = _device.MeasureText(element);
-
-              last_item = new Line()
-              {
-                Value = accu,
-                TextBounds = textBounds
-              };
-              accu += " ";
-            }
-            else
-            {
-              last_item = item;
-              accu += " ";
-            }
-            //new_lines.Add(item);
-
-          }
-          new_lines.Add(last_item);
+          var splitted_lines = SplitString(lines[i].Value, rect_width);
+          new_lines.AddRange(splitted_lines);
         }
         else
         {

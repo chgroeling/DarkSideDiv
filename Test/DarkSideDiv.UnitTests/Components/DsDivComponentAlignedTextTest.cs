@@ -57,7 +57,64 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 2.0f)
       );
+      
+      var dut = new DsDivComponentAlignedText(mock.Object, attribs);
+  
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
 
+      // Assert
+      // Center Rect is 490f .. 510f ... Ascent is 15 means Draw Text should be called with 505
+      mock.Verify(foo => foo.DrawText("Line1", 490.0f, 505f));
+    }
+
+    [Fact]
+    public void Draw_CenterSinglelineTextWithLongWord_PlacedCorrectly()
+    {
+      // Arrange
+      var test_text = "Line1";
+      var mock = new Mock<IDsDivComponentAlignedTextDevice>();
+      var attribs = CreateDefaultArguments(test_text);
+
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 0f,
+        Ascent = -15f,
+        Descent = 5f,
+      });
+
+      mock.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, -15f, 120.0f, 2.0f)
+      );
+      
+      var dut = new DsDivComponentAlignedText(mock.Object, attribs);
+  
+      // Act
+      var in_rect = new Rect(0f, 0f, 100.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock.Verify(foo => foo.DrawText("Line1", -10.0f, 505f));
+    }
+
+
+    [Fact]
+    public void Draw_CenterSinglelineTextLeadingNotZero_PlacedCorrectly()
+    {
+      // Arrange
+      var test_text = "Line1";
+      var mock = new Mock<IDsDivComponentAlignedTextDevice>();
+      var attribs = CreateDefaultArguments(test_text);
+
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+        Leading = 2f,
+        Ascent = -15f,
+        Descent = 3f,
+      });
+
+      mock.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 2.0f)
+      );
       
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
   
@@ -78,7 +135,7 @@ namespace Test.Common
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
  
       mock.Setup(foo => foo.MeasureText(
-        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
+        It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 3.0f)
       );
 
       var attribs = CreateDefaultArguments(test_text);
@@ -136,7 +193,7 @@ namespace Test.Common
       var test_text = "Line1AAAAAAA";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
 
-      mock.Setup(foo => foo.MeasureText("Line1AAAAAAA")).Returns(new Rect(0f, 0f, 300.0f, 20.0f));
+      mock.Setup(foo => foo.MeasureText("Line1AAAAAAA")).Returns(new Rect(0f, -14f, 300.0f, 2.0f));
 
       var attribs = CreateDefaultArguments(test_text);
       mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
@@ -163,7 +220,7 @@ namespace Test.Common
       var test_text = "Line1A Line1B Line2A";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
 
-      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line2A")).Returns(new Rect(0f, 0f, 300.0f, 20.0f));
+      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line2A")).Returns(new Rect(0f, -13f, 300.0f, 2f));
       mock.Setup(foo => foo.MeasureText("Line1A Line1B")).Returns(new Rect(0f, 0f, 200.0f, 20.0f));
       mock.Setup(foo => foo.MeasureText("Line1A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
       mock.Setup(foo => foo.MeasureText("Line1B")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
@@ -193,13 +250,13 @@ namespace Test.Common
       var test_text = "Line1A Line1B Line A";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
 
-      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line A")).Returns(new Rect(0f, 0f, 300.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line")).Returns(new Rect(0f, 0f, 275.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line1A Line1B")).Returns(new Rect(0f, 0f, 200.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line1A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line1B")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line")).Returns(new Rect(0f, 0f, 75.0f, 20.0f));
-      mock.Setup(foo => foo.MeasureText("Line A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
+      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line A")).Returns(new Rect(0f, -14f, 300.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line1A Line1B Line")).Returns(new Rect(0f, -14f, 275.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line1A Line1B")).Returns(new Rect(0f, -15f, 200.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line1A")).Returns(new Rect(0f, -13f, 100.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line1B")).Returns(new Rect(0f, -13f, 100.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line")).Returns(new Rect(0f, -14f, 75.0f, 2.0f));
+      mock.Setup(foo => foo.MeasureText("Line A")).Returns(new Rect(0f, -15f, 100.0f, 2.0f));
 
       var attribs = CreateDefaultArguments(test_text);
       mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
@@ -217,9 +274,6 @@ namespace Test.Common
       mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 495f));
       mock.Verify(foo => foo.DrawText("Line A", 75.0f, 515f));
     }
-
-
-
 
   }
 }

@@ -2,6 +2,8 @@
 title: Bereiche
 ---
 # Charakter
+## Überfluss Mentalität
+## Entdecker Mentalität
 # Unabhängigkeit
 # Rationalität
 ## Der Kreis der Kontrolle
