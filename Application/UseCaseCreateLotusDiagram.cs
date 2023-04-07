@@ -1,10 +1,20 @@
 ﻿using SkiaSharp; // TODO: Move to Infrastructure
+using Application.Common.Interfaces;
 
 namespace Application;
 
-public class UseCases
+public class UseCaseCreateLotusDiagram
 {
-  public static void CreateLotusDiagram()
+  private IReadTextFile _read_text_file;
+  
+  private IDocumentConverter _document_converter;
+
+  public UseCaseCreateLotusDiagram(IDocumentConverter document_converter, IReadTextFile read_text_file) {
+    _read_text_file = read_text_file;
+    _document_converter = document_converter;
+  }
+
+  public void Execute( string filename)
   {
     // Create an image and fill it blue
     SKBitmap bmp = new SKBitmap(1024, 800);
@@ -13,6 +23,10 @@ public class UseCases
 
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
     var lotus_builder = new Builders.DsLotusBuilder(graph_rect);
+
+    var text = _read_text_file.Read(filename);
+    _document_converter.GetTableOfContents(text);
+
     lotus_builder.AddLevel1("I\nMultiline");
     lotus_builder.AddLevel2("A");
     lotus_builder.AddLevel3("A1\nA1.1");

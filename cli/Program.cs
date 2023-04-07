@@ -1,6 +1,6 @@
 ﻿using Application;
 using CommandLine;
-using MarkDigFacade;
+using Infrastructure;
 
 internal class Program
 {
@@ -23,21 +23,18 @@ internal class Program
 
   private static void Run(Options opts)
   {
-    
+
     // Checking the existence of the specified
     if (!File.Exists(opts.InputFilename))
     {
-     throw new FileNotFoundException($"File {opts.InputFilename} does not exists");
+      throw new FileNotFoundException($"File {opts.InputFilename} does not exists");
     }
 
-    var text = File.ReadAllText(opts.InputFilename);
-    Console.WriteLine(text);
+    var markdig_facade = new MarkDigDocumentConverter();
+    var read_text_file = new ReadTextFile();
 
-
-    MarkDigExample.Test(text, "");
-
-    UseCases.CreateLotusDiagram();
-
+    var use_case_create_lotus_diag = new UseCaseCreateLotusDiagram(markdig_facade, read_text_file);
+    use_case_create_lotus_diag.Execute(opts.InputFilename);
   }
 
   private static void HandleParseError(IEnumerable<Error> errors)
