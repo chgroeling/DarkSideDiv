@@ -7,6 +7,12 @@ namespace DarkSideDiv.Components
   public class DsDivComponentAlignedText : IDsDivComponent
   {
 
+    public IAbsoluteLayout AbsoluteLayoutAlgorithmn
+    {
+      get;
+      set;
+    } = new AbsoluteLayout();
+
     public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device) : this(device, new DsDivComponentAlignedTextAttribs())
     {
     }
@@ -56,27 +62,33 @@ namespace DarkSideDiv.Components
       var text = _attribs.text;
       float x, y;
 
+      if (text.StartsWith("Kontrolle")) {
+        ;
+      }
       var lines = SplitLines(text, _device);
 
       var max_width_of_lines = (from i in lines select i.TextBounds.Width).Max();
       var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
 
+      //   
+      //   X
+      // 
+      //
+      //
       // This returns the rectangle of the text
-      var combined_rect = new Rect(
+      var combined_rect= new Rect(
         lines[0].TextBounds.Left,
         lines[0].TextBounds.Top,
         max_width_of_lines,
-        accumulated_height_of_lines);
+        lines[0].TextBounds.Top + accumulated_height_of_lines);
 
       // Skia coordinate system
       // ----> x
       // |
       // | y
       // V
-      CalcOrigin(draw_rect, combined_rect, out x, out y);
-
-      // take BOTTOM value here, since measureText returns a negative top value to include the ascent
-      float y_offset = CalcVerticalTextOffset(combined_rect.Bottom, lines[0].TextBounds.Height);
+      (x, y) = AbsoluteLayoutAlgorithmn.GetOffset(draw_rect, combined_rect, _attribs.alignment);
+      float y_offset = -accumulated_height_of_lines + lines[0].TextBounds.Height;
 
       foreach (var l in lines)
       {
@@ -91,39 +103,9 @@ namespace DarkSideDiv.Components
           l.Value,
           x + x_offset,
           y + y_offset);
+
         y_offset = y_offset + l.TextBounds.Height;
       }
-      //canvas.Restore();
-    }
-
-    private float CalcVerticalTextOffset(float block_bottom, float line_height)
-    {
-      // The origin of every line is the bottom left corner.
-      // -->The text is displayed shifted by one line.
-      float y_offset;
-      switch (_attribs.alignment)
-      {
-        case DsAlignment.TopRight:
-        case DsAlignment.TopLeft:
-        case DsAlignment.Top:
-          y_offset = 0;
-          break;
-
-        case DsAlignment.BottomLeft:
-        case DsAlignment.BottomRight:
-        case DsAlignment.Bottom:
-          y_offset = -(block_bottom - line_height);
-          break;
-
-        case DsAlignment.Left:
-        case DsAlignment.Right:
-        case DsAlignment.Center:
-        default:
-          y_offset = -(block_bottom - line_height) * 0.5f;
-          break;
-      }
-
-      return y_offset;
     }
 
     private float CalcHorizontalElementAlignmentOffset(float left, float right, float element_width)
@@ -153,67 +135,6 @@ namespace DarkSideDiv.Components
           break;
       }
       return x_offset;
-    }
-
-    private void CalcOrigin(Rect draw_rect, Rect content_rect, out float x, out float y)
-    {
-      // the origin of a block is always the bottom left corner of it.
-      // |
-      // |
-      // |X <--
-      // ------
-      x = draw_rect.Left;
-      y = draw_rect.Bottom;
-
-
-      switch (_attribs.alignment)
-      {
-
-        case DsAlignment.Left:
-          x = draw_rect.Left;
-          y = draw_rect.Bottom + (draw_rect.Top - draw_rect.Bottom) * 0.5f - content_rect.Top * 0.5f;
-          break;
-
-        case DsAlignment.TopLeft:
-          x = draw_rect.Left;
-          y = draw_rect.Top - content_rect.Top;
-          break;
-
-        case DsAlignment.Right:
-          x = draw_rect.Right - content_rect.Width;
-          y = draw_rect.Bottom + (draw_rect.Top - draw_rect.Bottom) * 0.5f - content_rect.Top * 0.5f;
-          break;
-
-        case DsAlignment.TopRight:
-          x = draw_rect.Right - content_rect.Width;
-          y = draw_rect.Top - content_rect.Top;
-          break;
-
-        case DsAlignment.BottomRight:
-          x = draw_rect.Right - content_rect.Width;
-          y = draw_rect.Bottom;
-          break;
-
-        case DsAlignment.Bottom:
-          x = draw_rect.Left + (draw_rect.Right - draw_rect.Left) * 0.5f - content_rect.Width * 0.5f;
-          y = draw_rect.Bottom;
-          break;
-
-        case DsAlignment.Top:
-          x = draw_rect.Left + (draw_rect.Right - draw_rect.Left) * 0.5f - content_rect.Width * 0.5f;
-          y = draw_rect.Top - content_rect.Top;
-          break;
-
-        case DsAlignment.Center:
-          x = draw_rect.Left + (draw_rect.Right - draw_rect.Left) * 0.5f - content_rect.Width * 0.5f;
-          y = draw_rect.Bottom + (draw_rect.Top - draw_rect.Bottom) * 0.5f - content_rect.Top * 0.5f;
-          break;
-
-        case DsAlignment.BottomLeft:
-        default:
-          // do nothing
-          break;
-      }
     }
 
     private DsDivComponentAlignedTextAttribs _attribs;

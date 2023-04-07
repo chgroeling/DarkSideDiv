@@ -34,5 +34,9 @@ namespace DarkSideDiv.Common
       return true;
     }
 
+    public override string ToString()
+    {
+      return $"({Left}, {Top}, {Right}, {Bottom})";
+    }
   }
 }

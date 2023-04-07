@@ -187,7 +187,7 @@ namespace Application.Builders
       {
         throw new Exception("Level1 was added beforehand");
       }
-      _grid_texts[4, 4] = label;
+      _grid_texts[4, 4] = label + "\nfdfdf";
       _topic_idx++;
     }
     void AddLevel1(string label)
