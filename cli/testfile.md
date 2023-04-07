@@ -4,12 +4,26 @@ title: Bereiche
 # Charakter
 ## Überfluss Mentalität
 ## Entdecker Mentalität
+
 # Unabhängigkeit
+
 # Rationalität
-## Der Kreis der Kontrolle
+## Hinterfrage deine Gedanken, Sichtweisen und Urteile.
+## Dichotomie der Kontrolle
+## Adlerperspektive
+## Denke nach bevor du handelst. Warte zuvor!
+## Trenne die Angelegenheiten
+
 # Systeme
+## Morgen- und Abendroutine
+
 # Produkt-Entw.
+
 # Innovation
-# Kommunikation
+
+# Nützlich sein
+## Erledige deine Arbeit
+
 # Wohlbefinden
-## Wünsche dir nichts was nur ein anderer dir geben kann.
+
+## Wünsche dir nichts was ein anderer dir geben kann.
