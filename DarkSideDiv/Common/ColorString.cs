@@ -11,6 +11,7 @@ namespace DarkSideDiv.Common
     {
       this.color_string = color_string;
     }
+    
     public string color_string;
   }
 }

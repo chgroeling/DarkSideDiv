@@ -57,7 +57,7 @@ namespace DarkSideDiv.Common
       }
 
       // Remove the spacing from the reduced height
-      reduced_height -= (options.Rows - 1) * options.DivSpacing;
+      reduced_height -= (options.Rows - 1) * options.CellSpacing;
 
       for (int row = 0; row < options.Rows; row++)
       {
@@ -78,7 +78,7 @@ namespace DarkSideDiv.Common
         Rect rect = new Rect(left, top, right, bottom);
         yield return (row, rect);
 
-        row_offset += height_row + options.DivSpacing;
+        row_offset += height_row + options.CellSpacing;
       }
     }
 
@@ -125,7 +125,7 @@ namespace DarkSideDiv.Common
       }
 
       // Remove the spacing from the reduced height
-      reduced_width -= (options.Cols - 1) * options.DivSpacing;
+      reduced_width -= (options.Cols - 1) * options.CellSpacing;
 
       for (int col = 0; col < options.Cols; col++)
       {
@@ -147,7 +147,7 @@ namespace DarkSideDiv.Common
         foreach (var cell in GetCellsInCol(options, left, right, draw_rect))
           yield return (col, cell.row, cell.rect);
 
-        col_offset += width_col + options.DivSpacing;
+        col_offset += width_col + options.CellSpacing;
       }
     }
 

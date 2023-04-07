@@ -2,6 +2,7 @@ using SkiaSharp;
 using DarkSideDiv.Common;
 using DarkSideDiv.Components;
 using Application.Common;
+using DarkSideDiv.Enums;
 
 namespace Application.Device;
 

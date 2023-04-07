@@ -52,13 +52,13 @@ namespace DarkSideDiv.Components
       {
         _col_options.Add((QuantityType.Weight, 1.0f));
       }
-
     }
 
     public void Attach(int col, int row, IDsDiv div)
     {
       _grid[col, row] = div;
     }
+
     public void Draw(Rect parent_content, Rect nearest_positioned_ancestor)
     {
       var options = new GridLayoutOptions
@@ -67,7 +67,7 @@ namespace DarkSideDiv.Components
         Rows = _rows,
         ColOptions = _col_options,
         RowOptions = _row_options,
-        DivSpacing = _div_spacing,
+        CellSpacing = _div_spacing,
       };
 
       foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, parent_content))

@@ -349,7 +349,7 @@ namespace Test.Common
       {
         Cols = 2,
         Rows = 2,
-        DivSpacing = 100f
+        CellSpacing = 100f
       };
 
       // Act
@@ -379,7 +379,7 @@ namespace Test.Common
       {
         Cols = 2,
         Rows = 2,
-        DivSpacing = 100f,
+        CellSpacing = 100f,
         RowOptions = new List<Quantity>() {
           (QuantityType.Weight, 1f),
           (QuantityType.Weight, 3f)

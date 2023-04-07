@@ -1,4 +1,3 @@
-using DarkSideDiv.Common;
 using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Components
@@ -14,6 +13,7 @@ namespace DarkSideDiv.Components
       get;
       set;
     }
+    
     public float TextSize {
       get;
       set;
