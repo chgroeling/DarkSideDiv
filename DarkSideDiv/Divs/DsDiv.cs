@@ -59,7 +59,7 @@ namespace DarkSideDiv.Divs
         draw_rect = new Rect(draw_rect.Left, draw_rect.Top, draw_rect.Right, draw_rect.Top + height_offset);
       }
 
-      if (_div_attribs.border_color != null)
+      if (_div_attribs.BorderColor != null)
       {
         // BORDER
         var border_rect = _dim_algo.CalculateBorderRect(
@@ -76,7 +76,7 @@ namespace DarkSideDiv.Divs
         _div_attribs.Border
       );
 
-      if (_div_attribs.content_fill_color != null)
+      if (_div_attribs.ContentFillColor != null)
       {
 
         _device.DrawContentRect(padding_rect);

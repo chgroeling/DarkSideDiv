@@ -9,9 +9,15 @@ namespace DarkSideDiv.Divs
     {
     }
 
-    public ColorString? border_color = null;
+    public ColorString? BorderColor {
+      get;
+      set;
+    } = null;
 
-    public ColorString? content_fill_color = null;
+    public ColorString? ContentFillColor {
+      get;
+      set;
+    } = null;
 
     public RectDistance Border
     {
@@ -24,6 +30,7 @@ namespace DarkSideDiv.Divs
       get;
       set;
     }
+    
     public RectDistance Padding
     {
       get;

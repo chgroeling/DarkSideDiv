@@ -15,8 +15,8 @@ namespace Application.Builders
     {
       var attribs = new DsDivAttribs()
       {
-        content_fill_color = fill_color,
-        border_color = new ColorString("#000000"),
+        ContentFillColor = fill_color,
+        BorderColor = new ColorString("#000000"),
       };
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
       var text_attribs = new DsDivComponentAlignedTextAttribs()
@@ -39,8 +39,8 @@ namespace Application.Builders
     {
       var attribs = new DsDivAttribs()
       {
-        content_fill_color = _palette_algo.GetColorByIdx(idx),
-        border_color = new ColorString("#000000")
+        ContentFillColor = _palette_algo.GetColorByIdx(idx),
+        BorderColor = new ColorString("#000000")
       };
   
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
@@ -103,8 +103,8 @@ namespace Application.Builders
       var attribs = new DsDivAttribs()
       {
         Border = CellBorder,
-        content_fill_color = new ColorString("#000000"),
-        border_color = new ColorString("#000000")
+        ContentFillColor = new ColorString("#000000"),
+        BorderColor = new ColorString("#000000")
       };
 
       if (base_grid_sector == 4)
@@ -150,8 +150,8 @@ namespace Application.Builders
       var attribs = new DsDivAttribs()
       {
         Border = Spacing, // outer border
-        border_color = new ColorString("#ffffff"),
-        content_fill_color = new ColorString("#ffffff"),
+        BorderColor = new ColorString("#ffffff"),
+        ContentFillColor = new ColorString("#ffffff"),
       };
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);

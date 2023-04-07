@@ -17,7 +17,7 @@ namespace Test.Common
       var div_attribs = new DsDivAttribs()
       {
         Padding = 100f,
-        content_fill_color = new ColorString("#000000")
+        ContentFillColor = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -36,7 +36,7 @@ namespace Test.Common
       var div_attribs = new DsDivAttribs()
       {
         Position = PositionType.Static,
-        content_fill_color = new ColorString("#000000")
+        ContentFillColor = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -56,7 +56,7 @@ namespace Test.Common
       var div_attribs = new DsDivAttribs()
       {
         Position = PositionType.Absolute,
-        content_fill_color = new ColorString("#000000")
+        ContentFillColor = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -75,7 +75,7 @@ namespace Test.Common
       // Arrange
       var div_attribs = new DsDivAttribs()
       {
-        border_color = null
+        BorderColor = null
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -94,7 +94,7 @@ namespace Test.Common
       // Arrange
       var div_attribs = new DsDivAttribs()
       {
-        content_fill_color = null
+        ContentFillColor = null
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);

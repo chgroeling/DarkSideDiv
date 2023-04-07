@@ -31,9 +31,9 @@ namespace Application.Device
       }
 
       var paint_border = new SKPaint();
-      if (_attribs.border_color != null)
+      if (_attribs.BorderColor != null)
       {
-        paint_border.Color = ConversionFactories.FromColorString(_attribs.border_color.Value);
+        paint_border.Color = ConversionFactories.FromColorString(_attribs.BorderColor.Value);
         paint_border.IsAntialias = true;
 
         _canvas.DrawRect(ConversionFactories.FromRect(border_rect), paint_border);
@@ -45,11 +45,11 @@ namespace Application.Device
       {
         throw new Exception("Canvas not initialized");
       }
-      if (_attribs.content_fill_color != null)
+      if (_attribs.ContentFillColor != null)
       {
         var paint_content = new SKPaint()
         {
-          Color = ConversionFactories.FromColorString(_attribs.content_fill_color.Value),
+          Color = ConversionFactories.FromColorString(_attribs.ContentFillColor.Value),
           IsAntialias = true
         };
         _canvas.DrawRect(ConversionFactories.FromRect(content_rect), paint_content);

@@ -26,7 +26,7 @@ namespace Application.Builders
         Border = 0f, // outer border
         Margin = 5f,
        // Padding = 5f,
-        content_fill_color = color,
+        ContentFillColor = color,
       };
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
@@ -56,8 +56,8 @@ namespace Application.Builders
           (QuantityType.FixedInPixel, margin)
         ),
        // Border = 2f, 
-        border_color = new ColorString("#ffffff"),
-        content_fill_color = new ColorString("#ffffff"),
+        BorderColor = new ColorString("#ffffff"),
+        ContentFillColor = new ColorString("#ffffff"),
       };
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
@@ -75,7 +75,7 @@ namespace Application.Builders
         Border = 0f,
         Position = PositionType.Absolute, // place it absolute to new rect
         Height = HeightType.Zero,
-        content_fill_color = new ColorString("#ffffff"),
+        ContentFillColor = new ColorString("#ffffff"),
         //border_color = new ColorString("#ffffff"),
         Padding = (
           (QuantityType.FixedInPixel, 0.0f),  // left
@@ -102,8 +102,8 @@ namespace Application.Builders
       {
         Border = 2f, // outer border
         Position = PositionType.Relative,
-        border_color = new ColorString("#00ff00"),
-        content_fill_color = new ColorString("#ffffff"),
+        BorderColor = new ColorString("#00ff00"),
+        ContentFillColor = new ColorString("#ffffff"),
       };
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
