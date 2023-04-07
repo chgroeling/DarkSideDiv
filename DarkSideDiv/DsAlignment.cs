@@ -9,6 +9,7 @@ namespace DarkSideDiv
     TopLeft,
     BottomLeft,
     TopRight,
-    BottomRight
+    BottomRight,
+    Center,
   }
 }

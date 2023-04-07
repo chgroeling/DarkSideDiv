@@ -82,6 +82,11 @@ namespace DarkSideDiv
         y = draw_rect.Top - textBounds.Top;
       break;
 
+      case DsAlignment.Center:
+        x = draw_rect.Left + (draw_rect.Right - draw_rect.Left)*0.5f - textBounds.Width * 0.5f;
+        y = draw_rect.Bottom + (draw_rect.Top- draw_rect.Bottom)*0.5f -textBounds.Top*0.5f;
+      break;
+
       case DsAlignment.BottomLeft:
       default:
       // do nothing

@@ -4,8 +4,9 @@ using System;
 
 internal class Program
 {
-  private static void example() {
-        // Create an image and fill it blue
+  private static void example()
+  {
+    // Create an image and fill it blue
     SKBitmap bmp = new SKBitmap(1024, 800);
     using SKCanvas canvas = new SKCanvas(bmp);
     canvas.Clear(SKColor.Parse("#003366"));
@@ -13,9 +14,9 @@ internal class Program
     var dsroot = new DsRoot(new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height));
 
     var dstext_attribs1 = DsDivAlignedTextComponentAttribs.Default();
-    dstext_attribs1.text="TopLeft";
+    dstext_attribs1.text = "TopLeft";
     var dstext_attribs2 = DsDivAlignedTextComponentAttribs.Default();
-    dstext_attribs2.text="BottomRight";
+    dstext_attribs2.text = "BottomRight";
     dstext_attribs2.alignment = DsAlignment.BottomRight;
 
 
@@ -68,6 +69,27 @@ internal class Program
 
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
     var lotus_builder = new DsLotusBuilder(graph_rect);
+    lotus_builder.AddLevel1("I");
+    lotus_builder.AddLevel2("A");
+    lotus_builder.AddLevel3("A1");
+    lotus_builder.AddLevel3("A2");
+    lotus_builder.AddLevel3("A3");
+    lotus_builder.AddLevel3("A4");
+    lotus_builder.AddLevel3("A5");
+    lotus_builder.AddLevel3("A6");
+    lotus_builder.AddLevel3("A7");
+    lotus_builder.AddLevel3("A8");
+    lotus_builder.AddLevel2("B");
+    lotus_builder.AddLevel2("C");
+    lotus_builder.AddLevel2("D");
+    lotus_builder.AddLevel2("E");
+    lotus_builder.AddLevel2("F");
+    lotus_builder.AddLevel2("G");
+    lotus_builder.AddLevel3("I");
+    lotus_builder.AddLevel3("II");
+    lotus_builder.AddLevel3("III");
+
+    lotus_builder.AddLevel2("H");
 
     var ds_root = lotus_builder.Build();
 

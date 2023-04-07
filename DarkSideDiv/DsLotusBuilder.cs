@@ -62,7 +62,7 @@ namespace DarkSideDiv
     }
 
 
-    public IDsDiv CreateCornerDiv(int idx, int col, int row, SKColor fill_color)
+    public IDsDiv CreateCornerDiv(int base_grid_idx, int idx, int col, int row, SKColor fill_color)
     {
       var attribs = new DsDivAttribs()
       {
@@ -72,6 +72,14 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000"),
       };
       var ds_div = new DsDiv(attribs);
+      var text_attribs = new DsDivAlignedTextComponentAttribs()
+      {
+        text = _grid_texts[base_grid_idx, idx],
+        text_size = FontSize,
+        alignment = DsAlignment.Center
+      };
+      var text_comp = new DsDivAlignedTextComponent(text_attribs);
+      ds_div.Append(text_comp);
       return ds_div;
     }
 
@@ -84,6 +92,14 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000")
       };
       var ds_div = new DsDiv(attribs);
+      var text_attribs = new DsDivAlignedTextComponentAttribs()
+      {
+        text = _grid_texts[4, idx],
+        text_size = FontSize,
+        alignment = DsAlignment.Center
+      };
+      var text_comp = new DsDivAlignedTextComponent(text_attribs);
+      ds_div.Append(text_comp);
       return ds_div;
 
     }
@@ -108,7 +124,7 @@ namespace DarkSideDiv
       }
 
       var fill_color = CreateCornerDivColor(base_grid_sector, grid_sector);
-      var corner_grid = CreateCornerDiv(grid_sector, grid_sector % 3, grid_sector / 3, fill_color);
+      var corner_grid = CreateCornerDiv(base_grid_sector, grid_sector, grid_sector % 3, grid_sector / 3, fill_color);
 
       return corner_grid;
 
@@ -142,6 +158,17 @@ namespace DarkSideDiv
     public DsLotusBuilder(SKRect pic_rect)
     {
       _pic_rect = pic_rect;
+      _grid_texts = new string[9, 9];
+
+      // Initialize Array
+      for (var i = 0; i < 9; i++)
+      {
+        for (var j = 0; j < 9; j++)
+        {
+          _grid_texts[i, j] = "";
+        }
+      }
+      _grid_texts[4, 4] = "ROOT";
     }
 
     public DsRoot Build()
@@ -170,7 +197,64 @@ namespace DarkSideDiv
       return root_div;
     }
 
+    public void AddLevel1(string label)
+    {
+      if (_topic_idx != -2)
+      {
+        throw new Exception("Level1 was added beforehand");
+      }
+      _grid_texts[4, 4] = label;
+      _topic_idx++;
+    }
+    public void AddLevel2(string label)
+    {
+      if (_topic_idx <  -1)
+      {
+        throw new Exception("Level1 must be added first");
+      }
+      if (_topic_idx >= 9)
+      {
+        throw new Exception("No space left for level2 headlines.");
+      }
+
+      _topic_idx++;
+      // jump over middle element
+      _topic_idx = _topic_idx == 4 ? _topic_idx + 1 : _topic_idx;
+
+      _grid_texts[4, _topic_idx] = label;
+      _grid_texts[_topic_idx, 4] = label;
+
+   
+      // reset subtopic idx
+      _subtopic_idx=-1;
+
+    }
+
+    public void AddLevel3(string label)
+    {
+      if (_subtopic_idx >= 9)
+      {
+        throw new Exception("No space left for level 3 headlines.");
+      }
+
+      _subtopic_idx++;
+      // jump over middle element
+      _subtopic_idx = _subtopic_idx == 4 ? _subtopic_idx + 1 : _subtopic_idx;
+      
+      _grid_texts[_topic_idx, _subtopic_idx] = label;
+
+      
+    }
+
+    int _topic_idx = -2;
+    int _subtopic_idx = 0;
     private SKRect _pic_rect;
+
+    public float FontSize
+    {
+      get;
+      set;
+    } = 20.0f;
 
     public float Border
     {
@@ -184,7 +268,8 @@ namespace DarkSideDiv
       set;
     } = 25.0f;
 
-  
+    string[,] _grid_texts;
+
   }
 
 }
