@@ -37,113 +37,70 @@ namespace Test.Common
     }
 
     [Fact]
-    public void Draw_SingleLine_CreateGridLayoutWith1ColAnd1Rows()
-    {
-      // Arrange
-      var test_text = "Line1";
-      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
-      var stub_abs_layout = new Mock<IAbsoluteLayout>();
-      var mock_grid_layout_factory = new Mock<IGridLayoutFactory>();
-
-
-      var attribs = CreateDefaultArguments(test_text);
-      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
-      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayoutFactory = mock_grid_layout_factory.Object;
-
-      // Act
-      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
-
-      // Assert
-      mock_grid_layout_factory.Verify(factory => factory.Create(1, 1));
-    }
-
-    [Fact]
-    public void Draw_MultiLine_CreateGridLayoutWith1ColAnd2Rows()
-    {
-      // Arrange
-      var test_text = "Line1\nLine2";
-      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
-      var stub_abs_layout = new Mock<IAbsoluteLayout>();
-      var mock_grid_layout_factory = new Mock<IGridLayoutFactory>();
-
-
-      var attribs = CreateDefaultArguments(test_text);
-      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
-      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayoutFactory = mock_grid_layout_factory.Object;
-
-      // Act
-      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
-
-      // Assert
-      mock_grid_layout_factory.Verify(factory => factory.Create(1, 2));
-    }
-
-    [Fact]
-    public void Draw_SingleLine_Call1TimesSetFixedRow()
+    public void Draw_SingleLine_CorrectRowOptionsInGetRectsCall()
     {
       // Arrange
       var test_text = "Line1";
       var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
       var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 490f, 510f, 510f));
       var mock_grid_layout = new Mock<IGridLayout>();
-      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
 
       stub_device.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-       // Return mock object from factory
-      stub_grid_layout_factory.Setup(foo => foo.Create(
-        It.IsAny<int>(), It.IsAny<int>())).Returns(mock_grid_layout.Object);
-
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+      dut.GridLayout = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
 
       // Assert
-      mock_grid_layout.Verify(gl => gl.SetRowFixed(0, 20f));
+      var expected_RowOptions = new List<Quantity>() {
+          (QuantityType.FixedInPixel, 20f),
+      };
+
+      mock_grid_layout.Verify(gl => gl.GetRects(
+        It.Is<GridLayoutSettings>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
+        It.IsAny<Rect>()
+      ));
     }
 
     [Fact]
-    public void Draw_MultiLine_Call2TimesSetFixedRow()
+    public void Draw_MultiLine_GetRectCalledWithCorrectSettings()
     {
       // Arrange
       var test_text = "Line1\nLine2";
       var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
       var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 480f, 510f, 520f));
       var mock_grid_layout = new Mock<IGridLayout>();
-      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
-
+     
       stub_device.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      // Return mock object from factory
-      stub_grid_layout_factory.Setup(foo => foo.Create(
-        It.IsAny<int>(), It.IsAny<int>())
-      ).Returns(mock_grid_layout.Object);
-
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+      dut.GridLayout = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
 
       // Assert
-      mock_grid_layout.Verify(gl => gl.SetRowFixed(0, 20f));
-      mock_grid_layout.Verify(gl => gl.SetRowFixed(1, 20f));
+      var expected_RowOptions = new List<Quantity>() {
+          (QuantityType.FixedInPixel, 20f),
+          (QuantityType.FixedInPixel, 20f)
+      };
+
+      mock_grid_layout.Verify(gl => gl.GetRects(
+        It.Is<GridLayoutSettings>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
+        It.IsAny<Rect>()
+      ));
     }
 
     [Fact]
@@ -154,28 +111,22 @@ namespace Test.Common
       var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
       var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 480f, 510f, 520f));
       var mock_grid_layout = new Mock<IGridLayout>();
-      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
 
       stub_device.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      // Return mock object from factory
-      stub_grid_layout_factory.Setup(foo => foo.Create(
-        It.IsAny<int>(), It.IsAny<int>())
-      ).Returns(mock_grid_layout.Object);
-
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+      dut.GridLayout = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
 
       // Assert
-      mock_grid_layout.Verify(gl => gl.GetRects(new Rect(490f, 480f, 510f, 520f)));
+      mock_grid_layout.Verify(gl => gl.GetRects(It.IsAny<GridLayoutSettings>(), new Rect(490f, 480f, 510f, 520f)));
     }
 
 

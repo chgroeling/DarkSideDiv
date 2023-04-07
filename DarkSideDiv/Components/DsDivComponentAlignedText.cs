@@ -13,11 +13,11 @@ namespace DarkSideDiv.Components
       set;
     } = new AbsoluteLayout();
 
-    public IGridLayoutFactory GridLayoutFactory
+    public IGridLayout GridLayout
     {
       get;
       set;
-    } = new GridLayoutFactory();
+    } = new GridLayout();
 
     public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device) : this(device, new DsDivComponentAlignedTextAttribs())
     {
@@ -86,20 +86,23 @@ namespace DarkSideDiv.Components
       // V
       var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
 
-      var grid_layout = GridLayoutFactory.Create(1, lines.Count());
+      var grid_layout = GridLayout;
 
-      if (grid_layout == null)
-      {
-        return; // no layout obj returned ... do nothing for now
-      }
-
+      var row_options = new List<Quantity>();
       for (int row = 0; row < lines.Count(); row++)
       {
         var actual_line = lines[row];
-        grid_layout.SetRowFixed(row, actual_line.TextBounds.Height);
+        row_options.Add((QuantityType.FixedInPixel, actual_line.TextBounds.Height));
       }
 
-      var rects_enum = grid_layout.GetRects(abs_rect);
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = lines.Count(),
+        RowOptions = row_options
+      };
+
+      var rects_enum = grid_layout.GetRects(settings, abs_rect);
       var rects = rects_enum.ToArray();
 
       if (rects.Count() != lines.Count())
@@ -110,7 +113,7 @@ namespace DarkSideDiv.Components
       for (var i = 0; i < lines.Count(); i++)
       {
         var l = lines[i];
-        var r = rects[i]; // get a rect for each row
+        var r = rects[i]; // get a rect for each row/line
 
         // align the text within each row
         float left_offset = CalcHorizontalElementAlignmentOffset(

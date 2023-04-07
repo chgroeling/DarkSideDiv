@@ -1,4 +1,5 @@
 using DarkSideDiv.Common;
+using DarkSideDiv.Enums;
 using Xunit;
 
 
@@ -13,13 +14,19 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 1);
+      var grid_layout = new GridLayout();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 1
+      };
+
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -34,12 +41,16 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 1);
-      grid_layout.SetColFixed(0, 100f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 1,
+        ColOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
+      };
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -54,12 +65,17 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 1);
-      grid_layout.SetRowFixed(0, 100f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 1,
+        RowOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
+      };
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -74,12 +90,18 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 2);
-      grid_layout.SetRowFixed(0, 100f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 2,
+        RowOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
+      };
+
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -88,20 +110,29 @@ namespace Test.Common
       }, it);
     }
 
-        [Fact]
+    [Fact]
     public void GetRects_1ProportionalColumn2FixedRows_ReturnRects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 2);
-      grid_layout.SetRowFixed(0, 100f);
-      grid_layout.SetRowFixed(1, 250f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 2,
+        RowOptions = new List<Quantity>() {
+          ( QuantityType.FixedInPixel, 100f),
+          ( QuantityType.FixedInPixel, 250f)
+        }
+      };
+
+
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -119,12 +150,19 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(2, 1);
-      grid_layout.SetColFixed(0, 100f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 2,
+        Rows = 1,
+        ColOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
+      };
+
+
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -140,12 +178,17 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(3, 1);
-      grid_layout.SetColFixed(0, 100f);
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var settings = new GridLayoutSettings
+      {
+        Cols = 3,
+        Rows = 1,
+        ColOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
+      };
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -163,13 +206,19 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 2);
+      var grid_layout = new GridLayout();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 2
+      };
+
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -187,13 +236,18 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(1, 2);
-
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      grid_layout.SetRowPropFactor(0, 3f);
+      var settings = new GridLayoutSettings
+      {
+        Cols = 1,
+        Rows = 2,
+        RowOptions = new List<Quantity>() { (QuantityType.Weight, 3f) }
+      };
+
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -209,13 +263,19 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(2, 1);
+      var grid_layout = new GridLayout();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 2,
+        Rows = 1
+      };
+
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -231,14 +291,17 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(2, 1);
-      grid_layout.SetColPropFactor(0, 3f);
-
+      var grid_layout = new GridLayout();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-
+      var settings = new GridLayoutSettings
+      {
+        Cols = 2,
+        Rows = 1,
+        ColOptions = new List<Quantity>() { (QuantityType.Weight, 3f) }
+      };
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -252,13 +315,18 @@ namespace Test.Common
     public void GetRects_2ProportionalColumns2ProportionalRows_Return4EvenlySpacedRects()
     {
       // Arrange
-      var grid_layout = new GridLayout(2, 2);
+      var grid_layout = new GridLayout();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
+      var settings = new GridLayoutSettings
+      {
+        Cols = 2,
+        Rows = 2
+      };
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {
@@ -277,14 +345,25 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout(2, 2);
+      var grid_layout = new GridLayout();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      grid_layout.SetColPropFactor(1, 3f);
-      grid_layout.SetRowPropFactor(1, 3f);
+      var settings = new GridLayoutSettings
+      {
+        Cols = 2,
+        Rows = 2,
+        RowOptions = new List<Quantity>() { 
+          (QuantityType.Weight, 1f), 
+          (QuantityType.Weight, 3f) 
+        },
+        ColOptions = new List<Quantity>() { 
+          (QuantityType.Weight, 1f), 
+          (QuantityType.Weight, 3f) 
+        }
+      };
 
       // Act
-      var it = grid_layout.GetRects(inp_rect);
+      var it = grid_layout.GetRects(settings, inp_rect);
 
       // Assert
       Assert.Equal(new List<(int, int, Rect)>() {

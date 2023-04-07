@@ -2,8 +2,6 @@ namespace DarkSideDiv.Common;
 
 public interface IGridLayout
 {
-  void SetRowFixed(int row, float value);
-
-  IEnumerable<(int col, int row, Rect rect)> GetRects(Rect draw_rect);
+  IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutSettings settings, Rect draw_rect);
 
 };
