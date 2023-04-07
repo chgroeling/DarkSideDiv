@@ -1,8 +1,9 @@
+using DarkSideDiv.Enums;
+using DarkSideDiv.Components;
 using SkiaSharp;
-using System.Collections;
-using System.Collections.Generic;
+using DarkSideDiv.Common;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Divs
 {
   public class DsLotusBuilder
   {
@@ -29,13 +30,13 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000"),
       };
       var ds_div = new DsDiv(attribs);
-      var text_attribs = new DsDivComponentAlignedText()
+      var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
         text = _grid_texts[base_grid_idx, idx],
         text_size = FontSize,
         alignment = Alignment
       };
-      var text_comp = new DsDivAlignedTextComponent(text_attribs);
+      var text_comp = new DsDivComponentAlignedText(text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
     }
@@ -49,13 +50,13 @@ namespace DarkSideDiv
         border_color = SKColor.Parse("#000000")
       };
       var ds_div = new DsDiv(attribs);
-      var text_attribs = new DsDivComponentAlignedText()
+      var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
         text = _grid_texts[4, idx],
         text_size = FontSize,
         alignment = Alignment
       };
-      var text_comp = new DsDivAlignedTextComponent(text_attribs);
+      var text_comp = new DsDivComponentAlignedText(text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
 
@@ -165,7 +166,7 @@ namespace DarkSideDiv
     }
     public void AddLevel2(string label)
     {
-      if (_topic_idx <  -1)
+      if (_topic_idx < -1)
       {
         throw new Exception("Level1 must be added first");
       }
@@ -181,9 +182,9 @@ namespace DarkSideDiv
       _grid_texts[4, _topic_idx] = label;
       _grid_texts[_topic_idx, 4] = label;
 
-   
+
       // reset subtopic idx
-      _subtopic_idx=-1;
+      _subtopic_idx = -1;
 
     }
 
@@ -200,7 +201,7 @@ namespace DarkSideDiv
 
       _grid_texts[_topic_idx, _subtopic_idx] = label;
 
-      
+
     }
 
     int _topic_idx = -2;
@@ -227,7 +228,8 @@ namespace DarkSideDiv
 
     string[,] _grid_texts;
 
-    DsAlignment Alignment {
+    DsAlignment Alignment
+    {
       get;
       set;
     } = DsAlignment.Center;

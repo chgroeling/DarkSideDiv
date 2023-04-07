@@ -1,29 +1,24 @@
+using DarkSideDiv.Enums;
 using SkiaSharp;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Components
 {
-  public struct DsDivComponentAlignedText
-  {
-    public string text;
-    public DsAlignment alignment;
-    public float text_size;
-  };
 
-  public class DsDivAlignedTextComponent : IDsDivComponent
+  public class DsDivComponentAlignedText : IDsDivComponent
   {
 
-    public DsDivAlignedTextComponent()
+    public DsDivComponentAlignedText()
     {
     }
 
-    public DsDivAlignedTextComponent(DsDivComponentAlignedText attribs)
+    public DsDivComponentAlignedText(DsDivComponentAlignedTextAttribs attribs)
     {
       _attribs = attribs;
     }
 
-    public class Line
+    private class Line
     {
-      public string Value { get; set; }
+      public string Value { get; set; } = string.Empty;
 
       public SKRect TextBounds { get; set; }
     }
@@ -90,8 +85,8 @@ namespace DarkSideDiv
       foreach (var l in lines)
       {
         float x_offset = CalcHorizontalElementAlignmentOffset(
-          combined_rect.Left, 
-          combined_rect.Right, 
+          combined_rect.Left,
+          combined_rect.Right,
           l.TextBounds.Width);
 
         // The text origin (0,0) is the bottom left corner of the text
@@ -122,7 +117,7 @@ namespace DarkSideDiv
         case DsAlignment.BottomLeft:
         case DsAlignment.BottomRight:
         case DsAlignment.Bottom:
-          y_offset = -(block_bottom - line_height) ;
+          y_offset = -(block_bottom - line_height);
           break;
 
         case DsAlignment.Left:
@@ -175,17 +170,17 @@ namespace DarkSideDiv
       x = draw_rect.Left;
       y = draw_rect.Bottom;
 
-      
+
       switch (_attribs.alignment)
       {
-    
+
         case DsAlignment.Left:
           x = draw_rect.Left;
           y = draw_rect.Bottom + (draw_rect.Top - draw_rect.Bottom) * 0.5f - content_rect.Top * 0.5f;
           break;
 
         case DsAlignment.TopLeft:
-          x = draw_rect.Left; 
+          x = draw_rect.Left;
           y = draw_rect.Top - content_rect.Top;
           break;
 
@@ -226,6 +221,6 @@ namespace DarkSideDiv
       }
     }
 
-    private DsDivComponentAlignedText _attribs;
+    private DsDivComponentAlignedTextAttribs _attribs;
   }
 }

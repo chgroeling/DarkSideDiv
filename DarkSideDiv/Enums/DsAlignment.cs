@@ -1,4 +1,4 @@
-namespace DarkSideDiv
+namespace DarkSideDiv.Enums
 {
   public enum DsAlignment
   {

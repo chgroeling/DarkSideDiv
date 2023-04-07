@@ -1,47 +1,9 @@
+using DarkSideDiv.Common;
+using DarkSideDiv.Components;
 using SkiaSharp;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Divs
 {
-
-
-  public interface IDsDiv
-  {
-    void Draw(SKCanvas canvas, SKRect draw_rect);
-  }
-
-  public interface IDsDivComponent
-  {
-    void Draw(SKCanvas canvas, SKRect draw_rect);
-  }
-
-  public struct DsDivAttribs
-  {
-    public SKColor border_color;
-
-    public SKColor content_fill_color;
-
-
-    public DsDivRectDistance Border
-    {
-      get;
-      set;    
-    }
-
-    public DsDivRectDistance Margin
-    {
-      get;
-      set;
-    }
-    public DsDivRectDistance Padding
-    {
-      get;
-      set;
-    }
-  }
-
   public class DsDiv : IDsDiv
   {
 

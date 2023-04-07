@@ -1,8 +1,9 @@
 using SkiaSharp;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Divs
 {
-  public class DsPalette {
+  public class DsPalette
+  {
     public SKColor GetColorByIdx(int idx)
     {
       var fill_color = SKColor.Parse("#FFFFFF");

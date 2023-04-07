@@ -1,8 +1,8 @@
+using DarkSideDiv.Divs;
 using SkiaSharp;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Components
 {
-
 
   public class DsDivComponentUniformGrid : IDsDivComponent
   {
@@ -25,8 +25,8 @@ namespace DarkSideDiv
 
     public void Draw(SKCanvas canvas, SKRect draw_rect)
     {
-      var width_col = draw_rect.Width / (float)_cols;
-      var height_row = draw_rect.Height / (float)_rows;
+      var width_col = draw_rect.Width / _cols;
+      var height_row = draw_rect.Height / _rows;
 
       for (int col = 0; col < _cols; col++)
       {
@@ -36,11 +36,11 @@ namespace DarkSideDiv
           {
             continue;
           }
-          var left = draw_rect.Left + ((float)col * width_col);
-          var right = draw_rect.Left + ((float)(col + 1) * width_col);
+          var left = draw_rect.Left + col * width_col;
+          var right = draw_rect.Left + (col + 1) * width_col;
 
-          var top = draw_rect.Top + ((float)row * height_row);
-          var bottom = draw_rect.Top + ((float)(row + 1) * height_row);
+          var top = draw_rect.Top + row * height_row;
+          var bottom = draw_rect.Top + (row + 1) * height_row;
 
           SKRect rect = new SKRect(left, top, right, bottom);
           _grid[col, row]?.Draw(canvas, rect);

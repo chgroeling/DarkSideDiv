@@ -1,12 +1,12 @@
 using SkiaSharp;
 
-namespace DarkSideDiv
+namespace DarkSideDiv.Common
 {
   public class DsRectDimensions
   {
     public SKRect Shrink(SKRect rect, float value)
     {
-      return this.Shrink(rect, value, value, value, value);
+      return Shrink(rect, value, value, value, value);
     }
 
     public SKRect Shrink(SKRect rect, float left, float top, float right, float bottom)
@@ -37,7 +37,7 @@ namespace DarkSideDiv
 
     public SKRect CalculateContentRect(SKRect outer_rect, DsDivRectDistance margin, DsDivRectDistance border, DsDivRectDistance padding)
     {
-      var res = margin+ border + padding;
+      var res = margin + border + padding;
       return Shrink(outer_rect, res);
     }
   }
