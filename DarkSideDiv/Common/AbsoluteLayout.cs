@@ -10,8 +10,10 @@ namespace DarkSideDiv.Common
 
     }
 
-    public (float, float) GetOffset(Rect input_rect, Rect content_rect, DsAlignment alignment)
+    public Rect GetAbsRect(Rect input_rect, Rect content_rect, DsAlignment alignment, float x_offs = 0f, float y_offs = 0f)
     {
+      // bottom left
+
       // the origin of a block is always the bottom left corner of it.
       // ^
       // |
@@ -73,8 +75,13 @@ namespace DarkSideDiv.Common
           break;
       }
 
-      return (x, y);
+      return new Rect(
+        x + x_offs,
+        y - content_rect.Height + y_offs,
+        x + content_rect.Width + x_offs,
+        y + y_offs);
     }
+
 
   }
 }

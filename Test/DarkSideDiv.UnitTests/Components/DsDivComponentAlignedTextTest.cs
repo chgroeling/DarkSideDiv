@@ -22,7 +22,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void TestDraw_SingleLineAbsAlgo_CalledWithCorrectArguments()
+    public void Draw_SingleLineAbsAlgo_CalledWithCorrectArguments()
     {
       // Arrange
       var test_text = "Test Text";
@@ -42,15 +42,17 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.GetOffset(
+      mock.Verify(foo => foo.GetAbsRect(
         new Rect(0f, 0f, 1000f, 1000f),
         new Rect(0f, 0f, 100f, 100f),
-        DarkSideDiv.Enums.DsAlignment.Center
+        DarkSideDiv.Enums.DsAlignment.Center,
+        0f,
+        0f
       ));
     }
 
     [Fact]
-    public void TestDraw_MultiLineAbsAlgo_CalledWithCorrectArguments()
+    public void Draw_MultiLineAbsAlgo_CalledWithCorrectArguments()
     {
       // Arrange
       var test_text = "Line1\nLine2";
@@ -70,15 +72,17 @@ namespace Test.Common
       dut.Draw(in_rect);
 
       // Assert
-      mock.Verify(foo => foo.GetOffset(
+      mock.Verify(foo => foo.GetAbsRect(
         new Rect(0f, 0f, 1000f, 1000f),
         new Rect(0f, 0f, 100f, 200f), // 100 * 2
-        DarkSideDiv.Enums.DsAlignment.Center
+        DarkSideDiv.Enums.DsAlignment.Center,
+        0f,
+        0f
       ));
     }
 
     [Fact]
-    public void TestDraw_CenterSinglelineText_PlacedCorrectly()
+    public void Draw_CenterSinglelineText_PlacedCorrectly()
     {
       // Arrange
       var test_text = "Line1";
@@ -89,11 +93,13 @@ namespace Test.Common
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      stub.Setup(f => f.GetOffset(
+      stub.Setup(f => f.GetAbsRect(
         It.IsAny<Rect>(),
         It.IsAny<Rect>(),
-        It.IsAny<DsAlignment>()
-      )).Returns((490f, 510f));
+        It.IsAny<DsAlignment>(),
+         It.IsAny<float>(),
+        It.IsAny<float>()
+      )).Returns(new Rect(490f, 490f, 510f, 510f));
 
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
@@ -108,7 +114,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void TestDraw_CenterMultilineText_PlacedCorrectly()
+    public void Draw_CenterMultilineText_PlacedCorrectly()
     {
       // Arrange
       var test_text = "Line1\nLine2";
@@ -119,11 +125,13 @@ namespace Test.Common
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      stub.Setup(f => f.GetOffset(
+      stub.Setup(f => f.GetAbsRect(
         It.IsAny<Rect>(),
         It.IsAny<Rect>(),
-        It.IsAny<DsAlignment>()
-      )).Returns((490f, 520f)); // 520 ... two lines with height = 20.0f dived by 2
+        It.IsAny<DsAlignment>(),
+        It.IsAny<float>(),
+        It.IsAny<float>()
+      )).Returns(new Rect(490f, 480f, 510f, 520f)); // 520 ... two lines with height = 20.0f dived by 2
 
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);

@@ -3,5 +3,5 @@ using DarkSideDiv.Enums;
 namespace DarkSideDiv.Common;
 
 public interface IAbsoluteLayout {
-  (float, float) GetOffset(Rect input_rect, Rect content_rect, DsAlignment alignment);
+  Rect GetAbsRect(Rect input_rect, Rect content_rect, DsAlignment alignment, float x_offs, float y_offs);
 }

@@ -60,15 +60,15 @@ namespace DarkSideDiv.Components
       _device.Setup(_attribs);
 
       var text = _attribs.text;
-      float x, y;
-
       var lines = SplitLines(text, _device);
 
       var max_width_of_lines = (from i in lines select i.TextBounds.Width).Max();
-      var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
+      var accumulated_height_of_lines = (
+        from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; }
+      );
 
       // This returns the rectangle of the text
-      var combined_rect= new Rect(
+      var combined_rect = new Rect(
         lines[0].TextBounds.Left,
         lines[0].TextBounds.Top,
         max_width_of_lines,
@@ -79,13 +79,17 @@ namespace DarkSideDiv.Components
       // |
       // | y
       // V
-      (x, y) = AbsoluteLayoutAlgorithmn.GetOffset(draw_rect, combined_rect, _attribs.alignment);
+      //var (x, y) = AbsoluteLayoutAlgorithmn.GetOffset(draw_rect, combined_rect, _attribs.alignment);
+      var rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
       
-      float y_offset = -accumulated_height_of_lines + lines[0].TextBounds.Height;
+      var abs_left = rect.Left;
+      var abs_top = rect.Top;
+
+      float top_offset = lines[0].TextBounds.Height; // first line offset;
 
       foreach (var l in lines)
       {
-        float x_offset = CalcHorizontalElementAlignmentOffset(
+        float left_offset = CalcHorizontalElementAlignmentOffset(
           combined_rect.Left,
           combined_rect.Right,
           l.TextBounds.Width);
@@ -94,10 +98,10 @@ namespace DarkSideDiv.Components
         // the top coordinate is therefore negative
         _device.DrawText(
           l.Value,
-          x + x_offset,
-          y + y_offset);
+          abs_left + left_offset,
+          abs_top + top_offset);
 
-        y_offset = y_offset + l.TextBounds.Height;
+        top_offset = top_offset + l.TextBounds.Height;
       }
     }
 
