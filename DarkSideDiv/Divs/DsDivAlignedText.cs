@@ -6,14 +6,12 @@ namespace DarkSideDiv.Divs;
 
 public class DsDivAlignedText : IDsDiv
 {
-  public DsDivAlignedText(IDsDivAlignedTextDevice device) : this(device, new DsDivAlignedTextAttribs())
-  {
-  }
 
-  public DsDivAlignedText(IDsDivAlignedTextDevice device, DsDivAlignedTextAttribs attribs)
+  public DsDivAlignedText(IDsDivAlignedTextDevice device,  IGridLayoutAlgorithmn grid_layout_algorithmn, DsDivAlignedTextAttribs attribs)
   {
     _device = device;
     _attribs = attribs;
+    _grid_layout_algorithmn = grid_layout_algorithmn;
   }
 
   IDsDivAlignedTextDevice _device;
@@ -162,7 +160,7 @@ public class DsDivAlignedText : IDsDiv
       RowOptions = row_options
     };
 
-    var rects_enum = new GridLayoutAlgorithmn().GetRects(options, abs_rect);
+    var rects_enum = _grid_layout_algorithmn.GetRects(options, abs_rect);
     var rects = rects_enum.ToArray();
 
     if (rects.Count() != lines.Count())
@@ -223,4 +221,6 @@ public class DsDivAlignedText : IDsDiv
   }
 
   private DsDivAlignedTextAttribs _attribs;
+
+  private IGridLayoutAlgorithmn _grid_layout_algorithmn;
 }

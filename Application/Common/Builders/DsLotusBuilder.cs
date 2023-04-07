@@ -13,7 +13,7 @@ namespace Application.Builders
       public DsLotusBuilder(IDeviceRepo device_repo, IGridLayoutAlgorithmn grid_layout_algorithmn, SKRect pic_rect)
     {
       _grid_layout_algorithmn = grid_layout_algorithmn;
-      
+
       _device_repo = device_repo;
       _pic_rect = pic_rect;
       _grid_texts = new string[9, 9];
@@ -48,7 +48,7 @@ namespace Application.Builders
       {
         text_attribs.FontWeight = FontWeight.Bold;
       }
-      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
     }
@@ -74,7 +74,7 @@ namespace Application.Builders
       {
         text_attribs.TextSize = FontSize + 4f * 2f;
       }
-      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
 

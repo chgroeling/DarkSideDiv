@@ -114,7 +114,7 @@ namespace Application.Builders
         Alignment = DsAlignment.BottomLeft
       };
 
-      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn,  text_attribs);
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(text_comp);
       return div;
@@ -141,7 +141,7 @@ namespace Application.Builders
         Alignment = DsAlignment.Left
       };
 
-      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn, text_attribs);
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(text_comp);
