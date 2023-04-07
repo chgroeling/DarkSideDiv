@@ -1,9 +1,11 @@
+using SkiaSharp;
+
 using DarkSideDiv.Enums;
 using DarkSideDiv.Components;
-using SkiaSharp;
 using DarkSideDiv.Common;
+using DarkSideDiv.Divs;
 
-namespace DarkSideDiv.Divs
+namespace Application.Builders
 {
   public class DsLotusBuilder
   {
