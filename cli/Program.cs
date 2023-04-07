@@ -20,7 +20,19 @@ internal class Program
     classobj.Draw(canvas, bmp.Width, bmp.Height);
 
     var dsroot = new DsRoot(new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height));
-    var dsrootdiv = new DsDiv();
+    var dsdiv1 = new DsDiv();
+    
+    var grid_attribs = DsUniformDivAttribs.Default();
+    grid_attribs.rows = 4;
+    grid_attribs.cols = 4;
+    grid_attribs.content_fill_color = SKColor.Parse("FFCCCC");
+    var dsrootdiv = new DsUniformGrid(grid_attribs);
+
+    dsrootdiv.Attach(2,2, dsdiv1);
+    dsrootdiv.Attach(0,0, dsdiv1);
+    dsrootdiv.Attach(3,3, dsdiv1);
+    dsrootdiv.Attach(3,0, dsdiv1);
+
     dsroot.Attach(dsrootdiv);
     dsroot.Draw(canvas);
     // Save the image to disk

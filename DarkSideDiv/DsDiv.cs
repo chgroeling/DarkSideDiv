@@ -40,13 +40,17 @@ public struct DsDivAttribs
   public SKColor content_fill_color;
 }
 
+public interface IDsDiv {
+  void Draw(SKCanvas canvas, SKRect draw_rect);
+}
 
-public class DsDiv
+public class DsDiv : IDsDiv
 {
 
   public DsDiv()
   {
-    _div_attribs = new DsDivAttribs() {
+    //default attributes
+    _div_attribs = new (){
       border = 10,
       border_color = SKColor.Parse("000000"),
       content_fill_color = SKColor.Parse("DAE8FC")

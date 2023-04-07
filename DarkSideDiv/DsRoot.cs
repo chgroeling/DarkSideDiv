@@ -9,7 +9,7 @@ public class DsRoot
     _root_rect = root_rect;
   }
 
-  public void Attach(DsDiv dsdiv)
+  public void Attach(IDsDiv dsdiv)
   {
     _root_div = dsdiv;
   }
@@ -23,11 +23,11 @@ public class DsRoot
 
     Draw(canvas, _root_div);
   }
-  private void Draw(SKCanvas canvas, DsDiv parent)
+  private void Draw(SKCanvas canvas, IDsDiv parent)
   {
     parent.Draw(canvas, _root_rect);
   }
 
   private SKRect _root_rect;
-  private DsDiv? _root_div;
+  private IDsDiv? _root_div;
 }
