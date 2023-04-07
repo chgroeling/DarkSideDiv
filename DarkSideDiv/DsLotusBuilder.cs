@@ -141,6 +141,12 @@ namespace DarkSideDiv
 
     public DsLotusBuilder(SKRect pic_rect)
     {
+      _pic_rect = pic_rect;
+    }
+
+    public DsRoot Build()
+    {
+
       var base_grid = new DsUniformGridComponent(3, 3);
 
       for (int i = 0; i < 9; i++)
@@ -159,17 +165,12 @@ namespace DarkSideDiv
       var div = new DsDiv(attribs);
       div.Append(base_grid);
 
-      _actual = new DsRoot(pic_rect);
-      _actual.Attach(div);
+      var root_div = new DsRoot(_pic_rect);
+      root_div.Attach(div);
+      return root_div;
     }
 
-    public DsRoot Build()
-    {
-
-      return _actual;
-    }
-
-    private DsRoot _actual;
+    private SKRect _pic_rect;
 
     public float Border
     {
@@ -183,6 +184,7 @@ namespace DarkSideDiv
       set;
     } = 25.0f;
 
+  
   }
 
 }
