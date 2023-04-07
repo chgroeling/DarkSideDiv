@@ -1,7 +1,6 @@
 using SkiaSharp;
 
 using DarkSideDiv.Enums;
-using DarkSideDiv.Components;
 using DarkSideDiv.Common;
 using DarkSideDiv.Divs;
 using Application.Device;
@@ -107,14 +106,14 @@ namespace Application.Builders
         col_label = col_set.Label;
       }
 
-      var text_attribs = new DsDivComponentAlignedTextAttribs()
+      var text_attribs = new DsDivAlignedTextAttribs()
       {
         Text = col_label,
         TextSize = 40,
         Alignment = DsAlignment.BottomLeft
       };
 
-      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(text_comp);
       return div;
@@ -134,14 +133,14 @@ namespace Application.Builders
       {
         row_label = row_set.Label;
       }
-      var text_attribs = new DsDivComponentAlignedTextAttribs()
+      var text_attribs = new DsDivAlignedTextAttribs()
       {
         Text = row_label,
         TextSize = 40,
         Alignment = DsAlignment.Left
       };
 
-      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(text_comp);
@@ -151,7 +150,7 @@ namespace Application.Builders
 
     public DsDiv CreateGrid()
     {
-      var base_grid = new DsDivComponentGrid(
+      var base_grid = new DsDivGrid(
         (int)_cols,
         (int)_rows
       );
@@ -179,7 +178,7 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderRow()
     {
-      var base_grid = new DsDivComponentGrid((int)_cols, 1);
+      var base_grid = new DsDivGrid((int)_cols, 1);
       base_grid.SetDivSpacing(2f);
 
       var attribs = new DsDivAttribs()
@@ -201,7 +200,7 @@ namespace Application.Builders
 
     public DsDiv CreateSpacerAndHeaderRow()
     {
-      var base_grid = new DsDivComponentGrid(2, 1);
+      var base_grid = new DsDivGrid(2, 1);
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
 
       var attribs = new DsDivAttribs()
@@ -217,7 +216,7 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderCol()
     {
-      var base_grid = new DsDivComponentGrid(1, (int)_rows);
+      var base_grid = new DsDivGrid(1, (int)_rows);
       base_grid.SetDivSpacing(2f);
 
       var attribs = new DsDivAttribs()
@@ -238,7 +237,7 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderColAndGrid()
     {
-      var base_grid = new DsDivComponentGrid(2, 1);
+      var base_grid = new DsDivGrid(2, 1);
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
 
       var attribs = new DsDivAttribs()
@@ -269,7 +268,7 @@ namespace Application.Builders
 
     public DsRoot Build()
     {
-      var header_row_and_content = new DsDivComponentGrid(1, 2);
+      var header_row_and_content = new DsDivGrid(1, 2);
 
       //base_grid.SetDivSpacing(2f);
       header_row_and_content.SetRowPercFactor(0, TOP_SPACE_IN_PERC);

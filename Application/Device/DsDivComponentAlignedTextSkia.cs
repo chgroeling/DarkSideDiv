@@ -1,12 +1,12 @@
 using SkiaSharp;
 using DarkSideDiv.Common;
-using DarkSideDiv.Components;
 using Application.Common;
 using DarkSideDiv.Enums;
+using DarkSideDiv.Divs;
 
 namespace Application.Device;
 
-public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
+public class DsDivComponentAlignedTextSkia : IDsDivAlignedTextDevice
 {
   public DsDivComponentAlignedTextSkia()
   {
@@ -18,7 +18,7 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
     _canvas = canvas;
   }
 
-  public FontMetrics Setup(DsDivComponentAlignedTextAttribs attribs)
+  public FontMetrics Setup(DsDivAlignedTextAttribs attribs)
   {
     var sk_font_weight = SKFontStyleWeight.Normal;
 

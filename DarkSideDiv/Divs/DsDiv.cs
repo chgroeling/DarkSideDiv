@@ -1,5 +1,4 @@
 using DarkSideDiv.Common;
-using DarkSideDiv.Components;
 using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Divs
@@ -15,14 +14,14 @@ namespace DarkSideDiv.Divs
     {
       _device = device;
       _div_attribs = div_attribs;
-      _components = new List<IDsDivComponent>();
+      _div_stack = new List<IDsDiv>();
     }
 
     IDsDivDevice _device;
 
-    public void Append(IDsDivComponent component)
+    public void Append(IDsDiv div)
     {
-      _components.Add(component);
+      _div_stack.Add(div);
     }
 
     public float GetDistanceInPixel(Quantity quantity, float width)
@@ -100,9 +99,11 @@ namespace DarkSideDiv.Divs
       {
         new_nearest_positioned_ancestor = padding; // absolute positioning starts from padding rect
       }
-      foreach (var i in _components)
+
+      
+      foreach (var element in _div_stack)
       {
-        i.Draw(new_parent_content, new_nearest_positioned_ancestor);
+        element.Draw(new_parent_content, new_nearest_positioned_ancestor);
       }
     }
 
@@ -110,6 +111,6 @@ namespace DarkSideDiv.Divs
 
     private RectDimensions _dim_algo = new RectDimensions();
 
-    private List<IDsDivComponent> _components;
+    private List<IDsDiv> _div_stack;
   }
 }

@@ -1,7 +1,6 @@
 using SkiaSharp;
 
 using DarkSideDiv.Enums;
-using DarkSideDiv.Components;
 using DarkSideDiv.Common;
 using DarkSideDiv.Divs;
 using Application.Device;
@@ -19,7 +18,7 @@ namespace Application.Builders
         BorderColor = new ColorString("#000000"),
       };
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
-      var text_attribs = new DsDivComponentAlignedTextAttribs()
+      var text_attribs = new DsDivAlignedTextAttribs()
       {
         Text = _grid_texts[base_grid_idx, idx],
         TextSize = FontSize,
@@ -30,7 +29,7 @@ namespace Application.Builders
       {
         text_attribs.FontWeight = FontWeight.Bold;
       }
-      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
     }
@@ -44,7 +43,7 @@ namespace Application.Builders
       };
   
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
-      var text_attribs = new DsDivComponentAlignedTextAttribs()
+      var text_attribs = new DsDivAlignedTextAttribs()
       {
         Text = _grid_texts[4, idx],
         TextSize = FontSize,
@@ -56,7 +55,7 @@ namespace Application.Builders
       {
         text_attribs.TextSize = FontSize + 4f * 2f;
       }
-      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
 
@@ -89,7 +88,7 @@ namespace Application.Builders
     }
     public IDsDiv CreateBlossoms(int base_grid_sector)
     {
-      var base_grid_comp = new DsDivComponentGrid(3, 3);
+      var base_grid_comp = new DsDivGrid(3, 3);
       base_grid_comp.SetDivSpacing(CellBorder);
 
       for (int i = 0; i < 9; i++)
@@ -137,7 +136,7 @@ namespace Application.Builders
 
     public DsRoot Build()
     {
-      var base_grid = new DsDivComponentGrid(3, 3);
+      var base_grid = new DsDivGrid(3, 3);
       base_grid.SetDivSpacing(Spacing);
 
       for (int i = 0; i < 9; i++)

@@ -1,6 +1,5 @@
 using SkiaSharp;
 using DarkSideDiv.Divs;
-using DarkSideDiv.Components;
 
 namespace Application.Device;
 
@@ -8,7 +7,7 @@ namespace Application.Device;
 public class DeviceRepoSkia : IDeviceRepo
 {
 
-  public IDsDivComponentAlignedTextDevice DivTextDevice
+  public IDsDivAlignedTextDevice DivTextDevice
   {
     get
     {

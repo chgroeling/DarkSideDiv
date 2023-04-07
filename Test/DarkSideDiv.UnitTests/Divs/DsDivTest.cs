@@ -1,4 +1,3 @@
-using DarkSideDiv.Components;
 using DarkSideDiv.Common;
 using Moq;
 using Xunit;
@@ -117,7 +116,7 @@ namespace Test.Common
         Padding = new RectDistance((QuantityType.Percent, 25.0f)),
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var rect = new Rect(0f, 0f, 1000f, 1000f);
@@ -143,7 +142,7 @@ namespace Test.Common
         ),
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var rect = new Rect(0f, 0f, 1000f, 300f);
@@ -163,7 +162,7 @@ namespace Test.Common
         Position = PositionType.Relative,
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -185,7 +184,7 @@ namespace Test.Common
         Height = HeightType.Zero
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -207,7 +206,7 @@ namespace Test.Common
         Position = PositionType.Absolute
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -229,7 +228,7 @@ namespace Test.Common
         Position = PositionType.Absolute
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -259,7 +258,7 @@ namespace Test.Common
         ),
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -287,7 +286,7 @@ namespace Test.Common
         ),
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
@@ -321,7 +320,7 @@ namespace Test.Common
         ),
       };
       var mock_device = new Mock<IDsDivDevice>();
-      var mock_component = new Mock<IDsDivComponent>();
+      var mock_component = new Mock<IDsDiv>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
       var parent_content = new Rect(0f, 0f, 300f, 300f);
