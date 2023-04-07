@@ -7,13 +7,11 @@ namespace DarkSideDiv.Divs
   {
     public DsDivAttribs()
     {
-      border_color = new ColorString();
-      content_fill_color = new ColorString();
     }
 
-    public ColorString border_color;
+    public ColorString? border_color = null;
 
-    public ColorString content_fill_color;
+    public ColorString? content_fill_color = null;
 
     public RectDistance Border
     {

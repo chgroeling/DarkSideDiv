@@ -31,11 +31,13 @@ namespace Application.Device
       }
 
       var paint_border = new SKPaint();
-      paint_border.Color = ConversionFactories.FromColorString(_attribs.border_color);
-      paint_border.IsAntialias = true;
+      if (_attribs.border_color != null)
+      {
+        paint_border.Color = ConversionFactories.FromColorString(_attribs.border_color.Value);
+        paint_border.IsAntialias = true;
 
-      _canvas.DrawRect(ConversionFactories.FromRect(border_rect), paint_border);
-
+        _canvas.DrawRect(ConversionFactories.FromRect(border_rect), paint_border);
+      }
     }
     public void DrawContentRect(Rect content_rect)
     {
@@ -43,13 +45,15 @@ namespace Application.Device
       {
         throw new Exception("Canvas not initialized");
       }
-
-      var paint_content = new SKPaint()
+      if (_attribs.content_fill_color != null)
       {
-        Color = ConversionFactories.FromColorString(_attribs.content_fill_color),
-        IsAntialias = true
-      };
-      _canvas.DrawRect(ConversionFactories.FromRect(content_rect), paint_content);
+        var paint_content = new SKPaint()
+        {
+          Color = ConversionFactories.FromColorString(_attribs.content_fill_color.Value),
+          IsAntialias = true
+        };
+        _canvas.DrawRect(ConversionFactories.FromRect(content_rect), paint_content);
+      }
     }
 
     private DsDivAttribs _attribs;

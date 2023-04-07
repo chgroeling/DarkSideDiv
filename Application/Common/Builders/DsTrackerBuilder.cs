@@ -76,7 +76,7 @@ namespace Application.Builders
         Position = PositionType.Absolute, // place it absolute to new rect
         Height = HeightType.Zero,
         content_fill_color = new ColorString("#ffffff"),
-        border_color = new ColorString("#ffffff"),
+        //border_color = new ColorString("#ffffff"),
         Padding = (
           (QuantityType.FixedInPixel, 0.0f),  // left
           (QuantityType.FixedInPixel, 0.0f), // top

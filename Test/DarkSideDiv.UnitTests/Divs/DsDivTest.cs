@@ -16,7 +16,8 @@ namespace Test.Common
       // Arrange
       var div_attribs = new DsDivAttribs()
       {
-        Padding = 100f
+        Padding = 100f,
+        content_fill_color = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -34,7 +35,8 @@ namespace Test.Common
       // Arrange
       var div_attribs = new DsDivAttribs()
       {
-        Position = PositionType.Static
+        Position = PositionType.Static,
+        content_fill_color = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -53,7 +55,8 @@ namespace Test.Common
       // Arrange
       var div_attribs = new DsDivAttribs()
       {
-        Position = PositionType.Absolute
+        Position = PositionType.Absolute,
+        content_fill_color = new ColorString("#000000")
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
@@ -65,6 +68,45 @@ namespace Test.Common
       // Assert
       mock_device.Verify(call => call.DrawContentRect(new Rect(0f, 0f, 1000f, 1000f)));
     }
+
+    [Fact]
+    void Draw_BorderColorIsNull_DoNotCallDrawBorderRect()
+    {
+      // Arrange
+      var div_attribs = new DsDivAttribs()
+      {
+        border_color = null
+      };
+      var mock_device = new Mock<IDsDivDevice>();
+      var dut = new DsDiv(mock_device.Object, div_attribs);
+      var parent_rect = new Rect(0f, 0f, 300f, 300f);
+      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      // Act
+      dut.Draw(parent_rect, root_rect);
+
+      // Assert
+      mock_device.Verify(call => call.DrawBorderRect(It.IsAny<Rect>()), Times.Never());
+    }
+
+    [Fact]
+    void Draw_ContentFillColorIsNull_DoNotCallDrawBorderRect()
+    {
+      // Arrange
+      var div_attribs = new DsDivAttribs()
+      {
+        content_fill_color = null
+      };
+      var mock_device = new Mock<IDsDivDevice>();
+      var dut = new DsDiv(mock_device.Object, div_attribs);
+      var parent_rect = new Rect(0f, 0f, 300f, 300f);
+      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      // Act 
+      dut.Draw(parent_rect, root_rect);
+
+      // Assert
+      mock_device.Verify(call => call.DrawContentRect(It.IsAny<Rect>()), Times.Never());
+    }
+
 
 
 

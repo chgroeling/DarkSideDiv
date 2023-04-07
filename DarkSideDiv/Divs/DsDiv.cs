@@ -25,7 +25,7 @@ namespace DarkSideDiv.Divs
       _components.Add(component);
     }
 
-     public float GetDistanceInPixel(Quantity quantity, float width)
+    public float GetDistanceInPixel(Quantity quantity, float width)
     {
       var re = 0f;
       if (quantity.QType == QuantityType.Percent)
@@ -38,7 +38,7 @@ namespace DarkSideDiv.Divs
       }
       return re;
     }
-    
+
     public void Draw(Rect parent_rect, Rect root_rect)
     {
       _device.Setup(_div_attribs);
@@ -59,13 +59,16 @@ namespace DarkSideDiv.Divs
         draw_rect = new Rect(draw_rect.Left, draw_rect.Top, draw_rect.Right, draw_rect.Top + height_offset);
       }
 
-      // BORDER
-      var border_rect = _dim_algo.CalculateBorderRect(
-        draw_rect,
-        _div_attribs.Margin
-      );
+      if (_div_attribs.border_color != null)
+      {
+        // BORDER
+        var border_rect = _dim_algo.CalculateBorderRect(
+          draw_rect,
+          _div_attribs.Margin
+        );
 
-      _device.DrawBorderRect(border_rect);
+        _device.DrawBorderRect(border_rect);
+      }
 
       var padding_rect = _dim_algo.CalculatePaddingRect(
         draw_rect,
@@ -73,7 +76,11 @@ namespace DarkSideDiv.Divs
         _div_attribs.Border
       );
 
-      _device.DrawContentRect(padding_rect);
+      if (_div_attribs.content_fill_color != null)
+      {
+
+        _device.DrawContentRect(padding_rect);
+      }
 
       // CONTENT
       var content_rec = _dim_algo.CalculateContentRect(
