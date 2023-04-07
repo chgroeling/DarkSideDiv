@@ -6,19 +6,10 @@ internal class Program
 {
   private static void Main(string[] args)
   {
-    Console.WriteLine("Hello, World!");
-
-
     // Create an image and fill it blue
-    SKBitmap bmp = new SKBitmap(640, 480);
+    SKBitmap bmp = new SKBitmap(1024, 800);
     using SKCanvas canvas = new SKCanvas(bmp);
     canvas.Clear(SKColor.Parse("#003366"));
-
-    // Draw lines with random positions and thicknesses
-    Random rand = new Random(0);
-    var classobj = new Class1();
-  
-    classobj.Draw(canvas, bmp.Width, bmp.Height);
 
     var dsroot = new DsRoot(new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height));
 
