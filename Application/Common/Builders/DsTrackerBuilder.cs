@@ -202,16 +202,14 @@ namespace Application.Builders
       return "";
     }
 
-
-    int _year = 2020;
+    int _year;
 
     float _weeks;
     float _days;
 
-
     DsGridBuilder _grid_builder;
 
-      private SKRect _pic_rect;
+    private SKRect _pic_rect;
   }
 
 }

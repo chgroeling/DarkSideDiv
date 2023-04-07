@@ -2,6 +2,10 @@
 using Application.Common.Interfaces;
 using Application.Device;
 using DarkSideDiv.Common;
+using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
 
 namespace Application;
 
@@ -47,17 +51,48 @@ public class UseCaseCreateTrackerDiagram
 
     // Read Markdown File
     var text = _read_text_file.Read(input_filename);
-    var topic_list = _document_converter.GetTableOfContents(text);
+    var lines = text.Split("\n");
+    string pattern = "yyyy-MM-dd";
 
-    tracker_builder.SetDateProps(new DateTime(YEAR, 2, 1), 1);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 2, 2), 2);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 2, 3), 3);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 2, 4), 4);
+    Regex rx = new Regex(@"([+-]?([0-9]*[.])?[0-9]+)h",
+      RegexOptions.Compiled |
+      RegexOptions.IgnoreCase
+    );
 
-     tracker_builder.SetDateProps(new DateTime(YEAR, 6, 1), 1);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 6, 2), 2);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 6, 3), 3);
-    tracker_builder.SetDateProps(new DateTime(YEAR, 6, 4), 4);
+    foreach (var i in lines)
+    {
+      var datestr_and_text = i.Split("  ");
+
+      var date = datestr_and_text[0].Split(" ");
+
+      if (date.Count() == 3) // Conventional date line
+      {
+        DateTime parsedDate;
+        if (DateTime.TryParseExact(date[0], pattern, null,
+                                        DateTimeStyles.None, out parsedDate))
+        {
+          var content = datestr_and_text[1];
+          //Console.WriteLine(content);
+
+          var m = rx.Match(content);
+          if (m.Success)
+          {
+            var intensity = float.Parse(m.Groups[1].ToString());
+            intensity = intensity / 3f * 4f; // 3 -> 4
+
+            var ceil_intensity = Math.Floor(intensity); // 2.9 --> 3.0
+
+            var i32_intensity = (int)ceil_intensity;
+            if (i32_intensity > 4)
+            {  // dont get bigger than 4
+              i32_intensity = 4;
+            }
+
+            tracker_builder.SetDateProps(parsedDate, (int)intensity);
+          }
+        }
+      }
+    }
 
     var ds_root = tracker_builder.Build();
 
