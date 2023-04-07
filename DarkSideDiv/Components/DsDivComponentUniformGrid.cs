@@ -3,12 +3,21 @@ using SkiaSharp;
 
 namespace DarkSideDiv.Components
 {
-
   public class DsDivComponentUniformGrid : IDsDivComponent
   {
 
+    GridLayout _grid_layout;
+
     public DsDivComponentUniformGrid() : this(1, 1)
     {
+    }
+
+    public void SetRowFactor(int row, float factor) {
+      _grid_layout.SetRowFactor(row, factor);
+    }
+
+    public void SetColFactor(int col, float factor) {
+      _grid_layout.SetColFactor(col, factor);
     }
 
     public DsDivComponentUniformGrid(int cols, int rows)
@@ -16,6 +25,7 @@ namespace DarkSideDiv.Components
       _grid = new IDsDiv[cols, rows];
       _cols = cols;
       _rows = rows;
+      _grid_layout = new GridLayout(cols, rows);
     }
 
     public void Attach(int col, int row, IDsDiv div)
@@ -25,26 +35,15 @@ namespace DarkSideDiv.Components
 
     public void Draw(SKCanvas canvas, SKRect draw_rect)
     {
-      var width_col = draw_rect.Width / _cols;
-      var height_row = draw_rect.Height / _rows;
-
-      for (int col = 0; col < _cols; col++)
+      foreach (var tuple in _grid_layout.GetRects(draw_rect))
       {
-        for (int row = 0; row < _rows; row++)
+        (int col, int row, SKRect rect) = tuple;
+        if (_grid[col, row] is null)
         {
-          if (_grid[col, row] is null)
-          {
-            continue;
-          }
-          var left = draw_rect.Left + col * width_col;
-          var right = draw_rect.Left + (col + 1) * width_col;
-
-          var top = draw_rect.Top + row * height_row;
-          var bottom = draw_rect.Top + (row + 1) * height_row;
-
-          SKRect rect = new SKRect(left, top, right, bottom);
-          _grid[col, row]?.Draw(canvas, rect);
+          continue;
         }
+
+        _grid[col, row]?.Draw(canvas, rect);
       }
     }
 

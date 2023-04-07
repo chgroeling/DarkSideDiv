@@ -135,17 +135,20 @@ namespace Application.Builders
     {
 
       var base_grid = new DsDivComponentUniformGrid(3, 3);
+      base_grid.SetColFactor(1,2f);
+      base_grid.SetRowFactor(1,2f);    
 
       for (int i = 0; i < 9; i++)
       {
         var grid = CreateUnderlaidGrid(i, i % 3, i / 3);
         base_grid.Attach(i % 3, i / 3, grid);
-
       }
+  
 
       var attribs = new DsDivAttribs()
       {
         Border = 1f,
+        //border_color = SKColor.Parse("#ff0000"),
         content_fill_color = SKColor.Parse("#ffffff")
       };
 
