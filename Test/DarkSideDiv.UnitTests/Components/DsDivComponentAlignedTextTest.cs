@@ -9,6 +9,21 @@ namespace Test.Common
 
   public class DsDivComponentAlignedTextTest
   {
+    static Mock<IAbsoluteLayout> HelperIAbsLayoutAnyArgumentsReturnsRect(Rect ret)
+    {
+      var mock = new Mock<IAbsoluteLayout>();
+      mock.Setup(f => f.GetAbsRect(
+       It.IsAny<Rect>(),
+       It.IsAny<Rect>(),
+       It.IsAny<DsAlignment>(),
+       It.IsAny<float>(),
+       It.IsAny<float>()
+     )).Returns(ret);
+
+      return mock;
+    }
+
+
     static DsDivComponentAlignedTextAttribs CreateDefaultArguments(string text)
     {
       var attribs = new DsDivComponentAlignedTextAttribs()
@@ -20,6 +35,149 @@ namespace Test.Common
 
       return attribs;
     }
+
+    [Fact]
+    public void Draw_SingleLine_CreateGridLayoutWith1ColAnd1Rows()
+    {
+      // Arrange
+      var test_text = "Line1";
+      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
+      var stub_abs_layout = new Mock<IAbsoluteLayout>();
+      var mock_grid_layout_factory = new Mock<IGridLayoutFactory>();
+
+
+      var attribs = CreateDefaultArguments(test_text);
+      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
+      dut.GridLayoutFactory = mock_grid_layout_factory.Object;
+
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock_grid_layout_factory.Verify(factory => factory.Create(1, 1));
+    }
+
+    [Fact]
+    public void Draw_MultiLine_CreateGridLayoutWith1ColAnd2Rows()
+    {
+      // Arrange
+      var test_text = "Line1\nLine2";
+      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
+      var stub_abs_layout = new Mock<IAbsoluteLayout>();
+      var mock_grid_layout_factory = new Mock<IGridLayoutFactory>();
+
+
+      var attribs = CreateDefaultArguments(test_text);
+      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
+      dut.GridLayoutFactory = mock_grid_layout_factory.Object;
+
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock_grid_layout_factory.Verify(factory => factory.Create(1, 2));
+    }
+
+    [Fact]
+    public void Draw_SingleLine_Call1TimesSetFixedRow()
+    {
+      // Arrange
+      var test_text = "Line1";
+      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
+      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 490f, 510f, 510f));
+      var mock_grid_layout = new Mock<IGridLayout>();
+      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
+
+      stub_device.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
+      );
+
+       // Return mock object from factory
+      stub_grid_layout_factory.Setup(foo => foo.Create(
+        It.IsAny<int>(), It.IsAny<int>())).Returns(mock_grid_layout.Object);
+
+      var attribs = CreateDefaultArguments(test_text);
+      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
+      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock_grid_layout.Verify(gl => gl.SetRowFixed(0, 20f));
+    }
+
+    [Fact]
+    public void Draw_MultiLine_Call2TimesSetFixedRow()
+    {
+      // Arrange
+      var test_text = "Line1\nLine2";
+      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
+      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 480f, 510f, 520f));
+      var mock_grid_layout = new Mock<IGridLayout>();
+      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
+
+      stub_device.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
+      );
+
+      // Return mock object from factory
+      stub_grid_layout_factory.Setup(foo => foo.Create(
+        It.IsAny<int>(), It.IsAny<int>())
+      ).Returns(mock_grid_layout.Object);
+
+      var attribs = CreateDefaultArguments(test_text);
+      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
+      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock_grid_layout.Verify(gl => gl.SetRowFixed(0, 20f));
+      mock_grid_layout.Verify(gl => gl.SetRowFixed(1, 20f));
+    }
+
+    [Fact]
+    public void Draw_MultiLine_CallGetRects()
+    {
+      // Arrange
+      var test_text = "Line1\nLine2";
+      var stub_device = new Mock<IDsDivComponentAlignedTextDevice>();
+      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 480f, 510f, 520f));
+      var mock_grid_layout = new Mock<IGridLayout>();
+      var stub_grid_layout_factory = new Mock<IGridLayoutFactory>();
+
+      stub_device.Setup(foo => foo.MeasureText(
+        It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
+      );
+
+      // Return mock object from factory
+      stub_grid_layout_factory.Setup(foo => foo.Create(
+        It.IsAny<int>(), It.IsAny<int>())
+      ).Returns(mock_grid_layout.Object);
+
+      var attribs = CreateDefaultArguments(test_text);
+      var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
+      dut.GridLayoutFactory = stub_grid_layout_factory.Object;
+
+      // Act
+      var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
+      dut.Draw(in_rect);
+
+      // Assert
+      mock_grid_layout.Verify(gl => gl.GetRects(new Rect(490f, 480f, 510f, 520f)));
+    }
+
 
     [Fact]
     public void Draw_SingleLineAbsAlgo_CalledWithCorrectArguments()
@@ -87,23 +245,16 @@ namespace Test.Common
       // Arrange
       var test_text = "Line1";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
-      var stub = new Mock<IAbsoluteLayout>();
+      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 490f, 510f, 510f));
 
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      stub.Setup(f => f.GetAbsRect(
-        It.IsAny<Rect>(),
-        It.IsAny<Rect>(),
-        It.IsAny<DsAlignment>(),
-         It.IsAny<float>(),
-        It.IsAny<float>()
-      )).Returns(new Rect(490f, 490f, 510f, 510f));
 
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-      dut.AbsoluteLayoutAlgorithmn = stub.Object;
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
@@ -119,23 +270,15 @@ namespace Test.Common
       // Arrange
       var test_text = "Line1\nLine2";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
-      var stub = new Mock<IAbsoluteLayout>();
+      var stub_abs_layout = HelperIAbsLayoutAnyArgumentsReturnsRect(new Rect(490f, 480f, 510f, 520f));
 
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, 0f, 20.0f, 20.0f)
       );
 
-      stub.Setup(f => f.GetAbsRect(
-        It.IsAny<Rect>(),
-        It.IsAny<Rect>(),
-        It.IsAny<DsAlignment>(),
-        It.IsAny<float>(),
-        It.IsAny<float>()
-      )).Returns(new Rect(490f, 480f, 510f, 520f)); // 520 ... two lines with height = 20.0f dived by 2
-
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-      dut.AbsoluteLayoutAlgorithmn = stub.Object;
+      dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);

@@ -13,6 +13,12 @@ namespace DarkSideDiv.Components
       set;
     } = new AbsoluteLayout();
 
+    public IGridLayoutFactory GridLayoutFactory
+    {
+      get;
+      set;
+    } = new GridLayoutFactory();
+
     public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device) : this(device, new DsDivComponentAlignedTextAttribs())
     {
     }
@@ -56,7 +62,6 @@ namespace DarkSideDiv.Components
 
     public void Draw(Rect draw_rect)
     {
-      // _device.SetCanvas(canvas);
       _device.Setup(_attribs);
 
       var text = _attribs.text;
@@ -79,29 +84,49 @@ namespace DarkSideDiv.Components
       // |
       // | y
       // V
-      //var (x, y) = AbsoluteLayoutAlgorithmn.GetOffset(draw_rect, combined_rect, _attribs.alignment);
-      var rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
-      
-      var abs_left = rect.Left;
-      var abs_top = rect.Top;
+      var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
 
-      float top_offset = lines[0].TextBounds.Height; // first line offset;
+      var grid_layout = GridLayoutFactory.Create(1, lines.Count());
 
-      foreach (var l in lines)
+      if (grid_layout == null)
       {
-        float left_offset = CalcHorizontalElementAlignmentOffset(
-          combined_rect.Left,
-          combined_rect.Right,
-          l.TextBounds.Width);
+        return; // no layout obj returned ... do nothing for now
+      }
 
-        // The text origin (0,0) is the bottom left corner of the text
-        // the top coordinate is therefore negative
+      for (int row = 0; row < lines.Count(); row++)
+      {
+        var actual_line = lines[row];
+        grid_layout.SetRowFixed(row, actual_line.TextBounds.Height);
+      }
+
+      var rects_enum = grid_layout.GetRects(abs_rect);
+      var rects = rects_enum.ToArray();
+
+      if (rects.Count() != lines.Count())
+      {
+        return; // discrepancy detected ... do nothing for now
+      }
+
+      for (var i = 0; i < lines.Count(); i++)
+      {
+        var l = lines[i];
+        var r = rects[i]; // get a rect for each row
+
+        // align the text within each row
+        float left_offset = CalcHorizontalElementAlignmentOffset(
+          r.rect.Left,
+          r.rect.Right,
+          l.TextBounds.Width
+        );
+
+
+        // The origin (0,0) is the bottom left corner of the text
+        float top_offset = r.rect.Top + l.TextBounds.Height;
         _device.DrawText(
           l.Value,
-          abs_left + left_offset,
-          abs_top + top_offset);
+          left_offset,
+          top_offset);
 
-        top_offset = top_offset + l.TextBounds.Height;
       }
     }
 

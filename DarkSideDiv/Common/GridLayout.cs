@@ -1,6 +1,6 @@
 namespace DarkSideDiv.Common
 {
-  internal class GridLayout
+  internal class GridLayout : IGridLayout
   {
     struct RowColAttribs
     {
