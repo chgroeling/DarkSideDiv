@@ -26,7 +26,7 @@ namespace Test.Common
       var content_rect = new Rect(0f, 0f, 100f, 50f);
 
       // Act
-      var rect = abs_layout.GetAbsRect(inp_rect, content_rect, alignment);
+      var rect = AbsoluteLayoutAlgorithmn.GetAbsRect(inp_rect, content_rect, alignment);
 
       // Assert
       Assert.Equal(left, rect.Left);
@@ -57,7 +57,7 @@ namespace Test.Common
       float x_offset = 25f;
       float y_offset = 50f;
       // Act
-      var rect = abs_layout.GetAbsRect(inp_rect, content_rect, alignment, x_offset, y_offset);
+      var rect = AbsoluteLayoutAlgorithmn.GetAbsRect(inp_rect, content_rect, alignment, x_offset, y_offset);
 
       // Assert
       Assert.Equal(left + x_offset, rect.Left);

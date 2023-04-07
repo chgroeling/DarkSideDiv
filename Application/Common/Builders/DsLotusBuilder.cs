@@ -138,8 +138,8 @@ namespace Application.Builders
     public DsRoot Build()
     {
       var base_grid = new DsDivComponentGrid(3, 3);
-      base_grid.SetColPropFactor(1, 2f);
-      base_grid.SetRowPropFactor(1, 2f);
+      //base_grid.SetColPropFactor(1, 2f);
+      //base_grid.SetRowPropFactor(1, 2f);
 
       for (int i = 0; i < 9; i++)
       {
@@ -186,7 +186,7 @@ namespace Application.Builders
       {
         throw new Exception("Level1 was added beforehand");
       }
-      _grid_texts[4, 4] = label + "\nfdfdf";
+      _grid_texts[4, 4] = label;
       _topic_idx++;
     }
     void AddLevel1(string label)

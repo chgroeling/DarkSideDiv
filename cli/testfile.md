@@ -1,29 +1,13 @@
 ---
-title: Kontrolle
+title: Bereiche
 ---
-# HALLO WELT
-dfdsfs
-dfdsf
-dfd
-
-## EINS
-## ZWEI
-dffdf
-dfdfd
-
-## DREI
-
-# Geist
-## Aufassung
-dfdfds
-fdfdsf
-fdf
-
-# Stärke
-# Schwäche
-# Meisterschaft
-# Klugheit
-# Wahrheit
-## Klarheit
-
-# Brüderlichkeit
+# Charakter
+# Unabhängigkeit
+# Rationalität
+## Der Kreis der Kontrolle
+# Systeme
+# Produkt-Entw.
+# Innovation
+# Kommunikation
+# Wohlbefinden
+## Wünsche dir nichts was nur ein anderer dir geben kann.

@@ -2,13 +2,13 @@ using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Common
 {
-  internal class AbsoluteLayoutAlgorithmn : IAbsoluteLayout
+  internal class AbsoluteLayoutAlgorithmn 
   {
     public AbsoluteLayoutAlgorithmn()
     {
     }
 
-    public Rect GetAbsRect(Rect input_rect, Rect content_rect, DsAlignment alignment, float x_offs = 0f, float y_offs = 0f)
+    static public  Rect GetAbsRect(Rect input_rect, Rect content_rect, DsAlignment alignment, float x_offs = 0f, float y_offs = 0f)
     {
       // bottom left
 
