@@ -1,9 +1,13 @@
 ﻿using SkiaSharp;
 
-namespace darkside_div;
+namespace DarkSideDiv;
 
 public class Class1
 {
+  public int DoSomething() {
+    return 1;
+  }
+  
   public void Draw(SKCanvas canvas, int width, int height)
   {
     Random rand = new(0);

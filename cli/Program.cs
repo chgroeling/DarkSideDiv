@@ -14,7 +14,7 @@ internal class Program
 
     // Draw lines with random positions and thicknesses
     Random rand = new(0);
-    var classobj = new darkside_div.Class1();
+    var classobj = new DarkSideDiv.Class1();
     classobj.Draw(canvas, bmp.Width, bmp.Height);
 
     // Save the image to disk
