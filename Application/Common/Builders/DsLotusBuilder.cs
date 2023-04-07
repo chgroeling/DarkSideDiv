@@ -43,7 +43,8 @@ namespace Application.Builders
         Alignment = Alignment
       };
 
-      if (idx==4) {
+      if (idx == 4)
+      {
         text_attribs.FontWeight = FontWeight.Bold;
       }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
@@ -59,6 +60,7 @@ namespace Application.Builders
         content_fill_color = _palette_algo.GetColorByIdx(idx),
         border_color = new ColorString("#000000")
       };
+  
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
@@ -68,8 +70,9 @@ namespace Application.Builders
         Alignment = Alignment
       };
 
-      if (idx==4) {
-        text_attribs.TextSize = FontSize+4f*2f;
+      if (idx == 4)
+      {
+        text_attribs.TextSize = FontSize + 4f * 2f;
       }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
@@ -112,7 +115,7 @@ namespace Application.Builders
         base_grid_comp.Attach(i % 3, i / 3, grid_div);
       }
 
-      
+
       // Attributes of the base grid
       var attribs = new DsDivAttribs()
       {
@@ -122,7 +125,8 @@ namespace Application.Builders
         border_color = new ColorString("#000000")
       };
 
-      if (base_grid_sector==4) {
+      if (base_grid_sector == 4)
+      {
         attribs.Border = 5f;
       }
 
@@ -247,19 +251,19 @@ namespace Application.Builders
     {
       get;
       set;
-    } = 19.0f *2f;
+    } = 19.0f * 2f;
 
     public float Border
     {
       get;
       set;
-    } = 5.0f *2f;
+    } = 5.0f * 2f;
 
     public float Spacing
     {
       get;
       set;
-    } = 15.0f*2f;
+    } = 15.0f * 2f;
 
     string[,] _grid_texts;
 

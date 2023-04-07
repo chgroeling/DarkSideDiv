@@ -6,20 +6,21 @@ title: Bereiche
 ## Entdecker Mentalität
 ## Der Geist des Anfängers
 ## Jeder Tag ist ein neuer Anfang
-## Akzeptiere Feedback
 ## Lösungsfinder Mentalität
-## Refelektiert sein
 ## Dein Charakter ist nicht änderbar. Plane um ihn herum.
+## Selbstverantwort- ungsmentalität. Sei kein Opfer!
+## Integriere deine feminine Seite.
+
 
 # Unabhängigkeit
 ## Wünsche dir nichts was ein anderer dir geben kann.
 ## Wähle nur was du kontrollieren kannst.
-## Habe keine Meinung. Weder gut noch böse.
+## Habe keine Meinung. Weder gut noch böse. Bewerte nichts!
 ## Bereite Dich auf den Sturm vor.
 ## Richte dein Leben so als wärst du kurz vorm sterben.
-## Reichtum ist wertlos. Nutze ihn!
+## Sehnsucht nach mehr ist der Feind deines Glücks.
 ## Entscheidungen liegen in deiner Hand. Treffe sie überlegt.
-## Bildung ist Freiheit.
+## Selbsterkenntniss ist Freiheit.
 
 
 # Rationalität
@@ -28,50 +29,56 @@ title: Bereiche
 ## Nehme eine Adlerperspektive ein. 
 ## Denke nach bevor du handelst. Warte ab!
 ## Kontrolliere deine Wahrnehmungen. Sehe das verborgene. 
-## Sehnsucht nach mehr ist der Feind deines Glücks.
 ## Versuche besser zu sein. Verweigere die Versuchung.
 ## Trenne Angelegenheiten, Arbeit, Verantwortung
+## Akzeptiere Feedback
 
 # Systeme
 ## Keep it simple. Complexity kills. 
-## Inkrementeller Ansatz. Stetige Verbesserung.
-## Systeme müssen etwas produzieren.
-## Frage Dich? Wo/Wer ist die Constraint?
+## Frage Dich: Wo/Wer ist die Constraint?
 ## Schaue nach Mustern. Gieße sie in Templates.
-## Bottom-Up oder Top-Down. Beides ist korrekt!
-## Dokumentiere und speichere damit deine Aufmerksamkeit.
+## Dokumentiere und speichere so deine Aufmerksamkeit.
 ## Master-System: Notiz-Archiv
+## Messe System Eigenschaften.
+## Stelle guten Fragen.
+## Komponenten Denken. Erstelle Komponenten so früh wie möglich.
+
 
 # Produkt-Entw.
 ## Beginne mit konkreter Arbeit so spät wie möglich.
 ## Kläre ungewisses mit Spikes und Prototypen.
-## Lego: Verwende Komponenten.
+## Lego: Baue alles aus Komponenten auf.
 ## Schnelles Feedback schlägt alles. 
 ## Verwende versch. Sichtweisen u. Schichten.
 ## Wird es zu schwer? Skaliere nach unten. MVP.
+## Inkrementeller Ansatz. Stetige Verbesserung.
+## Bottom-Up oder Top-Down. Verwende beides!
 
 # Innovation
-## Erstelle Komponenten so früh wie möglich.
-## Verbinde dein Wissen miteinander.
+## Verbinde Wissen miteinander.
 ## Unterstütze Serendipität. 
 ## Sammle, kombiniere und erschaffe. 
 ## Verfolge tiefe Erkenntniss. First principle thinking.
-## Vermeide den Confirmation Bias. Hinterfrage Dich!
+## Vermeide den Confirmation Bias. Hinterfrage alles!
+## Die Zone der nächsten Entwicklung erreichen.
+## Problem Decomposition u. hierachisches Denken.
+## Weniger ist mehr! Substrahiere!
 
 # Nützlich sein
 ## Sei nicht der beste. Sei der einzige!
 ## Erledige deine Arbeit
-## Lehre dein Wissen.
+## Lehre dein Wissen. Coache andere!
 ## Teile dein Wissen.
 ## Mach die Dinge niemals schwieriger als sie sein müssen.
-## Zeige deine Arbeit und hole Feedback ein.
+## Zeige deine Arbeit. Sei Transparent.
 ## Sei ein gegenseitiger Verknüpfungs- punkt.
+## Zentralisiere deine Bemühungen.
 
 # Wohlbefinden
 ## Morgen- und Abendroutine. Entspanne Dich!
 ## Begrenze Dich selbst! 
 ## Vermeide Leidenschaften
-## Vermeide Energie-Vampire
+## Vermeide Energie-Vampire (auch Gedanken).
 ## Beruhige deine Impulse. Wut ist ein Fehler. Warte!
 ## Ärgere Dich nicht über die Zukunft. Das meiste wird nicht geschehen.
 ## Suche nicht den Streit.
