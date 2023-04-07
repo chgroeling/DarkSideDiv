@@ -27,10 +27,10 @@ namespace Test.Common
       // Arrange
       var test_text = "Line1";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
-      
+
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-  
+
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -48,7 +48,8 @@ namespace Test.Common
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
       var attribs = CreateDefaultArguments(test_text);
 
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
@@ -57,9 +58,9 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 2.0f)
       );
-      
+
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-  
+
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -77,7 +78,8 @@ namespace Test.Common
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
       var attribs = CreateDefaultArguments(test_text);
 
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
@@ -86,9 +88,9 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, -15f, 120.0f, 2.0f)
       );
-      
+
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-  
+
       // Act
       var in_rect = new Rect(0f, 0f, 100.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -106,7 +108,8 @@ namespace Test.Common
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
       var attribs = CreateDefaultArguments(test_text);
 
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 2f,
         Ascent = -15f,
         Descent = 3f,
@@ -115,9 +118,9 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 2.0f)
       );
-      
+
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-  
+
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -133,13 +136,14 @@ namespace Test.Common
       // Arrange
       var test_text = "Line1\nLine2";
       var mock = new Mock<IDsDivComponentAlignedTextDevice>();
- 
+
       mock.Setup(foo => foo.MeasureText(
         It.IsAny<string>())).Returns(new Rect(0f, -15f, 20.0f, 3.0f)
       );
 
       var attribs = CreateDefaultArguments(test_text);
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
@@ -155,7 +159,7 @@ namespace Test.Common
       mock.Verify(foo => foo.DrawText("Line2", 490.0f, 515f));
     }
 
-     [Fact]
+    [Fact]
     public void Draw_CenterTooLongTextAutowrapEnabledLinesAreEqualLong_PlacedCorrectly()
     {
       // Arrange
@@ -168,14 +172,15 @@ namespace Test.Common
 
 
       var attribs = CreateDefaultArguments(test_text);
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
       });
 
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-    
+
       // Act
       var in_rect = new Rect(0f, 0f, 150.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -186,7 +191,7 @@ namespace Test.Common
     }
 
 
-     [Fact]
+    [Fact]
     public void Draw_CenterTooLongWord_PlacedCorrectly()
     {
       // Arrange
@@ -196,7 +201,8 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line1AAAAAAA")).Returns(new Rect(0f, -14f, 300.0f, 2.0f));
 
       var attribs = CreateDefaultArguments(test_text);
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
@@ -213,7 +219,7 @@ namespace Test.Common
       mock.Verify(foo => foo.DrawText("Line1AAAAAAA", -25.0f, 505f));
     }
 
-     [Fact]
+    [Fact]
     public void Draw_CenterTooLongTextAutowrapEnabled_PlacedCorrectly()
     {
       // Arrange
@@ -227,13 +233,14 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line2A")).Returns(new Rect(0f, 0f, 100.0f, 20.0f));
 
       var attribs = CreateDefaultArguments(test_text);
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
       });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-    
+
       // Act
       var in_rect = new Rect(0f, 0f, 250.0f, 1000.0f);
       dut.Draw(in_rect);
@@ -243,7 +250,7 @@ namespace Test.Common
       mock.Verify(foo => foo.DrawText("Line2A", 75.0f, 515f));
     }
 
-     [Fact]
+    [Fact]
     public void Draw_CenterTooLongTextAutowrapEnabledSpaceIn2ndLine_PlacedCorrectly()
     {
       // Arrange
@@ -259,13 +266,14 @@ namespace Test.Common
       mock.Setup(foo => foo.MeasureText("Line A")).Returns(new Rect(0f, -15f, 100.0f, 2.0f));
 
       var attribs = CreateDefaultArguments(test_text);
-      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics() {
+      mock.Setup(call => call.Setup(attribs)).Returns(new FontMetrics()
+      {
         Leading = 0f,
         Ascent = -15f,
         Descent = 5f,
       });
       var dut = new DsDivComponentAlignedText(mock.Object, attribs);
-    
+
       // Act
       var in_rect = new Rect(0f, 0f, 250.0f, 1000.0f);
       dut.Draw(in_rect);

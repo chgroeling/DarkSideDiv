@@ -19,13 +19,29 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
 
   public FontMetrics Setup(DsDivComponentAlignedTextAttribs attribs)
   {
+    var sk_font_weight = SKFontStyleWeight.Normal;
+
+    switch (attribs.font_weight)
+    {
+      case FontWeight.Normal:
+        sk_font_weight = SKFontStyleWeight.Normal;
+        break;
+
+      case FontWeight.Bold:
+        sk_font_weight = SKFontStyleWeight.Bold;
+        break;
+
+      default:
+        break;
+    }
     _text_paint = new SKPaint() // with object initializer
     {
       IsAntialias = true,
       TextAlign = SKTextAlign.Left,
       Color = SKColors.Black,
       TextSize = attribs.text_size,
-      Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold,
+      Typeface = SKTypeface.FromFamilyName("Arial",
+            sk_font_weight,
             SKFontStyleWidth.Normal,
             SKFontStyleSlant.Upright)
     };

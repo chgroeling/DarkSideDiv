@@ -42,6 +42,10 @@ namespace Application.Builders
         text_size = FontSize,
         alignment = Alignment
       };
+
+      if (idx==4) {
+        text_attribs.font_weight = FontWeight.Bold;
+      }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
@@ -60,8 +64,13 @@ namespace Application.Builders
       {
         text = _grid_texts[4, idx],
         text_size = FontSize,
+        font_weight = FontWeight.Bold,
         alignment = Alignment
       };
+
+      if (idx==4) {
+        text_attribs.text_size = FontSize+4f;
+      }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
