@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using DarkSideDiv;
 
 internal class Program
 {
@@ -14,9 +15,14 @@ internal class Program
 
     // Draw lines with random positions and thicknesses
     Random rand = new(0);
-    var classobj = new DarkSideDiv.Class1();
+    var classobj = new Class1();
+  
     classobj.Draw(canvas, bmp.Width, bmp.Height);
 
+    var dsroot = new DsRoot(new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height));
+    var dsrootdiv = new DsDiv();
+    dsroot.Attach(dsrootdiv);
+    dsroot.Draw(canvas);
     // Save the image to disk
     SKFileWStream fs = new("quickstart.jpg");
     bmp.Encode(fs, SKEncodedImageFormat.Jpeg, quality: 85);
