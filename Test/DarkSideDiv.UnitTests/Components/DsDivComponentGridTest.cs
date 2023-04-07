@@ -49,6 +49,43 @@ namespace Test.Common
     }
 
     [Fact]
+    public void Draw_2x2Grid_CorrectDrawCalls()
+    {
+      var grid_comp = new DsDivComponentGrid(2, 2);
+      var mocks = SetupIDsDivMocks(2, 2, grid_comp);
+
+      var rect = new Rect(0f, 0f, 1000f, 1000f);
+      grid_comp.Draw(rect);
+
+      // Row 0
+      mocks[0, 0].Verify(call => call.Draw(new Rect(0f, 0f, 500f, 500f)));
+      mocks[1, 0].Verify(call => call.Draw(new Rect(500f, 0f, 1000f, 500f)));
+
+      // Row 1
+      mocks[0, 1].Verify(call => call.Draw(new Rect(0f, 500f, 500f, 1000f)));
+      mocks[1, 1].Verify(call => call.Draw(new Rect(500f, 500f, 1000f, 1000f)));
+    }
+
+    [Fact]
+    public void Draw_2x2GridWithDivSpacing_CorrectDrawCalls()
+    {
+      var grid_comp = new DsDivComponentGrid(2, 2);
+      grid_comp.SetDivSpacing(100f);
+      var mocks = SetupIDsDivMocks(2, 2, grid_comp);
+
+      var rect = new Rect(0f, 0f, 1000f, 1000f);
+      grid_comp.Draw(rect);
+
+      // Row 0
+      mocks[0, 0].Verify(call => call.Draw(new Rect(0f, 0f, 450f, 450f)));
+      mocks[1, 0].Verify(call => call.Draw(new Rect(550f, 0f, 1000f, 450f)));
+
+      // Row 1
+      mocks[0, 1].Verify(call => call.Draw(new Rect(0f, 550f, 450f, 1000f)));
+      mocks[1, 1].Verify(call => call.Draw(new Rect(550f, 550f, 1000f, 1000f)));
+    }
+
+    [Fact]
     public void Draw_3x2GridPropFactorChangedCol1_CorrectDrawCalls()
     {
       var grid_comp = new DsDivComponentGrid(3, 2);

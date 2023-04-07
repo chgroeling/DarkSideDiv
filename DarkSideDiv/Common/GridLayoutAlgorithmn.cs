@@ -5,9 +5,9 @@ namespace DarkSideDiv.Common
   internal class GridLayoutAlgorithmn
   {
     public GridLayoutAlgorithmn()
-    { 
-        row_attribs = new Quantity[0];
-        col_attribs = new Quantity[0];
+    {
+      row_attribs = new Quantity[0];
+      col_attribs = new Quantity[0];
     }
 
     private void Reset(int cols, int rows)
@@ -56,6 +56,9 @@ namespace DarkSideDiv.Common
         }
       }
 
+      // Remove the spacing from the reduced height
+      reduced_height -= (options.Rows - 1) * options.DivSpacing;
+
       for (int row = 0; row < options.Rows; row++)
       {
         var height_row = 0f;
@@ -75,7 +78,7 @@ namespace DarkSideDiv.Common
         Rect rect = new Rect(left, top, right, bottom);
         yield return (row, rect);
 
-        row_offset += height_row;
+        row_offset += height_row + options.DivSpacing;
       }
     }
 
@@ -83,32 +86,36 @@ namespace DarkSideDiv.Common
     {
       Reset(options.Cols, options.Rows);
 
-      if (options.ColOptions != null) { 
-      for (int col = 0; col < options.Cols; col++)
+      if (options.ColOptions != null)
       {
-        if (col < options.ColOptions.Count())
+        for (int col = 0; col < options.Cols; col++)
         {
-          col_attribs[col] = options.ColOptions[col];
+          if (col < options.ColOptions.Count())
+          {
+            col_attribs[col] = options.ColOptions[col];
+          }
         }
-      }
-      col_factors_sum = col_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
+        col_factors_sum = col_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
       }
 
-      if (options.RowOptions != null) {
-
-      for (int row = 0; row < options.Rows; row++)
+      if (options.RowOptions != null)
       {
-        if (row < options.RowOptions.Count())
+
+        for (int row = 0; row < options.Rows; row++)
         {
-          row_attribs[row] = options.RowOptions[row];
+          if (row < options.RowOptions.Count())
+          {
+            row_attribs[row] = options.RowOptions[row];
+          }
         }
-      }
-      row_factors_sum = row_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
+        row_factors_sum = row_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
       }
 
 
       float col_offset = 0f;
       float reduced_width = draw_rect.Width;
+
+  
 
       // Calculate reduced width due to fixed cols
       for (int col = 0; col < options.Cols; col++)
@@ -118,6 +125,11 @@ namespace DarkSideDiv.Common
           reduced_width -= col_attribs[col].Value;
         }
       }
+
+      // Remove the spacing from the reduced height
+      reduced_width -= (options.Cols - 1) * options.DivSpacing;
+
+
 
       for (int col = 0; col < options.Cols; col++)
       {
@@ -139,12 +151,12 @@ namespace DarkSideDiv.Common
         foreach (var cell in GetCellsInCol(options, left, right, draw_rect))
           yield return (col, cell.row, cell.rect);
 
-        col_offset += width_col;
+        col_offset += width_col + options.DivSpacing;
       }
     }
 
 
-    static public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutOptions options, Rect draw_rect) 
+    static public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutOptions options, Rect draw_rect)
     {
       var gridlayout = new GridLayoutAlgorithmn();
       return gridlayout.GetRectsObj(options, draw_rect);

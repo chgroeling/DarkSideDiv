@@ -338,6 +338,71 @@ namespace Test.Common
     }
 
     [Fact]
+    public void GetRects_2ProportionalColumns2ProportionalRowsWithDivSpacing100_Return4EvenlySpacedRects()
+    {
+      // Arrange
+      var grid_layout = new GridLayoutAlgorithmn();
+
+      var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+
+      var settings = new GridLayoutOptions
+      {
+        Cols = 2,
+        Rows = 2,
+        DivSpacing = 100f
+      };
+
+      // Act
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
+
+      // Assert
+      Assert.Equal(new List<(int, int, Rect)>() {
+        (0, 0, new Rect(0f, 0f, 450f, 450f)),      // top left
+        (0, 1, new Rect(0f, 550f, 450f, 1000f)),   // bottom left
+        (1, 0, new Rect(550f, 0f, 1000f, 450f)),   // top right
+        (1, 1, new Rect(550f, 550f, 1000f, 1000f)) // bottom right
+      }, it);
+
+    }
+
+     [Fact]
+    public void GetRects_2ProportionalColumns2ProportionalRowsWeightOfRow1AndCol1ChangedWithDivSpacing100_Return4EvenlySpacedRects()
+    {
+      // Arrange
+      var grid_layout = new GridLayoutAlgorithmn();
+
+      var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
+
+      var settings = new GridLayoutOptions
+      {
+        Cols = 2,
+        Rows = 2,
+        DivSpacing = 100f,
+        RowOptions = new List<Quantity>() {
+          (QuantityType.Weight, 1f),
+          (QuantityType.Weight, 3f)
+        },
+        ColOptions = new List<Quantity>() {
+          (QuantityType.Weight, 1f),
+          (QuantityType.Weight, 3f)
+        }
+      };
+
+      // Act
+      var it = GridLayoutAlgorithmn.GetRects(settings, inp_rect);
+
+      // Assert
+      Assert.Equal(new List<(int, int, Rect)>() {
+        (0, 0, new Rect(0f, 0f, 225f, 225f)),      // top left
+        (0, 1, new Rect(0f, 325f, 225f, 1000f)),   // bottom left
+        (1, 0, new Rect(325f, 0f, 1000f, 225f)),   // top right
+        (1, 1, new Rect(325f, 325f, 1000f, 1000f)) // bottom right
+      }, it);
+
+    }
+
+
+    [Fact]
     public void GetRects_2ProportionalColumns2ProportionalRowsWeightOfRow1AndCol1Changed_Return4Rects()
     {
       // Info: All values used in the test have an accurate float representation
@@ -351,13 +416,13 @@ namespace Test.Common
       {
         Cols = 2,
         Rows = 2,
-        RowOptions = new List<Quantity>() { 
-          (QuantityType.Weight, 1f), 
-          (QuantityType.Weight, 3f) 
+        RowOptions = new List<Quantity>() {
+          (QuantityType.Weight, 1f),
+          (QuantityType.Weight, 3f)
         },
-        ColOptions = new List<Quantity>() { 
-          (QuantityType.Weight, 1f), 
-          (QuantityType.Weight, 3f) 
+        ColOptions = new List<Quantity>() {
+          (QuantityType.Weight, 1f),
+          (QuantityType.Weight, 3f)
         }
       };
 

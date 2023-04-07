@@ -21,11 +21,16 @@ namespace DarkSideDiv.Components
       _col_options[col] = (QuantityType.Weight, factor);
     }
 
+    public void SetDivSpacing(float spacing) {
+      _div_spacing = spacing;
+    }
+
     public DsDivComponentGrid(int cols, int rows)
     {
       _grid = new IDsDiv[cols, rows];
       _cols = cols;
       _rows = rows;
+      _div_spacing = 0f;
       _row_options = new List<Quantity>();
       for (int i = 0; i < _rows; i++)
       {
@@ -50,7 +55,8 @@ namespace DarkSideDiv.Components
         Cols = _cols,
         Rows = _rows,
         ColOptions = _col_options,
-        RowOptions = _row_options
+        RowOptions = _row_options,
+        DivSpacing = _div_spacing,
       };
 
       foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, draw_rect))
@@ -73,6 +79,8 @@ namespace DarkSideDiv.Components
 
     List<Quantity> _row_options;
     List<Quantity> _col_options;
+
+    float _div_spacing;
 
   }
 }

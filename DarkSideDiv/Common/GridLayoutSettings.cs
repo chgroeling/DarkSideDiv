@@ -7,4 +7,6 @@ public struct GridLayoutOptions
   public List<Quantity> ColOptions { get; set; }
   public List<Quantity> RowOptions { get; set; }
 
+  public float DivSpacing {get; set;}
+
 };
