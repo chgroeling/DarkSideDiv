@@ -2,13 +2,16 @@ namespace DarkSideDiv.Common
 {
   internal class GridLayout : IGridLayout
   {
-    struct RowColAttribs
+    enum QuantityType
     {
-      public float factor;
+      FixedInPixel,
+      Weight,
+    };
 
-      public float fixed_value;
-
-      public bool is_fixed;
+    struct Quantity
+    {
+      public QuantityType QType {get; set;}
+      public float Value {get; set;}
     }
 
     public GridLayout(int cols, int rows)
@@ -16,57 +19,55 @@ namespace DarkSideDiv.Common
       Columns = cols;
       Rows = rows;
 
-      col_attribs = new RowColAttribs[cols];
+      col_attribs = new Quantity[cols];
       for (int i = 0; i < cols; i++)
       {
-        col_attribs[i] = new RowColAttribs()
+        col_attribs[i] = new Quantity()
         {
-          factor = 1.0f,
-          fixed_value = 0f,
-          is_fixed = false
+          QType = QuantityType.Weight,
+          Value = 1f
         };
       }
 
-      col_factors_sum = col_attribs.Sum(i => i.factor);
+      col_factors_sum = col_attribs.Sum(i => i.Value);
 
-      row_attribs = new RowColAttribs[rows];
+      row_attribs = new Quantity[rows];
       for (int i = 0; i < rows; i++)
       {
-        row_attribs[i] = new RowColAttribs()
+        row_attribs[i] = new Quantity()
         {
-          factor = 1.0f,
-          fixed_value = 0f,
-          is_fixed = false
+          QType = QuantityType.Weight,
+          Value = 1f
         };
       }
-      row_factors_sum = row_attribs.Sum(i => i.factor);
+      row_factors_sum = row_attribs.Sum(i => i.Value);
 
     }
 
     public void SetColFixed(int col, float value)
     {
-      col_attribs[col].fixed_value = value;
-      col_attribs[col].is_fixed = true;
-      col_factors_sum = col_attribs.Sum(i => i.is_fixed == false ? i.factor : 0f);
+      col_attribs[col].Value = value;
+      col_attribs[col].QType = QuantityType.FixedInPixel;
+      col_factors_sum = col_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
     }
 
     public void SetRowFixed(int row, float value)
     {
-      row_attribs[row].fixed_value = value;
-      row_attribs[row].is_fixed = true;
-      row_factors_sum = row_attribs.Sum(i => i.is_fixed == false ? i.factor : 0f);
+      row_attribs[row].Value = value;
+      row_attribs[row].QType = QuantityType.FixedInPixel;
+      row_factors_sum = row_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
     }
 
     public void SetRowPropFactor(int row, float prop_factor)
     {
-      row_attribs[row].factor = prop_factor;
-      row_factors_sum = row_attribs.Sum(i => i.factor);
+      row_attribs[row].Value = prop_factor;
+      row_factors_sum = row_attribs.Sum(i => i.Value);
     }
 
     public void SetColPropFactor(int col, float prop_factor)
     {
-      col_attribs[col].factor = prop_factor;
-      col_factors_sum = col_attribs.Sum(i => i.factor);
+      col_attribs[col].Value = prop_factor;
+      col_factors_sum = col_attribs.Sum(i => i.Value);
     }
 
     private IEnumerable<(int row, Rect rect)> GetCellsInCol(float left, float right, Rect draw_rect)
@@ -77,9 +78,9 @@ namespace DarkSideDiv.Common
       // Calculate reduced height due to fixed rows
       for (int row = 0; row < Rows; row++)
       {
-        if (row_attribs[row].is_fixed)
+        if (row_attribs[row].QType == QuantityType.FixedInPixel)
         {
-          reduced_height -= row_attribs[row].fixed_value;
+          reduced_height -= row_attribs[row].Value;
         }
       }
 
@@ -87,13 +88,13 @@ namespace DarkSideDiv.Common
       {
         var height_row = 0f;
 
-        if (row_attribs[row].is_fixed)
+        if (row_attribs[row].QType == QuantityType.FixedInPixel)
         {
-          height_row = row_attribs[row].fixed_value;
+          height_row = row_attribs[row].Value;
         }
         else
         {
-          var row_rel = row_attribs[row].factor / row_factors_sum;
+          var row_rel = row_attribs[row].Value / row_factors_sum;
           height_row = reduced_height * row_rel;
         }
         var top = draw_rect.Top + row_offset;
@@ -114,22 +115,22 @@ namespace DarkSideDiv.Common
       // Calculate reduced width due to fixed cols
       for (int col = 0; col < Columns; col++)
       {
-        if (col_attribs[col].is_fixed)
+        if (col_attribs[col].QType == QuantityType.FixedInPixel)
         {
-          reduced_width -= col_attribs[col].fixed_value;
+          reduced_width -= col_attribs[col].Value;
         }
       }
 
       for (int col = 0; col < Columns; col++)
       {
         var width_col = 0f;
-        if (col_attribs[col].is_fixed)
+        if (col_attribs[col].QType == QuantityType.FixedInPixel)
         {
-          width_col = col_attribs[col].fixed_value;
+          width_col = col_attribs[col].Value;
         }
         else
         {
-          var col_rel = col_attribs[col].factor / col_factors_sum;
+          var col_rel = col_attribs[col].Value / col_factors_sum;
           width_col = reduced_width * col_rel;
         }
 
@@ -154,10 +155,10 @@ namespace DarkSideDiv.Common
       get;
     }
 
-    private RowColAttribs[] row_attribs;
+    private Quantity[] row_attribs;
     private float row_factors_sum;
 
-    private RowColAttribs[] col_attribs;
+    private Quantity[] col_attribs;
     private float col_factors_sum;
   }
 }

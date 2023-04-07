@@ -258,7 +258,7 @@ namespace Application.Builders
     {
       get;
       set;
-    } = DsAlignment.TopLeft;
+    } = DsAlignment.Center;
 
     DsPalette _palette_algo = new DsPalette();
 
