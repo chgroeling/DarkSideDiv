@@ -2,5 +2,10 @@ namespace Application.Common.Interfaces;
 
 public interface IDocumentConverter
 {
-  void GetTableOfContents(string text);
+  struct Topic {
+    public int level;
+    public string? label;
+  };
+
+  IList<Topic> GetTableOfContents(string text);
 };

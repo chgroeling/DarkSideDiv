@@ -157,7 +157,25 @@ namespace Application.Builders
       return root_div;
     }
 
-    public void AddLevel1(string label)
+    public void AddTopic(int level, string label)
+    {
+      switch (level)
+      {
+        case 0:
+          AddLevel0(label);
+          break;
+        case 1:
+          AddLevel1(label);
+          break;
+        case 2:
+          AddLevel2(label);
+          break;
+        default:
+          throw new ArgumentException($"Level {level} is not supported");
+      }
+    }
+
+    void AddLevel0(string label)
     {
       if (_topic_idx != -2)
       {
@@ -166,7 +184,7 @@ namespace Application.Builders
       _grid_texts[4, 4] = label;
       _topic_idx++;
     }
-    public void AddLevel2(string label)
+    void AddLevel1(string label)
     {
       if (_topic_idx < -1)
       {
@@ -190,7 +208,7 @@ namespace Application.Builders
 
     }
 
-    public void AddLevel3(string label)
+    void AddLevel2(string label)
     {
       if (_subtopic_idx >= 9)
       {
@@ -214,19 +232,19 @@ namespace Application.Builders
     {
       get;
       set;
-    } = 25.0f;
+    } = 20.0f;
 
     public float Border
     {
       get;
       set;
-    } = 10.0f;
+    } = 5.0f;
 
     public float Spacing
     {
       get;
       set;
-    } = 25.0f;
+    } = 15.0f;
 
     string[,] _grid_texts;
 
