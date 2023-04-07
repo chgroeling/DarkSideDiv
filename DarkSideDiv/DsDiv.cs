@@ -19,10 +19,13 @@ namespace DarkSideDiv
 
   public class DsRectDimensions
   {
+    public SKRect Shrink(SKRect rect, float value) {
+        var ret = new SKRect(rect.Left + value, rect.Top + value, rect.Right - value, rect.Bottom - value);
+        return ret;
+    }
     public SKRect CalculateBorderRect(SKRect outer_rect, float margin)
     {
-      outer_rect.Inflate(-margin, -margin);
-      return outer_rect;
+      return Shrink(outer_rect, margin);
     }
     public SKRect CalculatePaddingRect(SKRect outer_rect, float margin, float border)
     {
@@ -31,8 +34,7 @@ namespace DarkSideDiv
     public SKRect CalculateContentRect(SKRect outer_rect, float margin, float border, float padding)
     {
       var deflate_len = margin + border + padding;
-      outer_rect.Inflate(-deflate_len, -deflate_len);
-      return outer_rect;
+      return Shrink(outer_rect, deflate_len);
     }
   }
 
