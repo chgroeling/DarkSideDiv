@@ -15,12 +15,12 @@ namespace Test.Common
       var grid_comp = new DsDivComponentGrid(3, 2);
       var mock = new Mock<IGridLayout>();
 
-      grid_comp.GridLayout = mock.Object;
+      grid_comp.GridLayoutAlgorithmn = mock.Object;
 
       var rect = new Rect(0f, 0f, 1000f, 1000f);
       grid_comp.Draw(rect);
 
-      mock.Verify(call => call.GetRects(It.IsAny<GridLayoutSettings>(), rect));
+      mock.Verify(call => call.GetRects(It.IsAny<GridLayoutOptions>(), rect));
     }
 
     [Fact]
@@ -31,12 +31,12 @@ namespace Test.Common
 
       grid_comp.SetColPropFactor(1, 100f);
       grid_comp.SetRowPropFactor(0, 100f);
-      grid_comp.GridLayout = mock.Object;
+      grid_comp.GridLayoutAlgorithmn = mock.Object;
 
       var rect = new Rect(0f, 0f, 1000f, 1000f);
       grid_comp.Draw(rect);
 
-      mock.Verify(call => call.GetRects(It.Is<GridLayoutSettings>(
+      mock.Verify(call => call.GetRects(It.Is<GridLayoutOptions>(
         i => (i.Cols == 3) && 
              (i.Rows == 2) 
       ), It.IsAny<Rect>()));
@@ -50,7 +50,7 @@ namespace Test.Common
 
       grid_comp.SetColPropFactor(1, 100f);
       grid_comp.SetRowPropFactor(0, 100f);
-      grid_comp.GridLayout = mock.Object;
+      grid_comp.GridLayoutAlgorithmn = mock.Object;
 
       var rect = new Rect(0f, 0f, 1000f, 1000f);
       grid_comp.Draw(rect);
@@ -66,7 +66,7 @@ namespace Test.Common
           (QuantityType.Weight, 1f),
         };
 
-      mock.Verify(call => call.GetRects(It.Is<GridLayoutSettings>(
+      mock.Verify(call => call.GetRects(It.Is<GridLayoutOptions>(
         i => (Enumerable.SequenceEqual(expected_ColOptions, i.ColOptions)) && 
              (Enumerable.SequenceEqual(expected_RowOptions, i.RowOptions)) 
       ), It.IsAny<Rect>()));

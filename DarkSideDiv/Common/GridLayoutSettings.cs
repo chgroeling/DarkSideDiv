@@ -1,6 +1,6 @@
 namespace DarkSideDiv.Common;
 
-public struct GridLayoutSettings
+public struct GridLayoutOptions
 {
   public int Cols { get; set; }
   public int Rows { get; set; }

@@ -37,7 +37,7 @@ namespace Test.Common
     }
 
     [Fact]
-    public void Draw_SingleLine_CorrectRowOptionsInGetRectsCall()
+    public void Draw_SingleLine_GetRectCalledWithCorrectRowOptions()
     {
       // Arrange
       var test_text = "Line1";
@@ -52,7 +52,7 @@ namespace Test.Common
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayout = mock_grid_layout.Object;
+      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
@@ -64,13 +64,13 @@ namespace Test.Common
       };
 
       mock_grid_layout.Verify(gl => gl.GetRects(
-        It.Is<GridLayoutSettings>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
+        It.Is<GridLayoutOptions>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
         It.IsAny<Rect>()
       ));
     }
 
     [Fact]
-    public void Draw_MultiLine_GetRectCalledWithCorrectSettings()
+    public void Draw_MultiLine_GetRectCalledWithCorrectRowOptions()
     {
       // Arrange
       var test_text = "Line1\nLine2";
@@ -85,7 +85,7 @@ namespace Test.Common
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayout = mock_grid_layout.Object;
+      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
@@ -98,7 +98,7 @@ namespace Test.Common
       };
 
       mock_grid_layout.Verify(gl => gl.GetRects(
-        It.Is<GridLayoutSettings>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
+        It.Is<GridLayoutOptions>(i => Enumerable.SequenceEqual(i.RowOptions, expected_RowOptions)),
         It.IsAny<Rect>()
       ));
     }
@@ -119,14 +119,14 @@ namespace Test.Common
       var attribs = CreateDefaultArguments(test_text);
       var dut = new DsDivComponentAlignedText(stub_device.Object, attribs);
       dut.AbsoluteLayoutAlgorithmn = stub_abs_layout.Object;
-      dut.GridLayout = mock_grid_layout.Object;
+      dut.GridLayoutAlgorithmn = mock_grid_layout.Object;
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
       dut.Draw(in_rect);
 
       // Assert
-      mock_grid_layout.Verify(gl => gl.GetRects(It.IsAny<GridLayoutSettings>(), new Rect(490f, 480f, 510f, 520f)));
+      mock_grid_layout.Verify(gl => gl.GetRects(It.IsAny<GridLayoutOptions>(), new Rect(490f, 480f, 510f, 520f)));
     }
 
 

@@ -2,9 +2,9 @@ using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Common
 {
-  internal class GridLayout : IGridLayout
+  internal class GridLayoutAlgorithmn : IGridLayout
   {
-    public GridLayout()
+    public GridLayoutAlgorithmn()
     { 
         row_attribs = new Quantity[0];
         col_attribs = new Quantity[0];
@@ -38,7 +38,7 @@ namespace DarkSideDiv.Common
     }
 
     private IEnumerable<(int row, Rect rect)> GetCellsInCol(
-      GridLayoutSettings settings,
+      GridLayoutOptions options,
       float left,
       float right,
       Rect draw_rect
@@ -48,7 +48,7 @@ namespace DarkSideDiv.Common
       float reduced_height = draw_rect.Height;
 
       // Calculate reduced height due to fixed rows
-      for (int row = 0; row < settings.Rows; row++)
+      for (int row = 0; row < options.Rows; row++)
       {
         if (row_attribs[row].QType == QuantityType.FixedInPixel)
         {
@@ -56,7 +56,7 @@ namespace DarkSideDiv.Common
         }
       }
 
-      for (int row = 0; row < settings.Rows; row++)
+      for (int row = 0; row < options.Rows; row++)
       {
         var height_row = 0f;
 
@@ -79,28 +79,28 @@ namespace DarkSideDiv.Common
       }
     }
 
-    public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutSettings settings, Rect draw_rect)
+    public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutOptions options, Rect draw_rect)
     {
-      Reset(settings.Cols, settings.Rows);
+      Reset(options.Cols, options.Rows);
 
-      if (settings.ColOptions != null) { 
-      for (int col = 0; col < settings.Cols; col++)
+      if (options.ColOptions != null) { 
+      for (int col = 0; col < options.Cols; col++)
       {
-        if (col < settings.ColOptions.Count())
+        if (col < options.ColOptions.Count())
         {
-          col_attribs[col] = settings.ColOptions[col];
+          col_attribs[col] = options.ColOptions[col];
         }
       }
       col_factors_sum = col_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
       }
 
-      if (settings.RowOptions != null) {
+      if (options.RowOptions != null) {
 
-      for (int row = 0; row < settings.Rows; row++)
+      for (int row = 0; row < options.Rows; row++)
       {
-        if (row < settings.RowOptions.Count())
+        if (row < options.RowOptions.Count())
         {
-          row_attribs[row] = settings.RowOptions[row];
+          row_attribs[row] = options.RowOptions[row];
         }
       }
       row_factors_sum = row_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
@@ -111,7 +111,7 @@ namespace DarkSideDiv.Common
       float reduced_width = draw_rect.Width;
 
       // Calculate reduced width due to fixed cols
-      for (int col = 0; col < settings.Cols; col++)
+      for (int col = 0; col < options.Cols; col++)
       {
         if (col_attribs[col].QType == QuantityType.FixedInPixel)
         {
@@ -119,7 +119,7 @@ namespace DarkSideDiv.Common
         }
       }
 
-      for (int col = 0; col < settings.Cols; col++)
+      for (int col = 0; col < options.Cols; col++)
       {
         var width_col = 0f;
         if (col_attribs[col].QType == QuantityType.FixedInPixel)
@@ -136,7 +136,7 @@ namespace DarkSideDiv.Common
         var left = draw_rect.Left + col_offset;
         var right = draw_rect.Left + col_offset + width_col;
 
-        foreach (var cell in GetCellsInCol(settings, left, right, draw_rect))
+        foreach (var cell in GetCellsInCol(options, left, right, draw_rect))
           yield return (col, cell.row, cell.rect);
 
         col_offset += width_col;

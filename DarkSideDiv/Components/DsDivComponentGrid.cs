@@ -7,7 +7,10 @@ namespace DarkSideDiv.Components
   public class DsDivComponentGrid : IDsDivComponent
   {
 
-    public IGridLayout GridLayout { get; set; }
+    public IGridLayout GridLayoutAlgorithmn { 
+      get; 
+      set; 
+    } = new GridLayoutAlgorithmn();
 
     public DsDivComponentGrid() : this(1, 1)
     {
@@ -15,9 +18,7 @@ namespace DarkSideDiv.Components
 
     public void SetRowPropFactor(int row, float factor)
     {
-
       _row_options[row] = (QuantityType.Weight, factor);
-
     }
 
     public void SetColPropFactor(int col, float factor)
@@ -27,7 +28,6 @@ namespace DarkSideDiv.Components
 
     public DsDivComponentGrid(int cols, int rows)
     {
-      GridLayout = new GridLayout();
       _grid = new IDsDiv[cols, rows];
       _cols = cols;
       _rows = rows;
@@ -50,7 +50,7 @@ namespace DarkSideDiv.Components
     }
     public void Draw(Rect draw_rect)
     {
-      GridLayoutSettings settings = new GridLayoutSettings
+      var options = new GridLayoutOptions
       {
         Cols = _cols,
         Rows = _rows,
@@ -58,7 +58,7 @@ namespace DarkSideDiv.Components
         RowOptions = _row_options
       };
 
-      foreach (var tuple in GridLayout.GetRects(settings, draw_rect))
+      foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, draw_rect))
       {
         (int col, int row, Rect rect) = tuple;
         if (_grid[col, row] is null)

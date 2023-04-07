@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Test.Common
 {
-  public class AbsoluteLayoutTest
+  public class AbsoluteLayoutAlgorithmnTest
   {
     [Theory]
     [InlineData(DsAlignment.Center, 450f, 475f)]
@@ -20,7 +20,7 @@ namespace Test.Common
     public void GetAbsRect_AlignmentChange_CorrectCoordinates(DsAlignment alignment, float left, float top)
     {
       // Arrange
-      var abs_layout = new AbsoluteLayout();
+      var abs_layout = new AbsoluteLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
       var content_rect = new Rect(0f, 0f, 100f, 50f);
@@ -49,7 +49,7 @@ namespace Test.Common
     public void GetAbsRect_AlignmentChangeWithOffset_CorrectCoordinates(DsAlignment alignment, float left, float top)
     {
       // Arrange
-      var abs_layout = new AbsoluteLayout();
+      var abs_layout = new AbsoluteLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
       var content_rect = new Rect(0f, 0f, 100f, 50f);

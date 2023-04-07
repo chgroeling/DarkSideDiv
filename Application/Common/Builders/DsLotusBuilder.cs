@@ -147,7 +147,6 @@ namespace Application.Builders
         base_grid.Attach(i % 3, i / 3, grid);
       }
 
-
       var attribs = new DsDivAttribs()
       {
         Border = 1f,
@@ -208,10 +207,8 @@ namespace Application.Builders
       _grid_texts[4, _topic_idx] = label;
       _grid_texts[_topic_idx, 4] = label;
 
-
       // reset subtopic idx
       _subtopic_idx = -1;
-
     }
 
     void AddLevel2(string label)
@@ -226,8 +223,6 @@ namespace Application.Builders
       _subtopic_idx = _subtopic_idx == 4 ? _subtopic_idx + 1 : _subtopic_idx;
 
       _grid_texts[_topic_idx, _subtopic_idx] = label;
-
-
     }
 
     int _topic_idx = -2;

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Test.Common
 {
-  public class GridLayoutTest
+  public class GridLayoutAlgorithmnTest
   {
     [Fact]
     public void GetRects_1ProportionalColumn1ProportionalRows_ReturnSourceRect()
@@ -14,11 +14,11 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 1
@@ -41,9 +41,9 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 1,
@@ -65,10 +65,10 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 1,
@@ -84,15 +84,15 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1ProportionalColumn1FixedRow1ProportionalRow_ReturnRects()
+    public void GetRects_1ProportionalColumn1FixedRow1ProportionalRow_Return2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 2,
@@ -111,16 +111,16 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1ProportionalColumn2FixedRows_ReturnRects()
+    public void GetRects_1ProportionalColumn2FixedRows_Returns2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 2,
@@ -144,22 +144,21 @@ namespace Test.Common
 
 
     [Fact]
-    public void GetRects_1FixedColumn1ProportionalColumn1ProportionalRow_ReturnRects()
+    public void GetRects_1FixedColumn1ProportionalColumn1ProportionalRow_Returns2Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 2,
         Rows = 1,
         ColOptions = new List<Quantity>() { (QuantityType.FixedInPixel, 100f) }
       };
-
 
       // Act
       var it = grid_layout.GetRects(settings, inp_rect);
@@ -172,15 +171,15 @@ namespace Test.Common
     }
 
     [Fact]
-    public void GetRects_1FixedColumn2ProportionalColumn1ProportionalRow_ReturnRects()
+    public void GetRects_1FixedColumn2ProportionalColumn1ProportionalRow_Returns3Rects()
     {
       // Info: All values used in the test have an accurate float representation
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 3,
         Rows = 1,
@@ -206,11 +205,11 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 2
@@ -236,9 +235,9 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 1,
         Rows = 2,
@@ -263,11 +262,11 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 2,
         Rows = 1
@@ -291,9 +290,9 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 2,
         Rows = 1,
@@ -315,11 +314,11 @@ namespace Test.Common
     public void GetRects_2ProportionalColumns2ProportionalRows_Return4EvenlySpacedRects()
     {
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 2,
         Rows = 2
@@ -345,10 +344,10 @@ namespace Test.Common
       // therefore direct comparision works as expected.
 
       // Arrange
-      var grid_layout = new GridLayout();
+      var grid_layout = new GridLayoutAlgorithmn();
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      var settings = new GridLayoutSettings
+      var settings = new GridLayoutOptions
       {
         Cols = 2,
         Rows = 2,
