@@ -13,7 +13,7 @@ namespace DarkSideDiv
       switch (idx)
       {
         case 0:
-          fill_color = SKColor.Parse("#7f8081");
+          fill_color = SKColor.Parse("#dbd4d0");
           break;
         case 1:
           fill_color = SKColor.Parse("#ded9c1");
@@ -48,11 +48,26 @@ namespace DarkSideDiv
       return fill_color;
     }
 
+    private static DsDivRectDistance CalculateCellBorder(int col, int row, float value, float value_outline)
+    {
+      var border = new DsDivRectDistance();
+      border.distance_from_left = col == 0 ? value : 0f;
+      border.distance_from_right = col == 2 ? value : 0f;
+      border.distance_from_top = row == 0 ? value : 0f;
+      border.distance_from_bottom = row == 2 ? value : 0f;
+
+      border.distance_from_right = col < 2 ? value_outline : border.distance_from_right;
+      border.distance_from_bottom = row < 2 ? value_outline : border.distance_from_bottom;
+      return border;
+    }
+
+
+    // EIGENTLICH IST DAS EINE FACTORY METHODE
     public void FillCornerGrid(int idx, int col, int row, DsUniformGridComponent grid_of_grid_component, SKColor fill_color)
     {
       var attribs = new DsDivAttribs()
       {
-        Border = 1f,
+        Border = CalculateCellBorder(col, row, 2.0f, 2.0f),
         Margin = 0f,
         content_fill_color = fill_color,
         border_color = SKColor.Parse("#000000"),
@@ -62,11 +77,13 @@ namespace DarkSideDiv
     }
 
 
+
+    // DAS AUCH. REfACTORING
     public void FillMiddleGrid(int idx, int col, int row, DsUniformGridComponent grid_of_grid_component)
     {
       var attribs = new DsDivAttribs()
       {
-        Border = 1f,
+        Border = CalculateCellBorder(col, row, 2f, 2f),
         content_fill_color = GetColorByIdx(idx),
         border_color = SKColor.Parse("#000000")
       };
@@ -104,23 +121,12 @@ namespace DarkSideDiv
         FillGridInGrid(base_grid_sector, i, grid_component);
       }
 
-      var margin = new DsDivRectDistance();
-
-      // BORDER of lotus diagramm
-      margin.distance_from_left = base_grid_col == 0 ? Border : 0f;
-      margin.distance_from_right = base_grid_col == 2 ? Border : 0f;
-      margin.distance_from_top = base_grid_row == 0 ? Border : 0f;
-      margin.distance_from_bottom = base_grid_row == 2 ? Border : 0f;
-
-      // SPACING of lotus diagramm
-      margin.distance_from_right =  base_grid_col < 2 ? Spacing : margin.distance_from_right;
-      margin.distance_from_bottom = base_grid_row < 2 ? Spacing : margin.distance_from_bottom;
 
       // Attributes of the base grid
       var attribs = new DsDivAttribs()
       {
         Border = 0f,
-        Margin = margin,
+        Margin = CalculateCellBorder(base_grid_col, base_grid_row, Border, Spacing),
         content_fill_color = SKColor.Parse("#ffffff"),
         border_color = SKColor.Parse("#fffeff")
       };

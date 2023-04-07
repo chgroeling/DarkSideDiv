@@ -54,9 +54,6 @@ namespace DarkSideDiv
 
     int _cols;
 
-    private DsRectDimensions dim_algo = new DsRectDimensions();
-
-
   }
 }
 

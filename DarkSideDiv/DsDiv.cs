@@ -35,7 +35,7 @@ namespace DarkSideDiv
       get;
       set;
     }
-    public float Padding
+    public DsDivRectDistance Padding
     {
       get;
       set;
