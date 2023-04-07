@@ -50,7 +50,7 @@ namespace DarkSideDiv
       return fill_color;
     }
 
-    public void FillGridOfGrid(int idx, int col, int row, DsUniformGrid ds_grid, SKColor fill_color)
+    public void FillGridOfGrid(int idx, int col, int row, DsUniformGridBuilder grid_of_grid_builder, SKColor fill_color)
     {
       var attr = new DsDivAttribs()
       {
@@ -61,11 +61,11 @@ namespace DarkSideDiv
       };
 
       var ds_div = new DsDiv(attr);
-      ds_grid.Attach(col, row, ds_div);
+      grid_of_grid_builder.Attach(col, row, ds_div);
     }
 
 
-    public void FillMiddleGrid(int idx, int col, int row, DsUniformGrid ds_grid)
+    public void FillMiddleGrid(int idx, int col, int row, DsUniformGridBuilder grid_of_grid_builder)
     {
       var attr = new DsDivAttribs()
       {
@@ -76,30 +76,28 @@ namespace DarkSideDiv
 
 
       var ds_div = new DsDiv(attr);
-      ds_grid.Attach(col, row, ds_div);
+      grid_of_grid_builder.Attach(col, row, ds_div);
     }
 
 
-    public void FillTopLevelGrid(int idx, int col, int row, DsUniformGrid ds_grid)
+    public void FillTopLevelGrid(int idx, int col, int row, DsUniformGridBuilder base_grid_builder)
     {
-      var ds_grid_attribs = new DsUniformDivAttribs()
+      var ds_grid_attribs = new DsDivAttribs()
       {
-        rows = 3,
-        cols = 3,
         border = 0,
         margin = 0,
         content_fill_color = SKColor.Parse("#ffffff"),
         border_color = SKColor.Parse("#fffeff")
       };
 
-      var ds_grid_of_grid = new DsUniformGrid(ds_grid_attribs);
-      ds_grid.Attach(col, row, ds_grid_of_grid);
+      var grid_of_grid_builder = new DsUniformGridBuilder(3, 3, ds_grid_attribs);
+      
 
       for (int i = 0; i < 9; i++)
       {
         if (idx == 4)
         {
-          FillMiddleGrid(i, i % 3, i / 3, ds_grid_of_grid);
+          FillMiddleGrid(i, i % 3, i / 3, grid_of_grid_builder);
         }
         else
         {
@@ -112,31 +110,30 @@ namespace DarkSideDiv
           {
             fill_color = GetColorByIdx(i);
           }
-          FillGridOfGrid(i, i % 3, i / 3, ds_grid_of_grid, fill_color);
+          FillGridOfGrid(i, i % 3, i / 3, grid_of_grid_builder, fill_color);
         }
       }
+
+      base_grid_builder.Attach(col, row, grid_of_grid_builder.Build());
     }
 
     public DsLotusBuilder(SKRect pic_rect)
     {
-
-
       _actual = new DsRoot(pic_rect);
-      var ds_grid_attribs = new DsUniformDivAttribs()
+      var ds_grid_attribs = new DsDivAttribs()
       {
-        rows = 3,
-        cols = 3,
         border = 1
       };
-      _base_grid = new DsUniformGrid(ds_grid_attribs);
-      _actual.Attach(_base_grid);
 
-      _base_grid_divs = new List<DsDiv>();
+      var grid_builder = new DsUniformGridBuilder(3,3, ds_grid_attribs);
 
       for (int i = 0; i < 9; i++)
       {
-        FillTopLevelGrid(i, i % 3, i / 3, _base_grid);
+        FillTopLevelGrid(i, i % 3, i / 3, grid_builder);
       }
+
+      _base_grid = grid_builder.Build();
+      _actual.Attach(_base_grid);
 
     }
 
@@ -162,12 +159,7 @@ namespace DarkSideDiv
     }
 
     DsRoot _actual;
-    DsUniformGrid _base_grid;
-
-    List<DsUniformGrid> _grid_of_grids;
-
-    List<DsDiv> _base_grid_divs;
-
+    IDsDiv _base_grid;
 
   }
 

@@ -30,13 +30,13 @@ internal class Program
 
     var dsdiv2 = new DsDiv();
 
-    
+    /*
     var grid_attribs = DsUniformDivAttribs.Default();
     grid_attribs.rows = 4;
     grid_attribs.cols = 4;
     grid_attribs.content_fill_color = SKColor.Parse("FFCCCC");
-
-    var ds_grid2 = new DsUniformGrid(grid_attribs);
+*/
+    /*var ds_grid2 = new DsUniformGrid(grid_attribs);
     ds_grid2.Attach(2,2, dsdiv2);
     ds_grid2.Attach(0,0, dsdiv2);
     ds_grid2.Attach(3,3, dsdiv2);
@@ -52,6 +52,7 @@ internal class Program
 
     
     dsroot.Attach(ds_grid1);
+    */
     dsroot.Draw(canvas);
     // Save the image to disk
     SKFileWStream fs = new SKFileWStream("quickstart.jpg");
