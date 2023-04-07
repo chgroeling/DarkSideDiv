@@ -167,7 +167,7 @@ namespace Application.Builders
 
       var attribs = new DsDivAttribs()
       {
-        Border = 2f,
+        Border = 0f, // outer border
         //border_color = new ColorString("#ff0000"),
         content_fill_color = new ColorString("#ffffff")
       };
@@ -263,7 +263,7 @@ namespace Application.Builders
     {
       get;
       set;
-    } = 15.0f * 2f;
+    } = 20.0f;
 
     string[,] _grid_texts;
 

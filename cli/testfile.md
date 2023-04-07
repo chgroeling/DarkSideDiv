@@ -7,7 +7,7 @@ title: Bereiche
 ## Der Geist des Anfängers
 ## Jeder Tag ist ein neuer Anfang
 ## Lösungsfinder Mentalität
-## Dein Charakter ist nicht änderbar. Plane um ihn herum.
+## Dein Charakter ist fest. Nicht wehren, integrieren!
 ## Selbstverantwort- ungsmentalität. Sei kein Opfer!
 ## Integriere deine feminine Seite.
 
@@ -24,8 +24,8 @@ title: Bereiche
 
 
 # Rationalität
-## Hinterfrage deine Gedanken, Sichtweisen und Urteile.
-## Frage Dich. Was für ein Zweck hat das?
+## Hinterfrage deine Gedanken, Sicht- weisen und Urteile. Warum / Was?
+## Richte deine Aufmerksamkeit nach innen nicht nach außen.
 ## Nehme eine Adlerperspektive ein. 
 ## Denke nach bevor du handelst. Warte ab!
 ## Kontrolliere deine Wahrnehmungen. Sehe das verborgene. 
@@ -74,15 +74,15 @@ title: Bereiche
 ## Sei ein gegenseitiger Verknüpfungs- punkt.
 ## Zentralisiere deine Bemühungen.
 
-# Wohlbefinden
-## Morgen- und Abendroutine. Entspanne Dich!
+# Seelenruhe
+## Routinen sparen Energie! Nutze das!
 ## Begrenze Dich selbst! 
-## Vermeide Leidenschaften
-## Vermeide Energie-Vampire (auch Gedanken).
-## Beruhige deine Impulse. Wut ist ein Fehler. Warte!
+## Vermeide Leidenschaften. 
+## Betrachte alles als schlechten Traum. Es wird vorübergehem.
+## Beruhige deine Impulse. Wut ist ein Fehler. Streit auch. Warte ab!
 ## Ärgere Dich nicht über die Zukunft. Das meiste wird nicht geschehen.
-## Suche nicht den Streit.
-## Ruhe Dich aus. Bewege Dich. Nimm nicht alles so ernst!
+## Beruhige Dich mit Mantras. Visualisiere!
+## Bewege Dich. Iss gut. Vermeide Energie Senken! 
 
 
 
