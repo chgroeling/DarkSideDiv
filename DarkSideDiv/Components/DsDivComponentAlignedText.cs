@@ -62,19 +62,11 @@ namespace DarkSideDiv.Components
       var text = _attribs.text;
       float x, y;
 
-      if (text.StartsWith("Kontrolle")) {
-        ;
-      }
       var lines = SplitLines(text, _device);
 
       var max_width_of_lines = (from i in lines select i.TextBounds.Width).Max();
       var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
 
-      //   
-      //   X
-      // 
-      //
-      //
       // This returns the rectangle of the text
       var combined_rect= new Rect(
         lines[0].TextBounds.Left,
@@ -88,6 +80,7 @@ namespace DarkSideDiv.Components
       // | y
       // V
       (x, y) = AbsoluteLayoutAlgorithmn.GetOffset(draw_rect, combined_rect, _attribs.alignment);
+      
       float y_offset = -accumulated_height_of_lines + lines[0].TextBounds.Height;
 
       foreach (var l in lines)
