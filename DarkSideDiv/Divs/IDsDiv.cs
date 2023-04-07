@@ -4,6 +4,6 @@ namespace DarkSideDiv.Divs
 {
   public interface IDsDiv
   {
-    void Draw(Rect draw_rect);
+    void Draw(Rect parent_rect, Rect root_rect);
   }
 }

@@ -1,43 +1,59 @@
+using DarkSideDiv.Enums;
+
 namespace DarkSideDiv.Common
 {
   public class RectDimensions
   {
-    public Rect Shrink(Rect rect, float value)
+    public float GetDistanceInPixel(Quantity quantity, float width)
     {
-      return Shrink(rect, value, value, value, value);
+      var re = 0f;
+      if (quantity.QType == QuantityType.Percent)
+      {
+        re = width * quantity.Value * 0.01f;
+      }
+      else
+      {
+        re = quantity.Value;
+      }
+      return re;
     }
-
-    public Rect Shrink(Rect rect, float left, float top, float right, float bottom)
+    public Rect Shrink(Rect input_rect, Rect parent_rect, RectDistance rect_dims)
     {
-      var ret = new Rect(rect.Left + left, rect.Top + top, rect.Right - right, rect.Bottom - right);
+      var width = parent_rect.Width;
+      var left = GetDistanceInPixel(rect_dims.distance_from_left, width);
+      var right = GetDistanceInPixel(rect_dims.distance_from_right, width);
+      var top = GetDistanceInPixel(rect_dims.distance_from_top, width);
+      var bottom = GetDistanceInPixel(rect_dims.distance_from_bottom, width);
+
+
+      var ret = new Rect(
+        input_rect.Left + left,
+        input_rect.Top + top,
+        input_rect.Right - right,
+        input_rect.Bottom - bottom);
       return ret;
     }
 
-    public Rect Shrink(Rect rect, RectDistance rect_dims)
+
+    public Rect CalculateBorderRect(Rect parent_rect, RectDistance margin)
     {
-      var ret = new Rect(rect.Left + rect_dims.distance_from_left,
-                           rect.Top + rect_dims.distance_from_top,
-                           rect.Right - rect_dims.distance_from_right,
-                           rect.Bottom - rect_dims.distance_from_bottom);
-      return ret;
+      var after_margin = Shrink(parent_rect, parent_rect, margin);
+      return after_margin;
     }
 
-
-    public Rect CalculateBorderRect(Rect outer_rect, RectDistance margin)
+    public Rect CalculatePaddingRect(Rect parent_rect, RectDistance margin, RectDistance border)
     {
-      return Shrink(outer_rect, margin);
+      var after_margin = Shrink(parent_rect, parent_rect, margin);
+      var after_border = Shrink(after_margin, parent_rect, border);
+      return after_border;
     }
 
-    public Rect CalculatePaddingRect(Rect outer_rect, RectDistance margin, RectDistance border)
+    public Rect CalculateContentRect(Rect parent_rect, RectDistance margin, RectDistance border, RectDistance padding)
     {
-      var res = margin + border;
-      return Shrink(outer_rect, res);
-    }
-
-    public Rect CalculateContentRect(Rect outer_rect, RectDistance margin, RectDistance border, RectDistance padding)
-    {
-      var res = margin + border + padding;
-      return Shrink(outer_rect, res);
+      var after_margin = Shrink(parent_rect, parent_rect, margin);
+      var after_border = Shrink(after_margin, parent_rect, border);
+      var after_padding = Shrink(after_border, parent_rect, padding);
+      return after_padding;
     }
   }
 }

@@ -102,7 +102,7 @@ namespace DarkSideDiv.Components
       return new_lines;
     }
 
-    public void Draw(Rect draw_rect)
+    public void Draw(Rect draw_rect, Rect root_rect)
     {
       var font_metrics = _device.Setup(_attribs);
       var line_height = -font_metrics.Ascent + font_metrics.Descent + font_metrics.Leading;

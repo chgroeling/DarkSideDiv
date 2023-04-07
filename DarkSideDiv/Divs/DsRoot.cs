@@ -25,7 +25,7 @@ namespace DarkSideDiv.Divs
     }
     private void Draw(IDsDiv parent)
     {
-      parent.Draw(_root_rect);
+      parent.Draw(_root_rect, _root_rect);
     }
 
     private Rect _root_rect;

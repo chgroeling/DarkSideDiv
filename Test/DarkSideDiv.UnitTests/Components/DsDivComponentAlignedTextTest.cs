@@ -33,7 +33,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(call => call.Setup(attribs));
@@ -63,7 +63,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       // Center Rect is 490f .. 510f ... Ascent is 15 means Draw Text should be called with 505
@@ -93,7 +93,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 100.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1", -10.0f, 505f));
@@ -123,7 +123,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       // Center Rect is 490f .. 510f ... Ascent is 15 means Draw Text should be called with 505
@@ -152,7 +152,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 1000.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1", 490.0f, 495f));
@@ -183,7 +183,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 150.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1", 25.0f, 495f));
@@ -213,7 +213,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 250.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1AAAAAAA", -25.0f, 505f));
@@ -243,7 +243,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 250.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 495f));
@@ -276,7 +276,7 @@ namespace Test.Common
 
       // Act
       var in_rect = new Rect(0f, 0f, 250.0f, 1000.0f);
-      dut.Draw(in_rect);
+      dut.Draw(in_rect, in_rect);
 
       // Assert
       mock.Verify(foo => foo.DrawText("Line1A Line1B", 25.0f, 495f));

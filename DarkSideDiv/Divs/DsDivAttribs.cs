@@ -1,5 +1,5 @@
 using DarkSideDiv.Common;
-
+using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Divs
 {
@@ -27,6 +27,18 @@ namespace DarkSideDiv.Divs
       set;
     }
     public RectDistance Padding
+    {
+      get;
+      set;
+    }
+
+    public PositionType Position
+    {
+      get;
+      set;
+    }
+
+    public HeightType Height
     {
       get;
       set;

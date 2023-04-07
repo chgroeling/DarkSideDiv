@@ -1,5 +1,6 @@
 using DarkSideDiv.Common;
 using DarkSideDiv.Components;
+using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Divs
 {
@@ -24,10 +25,39 @@ namespace DarkSideDiv.Divs
       _components.Add(component);
     }
 
-    public void Draw(Rect draw_rect)
+     public float GetDistanceInPixel(Quantity quantity, float width)
+    {
+      var re = 0f;
+      if (quantity.QType == QuantityType.Percent)
+      {
+        re = width * quantity.Value * 0.01f;
+      }
+      else
+      {
+        re = quantity.Value;
+      }
+      return re;
+    }
+    
+    public void Draw(Rect parent_rect, Rect root_rect)
     {
       _device.Setup(_div_attribs);
       //_device.SetCanvas(canvas);
+
+      var draw_rect = parent_rect;
+
+
+      if (_div_attribs.Position == Enums.PositionType.Absolute)
+      {
+        draw_rect = root_rect;
+      }
+
+      if (_div_attribs.Height == Enums.HeightType.Zero)
+      {
+        var height_offset = GetDistanceInPixel(_div_attribs.Padding.distance_from_bottom, draw_rect.Width);
+        height_offset += _div_attribs.Border.distance_from_bottom.Value;
+        draw_rect = new Rect(draw_rect.Left, draw_rect.Top, draw_rect.Right, draw_rect.Top + height_offset);
+      }
 
       // BORDER
       var border_rect = _dim_algo.CalculateBorderRect(
@@ -37,13 +67,13 @@ namespace DarkSideDiv.Divs
 
       _device.DrawBorderRect(border_rect);
 
-      var inner_rect = _dim_algo.CalculatePaddingRect(
+      var padding_rect = _dim_algo.CalculatePaddingRect(
         draw_rect,
         _div_attribs.Margin,
         _div_attribs.Border
       );
 
-    _device.DrawContentRect(inner_rect);
+      _device.DrawContentRect(padding_rect);
 
       // CONTENT
       var content_rec = _dim_algo.CalculateContentRect(
@@ -53,11 +83,20 @@ namespace DarkSideDiv.Divs
         _div_attribs.Padding
       );
 
-  
+      var new_parent_rect = content_rec;
+      if (_div_attribs.Position == Enums.PositionType.Absolute)
+      {
+        new_parent_rect = draw_rect;
+      }
 
+      var new_root_rect = root_rect;
+      if (_div_attribs.Position == Enums.PositionType.Relative)
+      {
+        new_root_rect = padding_rect;
+      }
       foreach (var i in _components)
       {
-        i.Draw(content_rec);
+        i.Draw(new_parent_rect, new_root_rect);
       }
     }
 

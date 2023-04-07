@@ -59,7 +59,7 @@ namespace DarkSideDiv.Components
     {
       _grid[col, row] = div;
     }
-    public void Draw(Rect draw_rect)
+    public void Draw(Rect draw_rect, Rect root_rect)
     {
       var options = new GridLayoutOptions
       {
@@ -78,7 +78,7 @@ namespace DarkSideDiv.Components
           continue;
         }
 
-        _grid[col, row]?.Draw(rect);
+        _grid[col, row]?.Draw(rect, rect);
       }
     }
 
