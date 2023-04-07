@@ -32,19 +32,28 @@ namespace Application.Builders
     Dictionary<int, ColSettings> _col_settings;
 
 
-    public DsGridBuilder(IDeviceRepo device_repo, IGridLayoutAlgorithmn grid_layout_algorithmn, SKRect pic_rect, int cols, int rows)
+    public DsGridBuilder(IDeviceRepo device_repo, IGridLayoutAlgorithmn grid_layout_algorithmn)
     {
       _grid_layout_algorithmn = grid_layout_algorithmn;
-      _device_repo = device_repo;
-      _pic_rect = pic_rect;
-      _rows = rows;
-      _cols = cols;
-
+      _device_repo = device_repo; 
+      _pic_rect = new SKRect(0f,0f,100f,100f);
+      _cols = 1;
+      _rows = 1;
       _cell_settings = new Dictionary<(int col, int row), CellSettings>();
       _row_settings = new Dictionary<int, RowSettings>();
       _col_settings = new Dictionary<int, ColSettings>();
     }
 
+    // The reset method clears the object being built.
+    public void Reset(SKRect pic_rect, int cols, int rows)
+    {
+      _cols = cols;
+      _rows = rows;
+      _cell_settings = new Dictionary<(int col, int row), CellSettings>();
+      _row_settings = new Dictionary<int, RowSettings>();
+      _col_settings = new Dictionary<int, ColSettings>();
+      _pic_rect = pic_rect;
+    }
 
     public void SetCellColor(int col, int row, ColorString color)
     {
@@ -69,7 +78,7 @@ namespace Application.Builders
     }
 
 
-    public DsDiv CreateCell(int grid_idx)
+    DsDiv CreateCell(int grid_idx)
     {
       var col = grid_idx / ((int)_rows);
       var row = grid_idx % ((int)_rows);
@@ -92,7 +101,7 @@ namespace Application.Builders
       return div;
     }
 
-    public DsDiv CreateHeaderRowCell(int col)
+   DsDiv CreateHeaderRowCell(int col)
     {
       var attribs = new DsDivAttribs()
       {
@@ -114,13 +123,13 @@ namespace Application.Builders
         Alignment = DsAlignment.BottomLeft
       };
 
-      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn,  text_attribs);
+      var text_comp = new DsDivAlignedText(_device_repo.DivTextDevice, _grid_layout_algorithmn, text_attribs);
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(text_comp);
       return div;
     }
 
-    public DsDiv CreateHeaderColCell(int row)
+    DsDiv CreateHeaderColCell(int row)
     {
       var attribs = new DsDivAttribs()
       {
@@ -149,7 +158,7 @@ namespace Application.Builders
     }
 
 
-    public DsDiv CreateGrid()
+    DsDiv CreateGrid()
     {
       var base_grid = new DsDivGrid(
         _grid_layout_algorithmn,
@@ -178,11 +187,11 @@ namespace Application.Builders
     }
 
 
-    public DsDiv CreateHeaderRow()
+    DsDiv CreateHeaderRow()
     {
       var base_grid = new DsDivGrid(
         _grid_layout_algorithmn,
-        (int)_cols, 
+        (int)_cols,
         1
       );
       base_grid.SetDivSpacing(2f);
@@ -204,11 +213,11 @@ namespace Application.Builders
     }
 
 
-    public DsDiv CreateSpacerAndHeaderRow()
+    DsDiv CreateSpacerAndHeaderRow()
     {
       var base_grid = new DsDivGrid(
         _grid_layout_algorithmn,
-        2, 
+        2,
         1
       );
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
@@ -224,11 +233,11 @@ namespace Application.Builders
       return div;
     }
 
-    public DsDiv CreateHeaderCol()
+    DsDiv CreateHeaderCol()
     {
       var base_grid = new DsDivGrid(
         _grid_layout_algorithmn,
-        1, 
+        1,
         (int)_rows
       );
       base_grid.SetDivSpacing(2f);
@@ -249,11 +258,11 @@ namespace Application.Builders
       return div;
     }
 
-    public DsDiv CreateHeaderColAndGrid()
+    DsDiv CreateHeaderColAndGrid()
     {
       var base_grid = new DsDivGrid(
         _grid_layout_algorithmn,
-        2, 
+        2,
         1
       );
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
@@ -288,7 +297,7 @@ namespace Application.Builders
     {
       var header_row_and_content = new DsDivGrid(
         _grid_layout_algorithmn,
-        1, 
+        1,
         2
       );
 
@@ -322,13 +331,13 @@ namespace Application.Builders
     private SKRect _pic_rect;
 
     const float LEFT_SPACE_IN_PERC = 3.4f;
-    const float TOP_SPACE_IN_PERC = 10f;
+    const float TOP_SPACE_IN_PERC = 14f;
 
     int _rows;
 
     int _cols;
 
-     IGridLayoutAlgorithmn _grid_layout_algorithmn;
+    IGridLayoutAlgorithmn _grid_layout_algorithmn;
   }
 
 }
