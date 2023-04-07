@@ -37,6 +37,14 @@ namespace DarkSideDiv.Divs
 
       _device.DrawBorderRect(border_rect);
 
+      var inner_rect = _dim_algo.CalculatePaddingRect(
+        draw_rect,
+        _div_attribs.Margin,
+        _div_attribs.Border
+      );
+
+    _device.DrawContentRect(inner_rect);
+
       // CONTENT
       var content_rec = _dim_algo.CalculateContentRect(
         draw_rect,
@@ -45,7 +53,7 @@ namespace DarkSideDiv.Divs
         _div_attribs.Padding
       );
 
-      _device.DrawContentRect(content_rec);
+  
 
       foreach (var i in _components)
       {

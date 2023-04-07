@@ -30,7 +30,8 @@ namespace DarkSideDiv.Common
 
     public Rect CalculatePaddingRect(Rect outer_rect, RectDistance margin, RectDistance border)
     {
-      return new Rect();
+      var res = margin + border;
+      return Shrink(outer_rect, res);
     }
 
     public Rect CalculateContentRect(Rect outer_rect, RectDistance margin, RectDistance border, RectDistance padding)

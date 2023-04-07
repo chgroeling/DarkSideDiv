@@ -29,11 +29,12 @@ namespace Application.Builders
       var attribs = new DsDivAttribs()
       {
         Border = CalculateCellBorder(col, row, 2.0f, 2.0f),
-        Margin = 0f,
+        Padding = 5f,
         content_fill_color = fill_color,
         border_color = new ColorString("#000000"),
       };
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
+
 
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
@@ -233,7 +234,7 @@ namespace Application.Builders
     {
       get;
       set;
-    } = 20.0f;
+    } = 19.0f;
 
     public float Border
     {
