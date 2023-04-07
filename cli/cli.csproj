@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\darkside_div\darkside_div.csproj" />
+    <ProjectReference Include="..\DarkSideDiv\DarkSideDiv.csproj" />
   </ItemGroup>
 
   <ItemGroup>
