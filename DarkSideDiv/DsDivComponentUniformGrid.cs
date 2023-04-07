@@ -13,7 +13,7 @@ namespace DarkSideDiv
 
     public DsDivComponentUniformGrid(int cols, int rows)
     {
-      _grid = new IDsDiv?[cols, rows];
+      _grid = new IDsDiv[cols, rows];
       _cols = cols;
       _rows = rows;
     }
@@ -48,7 +48,7 @@ namespace DarkSideDiv
       }
     }
 
-    IDsDiv?[,] _grid;
+    IDsDiv[,] _grid;
 
     int _rows;
 
