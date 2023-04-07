@@ -1,6 +1,5 @@
 using DarkSideDiv.Divs;
 using DarkSideDiv.Common;
-using SkiaSharp;
 
 namespace DarkSideDiv.Components
 {
@@ -13,11 +12,13 @@ namespace DarkSideDiv.Components
     {
     }
 
-    public void SetRowPropFactor(int row, float factor) {
+    public void SetRowPropFactor(int row, float factor)
+    {
       _grid_layout.SetRowPropFactor(row, factor);
     }
 
-    public void SetColPropFactor(int col, float factor) {
+    public void SetColPropFactor(int col, float factor)
+    {
       _grid_layout.SetColPropFactor(col, factor);
     }
 
@@ -34,7 +35,7 @@ namespace DarkSideDiv.Components
       _grid[col, row] = div;
     }
 
-    public void Draw(SKCanvas canvas, Rect draw_rect)
+    public void Draw(Rect draw_rect)
     {
       foreach (var tuple in _grid_layout.GetRects(draw_rect))
       {
@@ -44,7 +45,7 @@ namespace DarkSideDiv.Components
           continue;
         }
 
-        _grid[col, row]?.Draw(canvas, rect);
+        _grid[col, row]?.Draw(rect);
       }
     }
 

@@ -1,40 +1,41 @@
 using DarkSideDiv.Common;
 using DarkSideDiv.Components;
-using SkiaSharp;
 
 namespace DarkSideDiv.Divs
 {
   public class DsDiv : IDsDiv
   {
 
-    public DsDiv() : this(new DsDivAttribs())
+    public DsDiv(IDsDivDevice device) : this(device, new DsDivAttribs())
     {
     }
 
-    public DsDiv(DsDivAttribs div_attribs)
+    public DsDiv(IDsDivDevice device, DsDivAttribs div_attribs)
     {
+      _device = device;
       _div_attribs = div_attribs;
       _components = new List<IDsDivComponent>();
     }
+
+    IDsDivDevice _device;
 
     public void Append(IDsDivComponent component)
     {
       _components.Add(component);
     }
 
-    public void Draw(SKCanvas canvas, Rect draw_rect)
+    public void Draw(Rect draw_rect)
     {
+      _device.Setup(_div_attribs);
+      //_device.SetCanvas(canvas);
+
       // BORDER
       var border_rect = _dim_algo.CalculateBorderRect(
         draw_rect,
         _div_attribs.Margin
       );
 
-      SKPaint paint_border = new SKPaint();
-      paint_border.Color = _div_attribs.border_color;
-      paint_border.IsAntialias = true;
-
-      canvas.DrawRect(ConversionFactories.FromRect(border_rect), paint_border);
+      _device.DrawBorderRect(border_rect);
 
       // CONTENT
       var content_rec = _dim_algo.CalculateContentRect(
@@ -44,12 +45,11 @@ namespace DarkSideDiv.Divs
         _div_attribs.Padding
       );
 
-      SKPaint paint_content = new SKPaint() { Color = _div_attribs.content_fill_color, IsAntialias = true };
-      canvas.DrawRect(ConversionFactories.FromRect(content_rec), paint_content);
+      _device.DrawContentRect(content_rec);
 
       foreach (var i in _components)
       {
-        i.Draw(canvas, content_rec);
+        i.Draw(content_rec);
       }
     }
 

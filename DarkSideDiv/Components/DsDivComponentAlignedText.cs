@@ -1,5 +1,4 @@
 using DarkSideDiv.Enums;
-using SkiaSharp;
 using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Components
@@ -8,14 +7,17 @@ namespace DarkSideDiv.Components
   public class DsDivComponentAlignedText : IDsDivComponent
   {
 
-    public DsDivComponentAlignedText()
+    public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device) : this(device, new DsDivComponentAlignedTextAttribs())
     {
     }
 
-    public DsDivComponentAlignedText(DsDivComponentAlignedTextAttribs attribs)
+    public DsDivComponentAlignedText(IDsDivComponentAlignedTextDevice device, DsDivComponentAlignedTextAttribs attribs)
     {
+      _device = device;
       _attribs = attribs;
     }
+
+    IDsDivComponentAlignedTextDevice _device;
 
     private class Line
     {
@@ -25,15 +27,20 @@ namespace DarkSideDiv.Components
     }
 
 
-    private Line[] SplitLines(string text, SKPaint paint)
+    private Line[] SplitLines(string text, IDsDivComponentAlignedTextDevice device)
     {
       var lines = text.Split('\n');
       var ret = lines.SelectMany((line) =>
       {
         var result = new List<Line>();
-        var textBounds = new SKRect();
-        paint.MeasureText(line, ref textBounds);
-        result.Add(new Line() { Value = line, TextBounds = ConversionFactories.ToRect(textBounds) });
+        var textBounds = device.MeasureText(line);
+
+        var item = new Line()
+        {
+          Value = line,
+          TextBounds = textBounds
+        };
+        result.Add(item);
 
         return result.ToArray();
       }).ToArray();
@@ -41,27 +48,15 @@ namespace DarkSideDiv.Components
       return ret;
     }
 
-    public void Draw(SKCanvas canvas, Rect draw_rect)
+    public void Draw(Rect draw_rect)
     {
-      var textPaint = new SKPaint() // with object initializer
-      {
-        IsAntialias = true,
-        TextAlign = SKTextAlign.Left,
-        Color = SKColors.Black,
-        TextSize = _attribs.text_size,
-        Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold,
-              SKFontStyleWidth.Normal,
-              SKFontStyleSlant.Upright)
-      };
+      // _device.SetCanvas(canvas);
+      _device.Setup(_attribs);
+
       var text = _attribs.text;
-
-      // Get the bounds of the text
-      SKRect textBounds = new SKRect();
-      textPaint.MeasureText(text, ref textBounds);
-
       float x, y;
 
-      var lines = SplitLines(text, textPaint);
+      var lines = SplitLines(text, _device);
 
       var max_width_of_lines = (from i in lines select i.TextBounds.Width).Max();
       var accumulated_height_of_lines = (from i in lines select i.TextBounds.Height).Aggregate(0f, (bef, next) => { return bef + next; });
@@ -92,11 +87,10 @@ namespace DarkSideDiv.Components
 
         // The text origin (0,0) is the bottom left corner of the text
         // the top coordinate is therefore negative
-        canvas.DrawText(
+        _device.DrawText(
           l.Value,
           x + x_offset,
-          y + y_offset,
-          textPaint);
+          y + y_offset);
         y_offset = y_offset + l.TextBounds.Height;
       }
       //canvas.Restore();

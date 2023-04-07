@@ -1,5 +1,3 @@
-using SkiaSharp;
-using System;
 using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Divs
@@ -16,18 +14,18 @@ namespace DarkSideDiv.Divs
       _root_div = dsdiv;
     }
 
-    public void Draw(SKCanvas canvas)
+    public void Draw()
     {
       if (_root_div is null)
       {
         throw new ArgumentNullException(nameof(_root_div));
       }
 
-      Draw(canvas, _root_div);
+      Draw(_root_div);
     }
-    private void Draw(SKCanvas canvas, IDsDiv parent)
+    private void Draw(IDsDiv parent)
     {
-      parent.Draw(canvas, _root_rect);
+      parent.Draw(_root_rect);
     }
 
     private Rect _root_rect;

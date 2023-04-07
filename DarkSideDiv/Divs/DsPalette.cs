@@ -1,51 +1,51 @@
-using SkiaSharp;
+using DarkSideDiv.Common;
 
 namespace DarkSideDiv.Divs
 {
   public class DsPalette
   {
-    public SKColor GetColorByIdx(int idx)
+    public ColorString GetColorByIdx(int idx)
     {
-      var color = SKColor.Parse("#FFFFFF");
+      var color = new ColorString("#FFFFFF");
       switch (idx)
       {
         case 0:
-          color = SKColor.Parse("#dbd4d0");
+          color = new ColorString("#dbd4d0");
           break;
         case 1:
-          color = SKColor.Parse("#ded9c1");
+          color = new ColorString("#ded9c1");
           break;
         case 2:
-          color = SKColor.Parse("#c3d9f4");
+          color = new ColorString("#c3d9f4");
           break;
         case 3:
-          color = SKColor.Parse("#dae5f2");
+          color = new ColorString("#dae5f2");
           break;
         case 4:
-          color = SKColor.Parse("#fffeff");
+          color = new ColorString("#fffeff");
           break;
         case 5:
-          color = SKColor.Parse("#f4dbd9");
+          color = new ColorString("#f4dbd9");
           break;
         case 6:
-          color = SKColor.Parse("#eaf1dd");
+          color = new ColorString("#eaf1dd");
           break;
         case 7:
-          color = SKColor.Parse("#e5dfed");
+          color = new ColorString("#e5dfed");
           break;
         case 8:
-          color = SKColor.Parse("#d7eef3");
+          color = new ColorString("#d7eef3");
           break;
 
 
         default:
-          color = SKColor.Parse("#FFFFFF");
+          color = new ColorString("#FFFFFF");
           break;
       }
       return color;
     }
 
-    
+
   }
 
 }

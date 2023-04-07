@@ -10,8 +10,8 @@ namespace Test.Common
     public void TestGridLayout_GetRects1c1r_Return1Rect()
     {
       // Arrange
-      var grid_layout = new GridLayout(1,1);
- 
+      var grid_layout = new GridLayout(1, 1);
+
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
 
 
@@ -28,10 +28,10 @@ namespace Test.Common
     public void TestGridLayout_GetRects1c2r_Return2Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(1,2);
+      var grid_layout = new GridLayout(1, 2);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      
+
 
       // Act
       var it = grid_layout.GetRects(inp_rect);
@@ -47,7 +47,7 @@ namespace Test.Common
     public void TestGridLayout_GetRects1c2rRowPropFactorChanged_Return2Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(1,2);
+      var grid_layout = new GridLayout(1, 2);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
       grid_layout.SetRowPropFactor(0, 3f);
@@ -66,10 +66,10 @@ namespace Test.Common
     public void TestGridLayout_GetRects2c1r_Return2Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(2,1);
+      var grid_layout = new GridLayout(2, 1);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      
+
 
       // Act
       var it = grid_layout.GetRects(inp_rect);
@@ -85,11 +85,11 @@ namespace Test.Common
     public void TestGridLayout_GetRects2c1rColPropFactorChanged_Return2Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(2,1);
+      var grid_layout = new GridLayout(2, 1);
       grid_layout.SetColPropFactor(0, 3f);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      
+
 
       // Act
       var it = grid_layout.GetRects(inp_rect);
@@ -106,10 +106,10 @@ namespace Test.Common
     public void TestGridLayout_GetRects2c2r_Return4Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(2,2);
+      var grid_layout = new GridLayout(2, 2);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      
+
 
       // Act
       var it = grid_layout.GetRects(inp_rect);
@@ -128,11 +128,11 @@ namespace Test.Common
     public void TestGridLayout_GetRects2c2rBottomRightPropFactorsChanged_Return4Rects()
     {
       // Arrange
-      var grid_layout = new GridLayout(2,2);
+      var grid_layout = new GridLayout(2, 2);
 
       var inp_rect = new Rect(0f, 0f, 1000f, 1000f);
-      grid_layout.SetColPropFactor(1,3f);      
-      grid_layout.SetRowPropFactor(1,3f);      
+      grid_layout.SetColPropFactor(1, 3f);
+      grid_layout.SetRowPropFactor(1, 3f);
 
       // Act
       var it = grid_layout.GetRects(inp_rect);

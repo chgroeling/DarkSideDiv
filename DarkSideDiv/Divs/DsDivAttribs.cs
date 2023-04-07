@@ -1,14 +1,19 @@
 using DarkSideDiv.Common;
-using SkiaSharp;
+
 
 namespace DarkSideDiv.Divs
 {
   public struct DsDivAttribs
   {
-    public SKColor border_color;
+    public DsDivAttribs()
+    {
+      border_color = new ColorString();
+      content_fill_color = new ColorString();
+    }
 
-    public SKColor content_fill_color;
+    public ColorString border_color;
 
+    public ColorString content_fill_color;
 
     public RectDistance Border
     {

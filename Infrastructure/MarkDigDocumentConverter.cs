@@ -27,9 +27,10 @@ public class MarkDigDocumentConverter : IDocumentConverter
       foreach (var i in result_ast.Descendants<YamlFrontMatterBlock>())
       {
         var lines = i.Lines;
-        topic_list.Add(new IDocumentConverter.Topic() {
+        topic_list.Add(new IDocumentConverter.Topic()
+        {
           level = 0,
-          label = lines.ToString().Replace("title: ","")
+          label = lines.ToString().Replace("title: ", "")
         }
         );
       }
@@ -42,15 +43,16 @@ public class MarkDigDocumentConverter : IDocumentConverter
         if (i.Inline != null)
         {
           //Console.WriteLine(i.Inline.FirstChild);
-          
-          topic_list.Add(new IDocumentConverter.Topic(){ 
+
+          topic_list.Add(new IDocumentConverter.Topic()
+          {
             level = i.Level,
             label = i.Inline.FirstChild?.ToString()
           }
           );
         }
       }
-      
+
     }
     catch (Exception ex)
     {

@@ -4,6 +4,8 @@ using DarkSideDiv.Enums;
 using DarkSideDiv.Components;
 using DarkSideDiv.Common;
 using DarkSideDiv.Divs;
+using Application.Device;
+using Application.Common;
 
 namespace Application.Builders
 {
@@ -22,23 +24,24 @@ namespace Application.Builders
       return border;
     }
 
-    public IDsDiv CreateCornerDiv(int base_grid_idx, int idx, int col, int row, SKColor fill_color)
+    public IDsDiv CreateCornerDiv(int base_grid_idx, int idx, int col, int row, ColorString fill_color)
     {
       var attribs = new DsDivAttribs()
       {
         Border = CalculateCellBorder(col, row, 2.0f, 2.0f),
         Margin = 0f,
         content_fill_color = fill_color,
-        border_color = SKColor.Parse("#000000"),
+        border_color = new ColorString("#000000"),
       };
-      var ds_div = new DsDiv(attribs);
+      var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
+
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
         text = _grid_texts[base_grid_idx, idx],
         text_size = FontSize,
         alignment = Alignment
       };
-      var text_comp = new DsDivComponentAlignedText(text_attribs);
+      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
     }
@@ -49,22 +52,22 @@ namespace Application.Builders
       {
         Border = CalculateCellBorder(col, row, 2f, 2f),
         content_fill_color = _palette_algo.GetColorByIdx(idx),
-        border_color = SKColor.Parse("#000000")
+        border_color = new ColorString("#000000")
       };
-      var ds_div = new DsDiv(attribs);
+      var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
         text = _grid_texts[4, idx],
         text_size = FontSize,
         alignment = Alignment
       };
-      var text_comp = new DsDivComponentAlignedText(text_attribs);
+      var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
       return ds_div;
 
     }
 
-    public SKColor CreateCornerDivColor(int base_grid_sector, int grid_sector)
+    public ColorString CreateCornerDivColor(int base_grid_sector, int grid_sector)
     {
       // if the div is in the middle use the color of the base_grid_sector
       if (grid_sector != 4)
@@ -105,18 +108,19 @@ namespace Application.Builders
       {
         Border = 0f,
         Margin = CalculateCellBorder(base_grid_col, base_grid_row, Border, Spacing),
-        content_fill_color = SKColor.Parse("#ffffff"),
-        border_color = SKColor.Parse("#fffeff")
+        content_fill_color = new ColorString("#ffffff"),
+        border_color = new ColorString("#fffeff")
       };
 
-      var div = new DsDiv(attribs);
+      var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(base_grid_comp);
 
       return div;
     }
 
-    public DsLotusBuilder(SKRect pic_rect)
+    public DsLotusBuilder(IDeviceRepo device_repo, SKRect pic_rect)
     {
+      _device_repo = device_repo;
       _pic_rect = pic_rect;
       _grid_texts = new string[9, 9];
 
@@ -133,26 +137,25 @@ namespace Application.Builders
 
     public DsRoot Build()
     {
-
       var base_grid = new DsDivComponentGrid(3, 3);
-      base_grid.SetColPropFactor(1,2f);
-      base_grid.SetRowPropFactor(1,2f);    
+      base_grid.SetColPropFactor(1, 2f);
+      base_grid.SetRowPropFactor(1, 2f);
 
       for (int i = 0; i < 9; i++)
       {
         var grid = CreateUnderlaidGrid(i, i % 3, i / 3);
         base_grid.Attach(i % 3, i / 3, grid);
       }
-  
+
 
       var attribs = new DsDivAttribs()
       {
         Border = 1f,
         //border_color = SKColor.Parse("#ff0000"),
-        content_fill_color = SKColor.Parse("#ffffff")
+        content_fill_color = new ColorString("#ffffff")
       };
 
-      var div = new DsDiv(attribs);
+      var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(base_grid);
 
       var root_div = new DsRoot(ConversionFactories.ToRect(_pic_rect));
@@ -258,6 +261,8 @@ namespace Application.Builders
     } = DsAlignment.Center;
 
     DsPalette _palette_algo = new DsPalette();
+
+    IDeviceRepo _device_repo;
   }
 
 }

@@ -2,7 +2,8 @@ namespace Application.Common.Interfaces;
 
 public interface IDocumentConverter
 {
-  struct Topic {
+  struct Topic
+  {
     public int level;
     public string? label;
   };
