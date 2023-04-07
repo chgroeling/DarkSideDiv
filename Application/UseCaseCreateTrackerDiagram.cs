@@ -197,8 +197,10 @@ public class UseCaseCreateTrackerDiagram
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
     var tracker = new Tracker(DAYS, WEEKS, YEAR);
 
+    var grid_layout_algorithmn = new GridLayoutAlgorithmn();
     var grid_builder = new Builders.DsGridBuilder(
       device_repo,
+      grid_layout_algorithmn,
       graph_rect,
       (int)WEEKS,
       (int)DAYS

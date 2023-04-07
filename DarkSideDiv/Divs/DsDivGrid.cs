@@ -5,11 +5,6 @@ namespace DarkSideDiv.Divs;
 
 public class DsDivGrid : IDsDiv
 {
-
-  public DsDivGrid() : this(1, 1)
-  {
-  }
-
   public void SetRowPropFactor(int row, float factor)
   {
     _row_options[row] = (QuantityType.Weight, factor);
@@ -48,8 +43,9 @@ public class DsDivGrid : IDsDiv
     _div_spacing = spacing;
   }
 
-  public DsDivGrid(int cols, int rows)
+  public DsDivGrid(IGridLayoutAlgorithmn grid_layout_algorithmn, int cols, int rows)
   {
+    _grid_layout_algorithmn = grid_layout_algorithmn;
     _grid = new IDsDiv[cols, rows];
     _cols = cols;
     _rows = rows;
@@ -59,7 +55,7 @@ public class DsDivGrid : IDsDiv
     {
       _row_options.Add((QuantityType.Weight, 1.0f));
     }
-    
+
     _col_options = new List<Quantity>();
     for (int i = 0; i < _cols; i++)
     {
@@ -83,7 +79,7 @@ public class DsDivGrid : IDsDiv
       CellSpacing = _div_spacing,
     };
 
-    foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, parent_content))
+    foreach (var tuple in _grid_layout_algorithmn.GetRects(options, parent_content))
     {
       (int col, int row, Rect rect) = tuple;
       if (_grid[col, row] is null)
@@ -106,5 +102,6 @@ public class DsDivGrid : IDsDiv
 
   float _div_spacing;
 
+  IGridLayoutAlgorithmn _grid_layout_algorithmn;
 }
 

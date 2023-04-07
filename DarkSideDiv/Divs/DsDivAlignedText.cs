@@ -162,7 +162,7 @@ public class DsDivAlignedText : IDsDiv
       RowOptions = row_options
     };
 
-    var rects_enum = GridLayoutAlgorithmn.GetRects(options, abs_rect);
+    var rects_enum = new GridLayoutAlgorithmn().GetRects(options, abs_rect);
     var rects = rects_enum.ToArray();
 
     if (rects.Count() != lines.Count())

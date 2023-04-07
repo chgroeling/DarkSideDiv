@@ -32,8 +32,9 @@ namespace Application.Builders
     Dictionary<int, ColSettings> _col_settings;
 
 
-    public DsGridBuilder(IDeviceRepo device_repo, SKRect pic_rect, int cols, int rows)
+    public DsGridBuilder(IDeviceRepo device_repo, IGridLayoutAlgorithmn grid_layout_algorithmn, SKRect pic_rect, int cols, int rows)
     {
+      _grid_layout_algorithmn = grid_layout_algorithmn;
       _device_repo = device_repo;
       _pic_rect = pic_rect;
       _rows = rows;
@@ -151,6 +152,7 @@ namespace Application.Builders
     public DsDiv CreateGrid()
     {
       var base_grid = new DsDivGrid(
+        _grid_layout_algorithmn,
         (int)_cols,
         (int)_rows
       );
@@ -178,7 +180,11 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderRow()
     {
-      var base_grid = new DsDivGrid((int)_cols, 1);
+      var base_grid = new DsDivGrid(
+        _grid_layout_algorithmn,
+        (int)_cols, 
+        1
+      );
       base_grid.SetDivSpacing(2f);
 
       var attribs = new DsDivAttribs()
@@ -200,7 +206,11 @@ namespace Application.Builders
 
     public DsDiv CreateSpacerAndHeaderRow()
     {
-      var base_grid = new DsDivGrid(2, 1);
+      var base_grid = new DsDivGrid(
+        _grid_layout_algorithmn,
+        2, 
+        1
+      );
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
 
       var attribs = new DsDivAttribs()
@@ -216,7 +226,11 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderCol()
     {
-      var base_grid = new DsDivGrid(1, (int)_rows);
+      var base_grid = new DsDivGrid(
+        _grid_layout_algorithmn,
+        1, 
+        (int)_rows
+      );
       base_grid.SetDivSpacing(2f);
 
       var attribs = new DsDivAttribs()
@@ -237,7 +251,11 @@ namespace Application.Builders
 
     public DsDiv CreateHeaderColAndGrid()
     {
-      var base_grid = new DsDivGrid(2, 1);
+      var base_grid = new DsDivGrid(
+        _grid_layout_algorithmn,
+        2, 
+        1
+      );
       base_grid.SetColPercFactor(0, LEFT_SPACE_IN_PERC);
 
       var attribs = new DsDivAttribs()
@@ -268,7 +286,11 @@ namespace Application.Builders
 
     public DsRoot Build()
     {
-      var header_row_and_content = new DsDivGrid(1, 2);
+      var header_row_and_content = new DsDivGrid(
+        _grid_layout_algorithmn,
+        1, 
+        2
+      );
 
       //base_grid.SetDivSpacing(2f);
       header_row_and_content.SetRowPercFactor(0, TOP_SPACE_IN_PERC);
@@ -305,6 +327,8 @@ namespace Application.Builders
     int _rows;
 
     int _cols;
+
+     IGridLayoutAlgorithmn _grid_layout_algorithmn;
   }
 
 }

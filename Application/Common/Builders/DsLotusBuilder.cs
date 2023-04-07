@@ -10,6 +10,25 @@ namespace Application.Builders
 {
   public class DsLotusBuilder
   {
+      public DsLotusBuilder(IDeviceRepo device_repo, IGridLayoutAlgorithmn grid_layout_algorithmn, SKRect pic_rect)
+    {
+      _grid_layout_algorithmn = grid_layout_algorithmn;
+      
+      _device_repo = device_repo;
+      _pic_rect = pic_rect;
+      _grid_texts = new string[9, 9];
+
+      // Initialize Array
+      for (var i = 0; i < 9; i++)
+      {
+        for (var j = 0; j < 9; j++)
+        {
+          _grid_texts[i, j] = "";
+        }
+      }
+      _grid_texts[4, 4] = "ROOT";
+    }
+
     public IDsDiv CreateDivInCellInBlossom(int base_grid_idx, int idx, int col, int row, ColorString fill_color)
     {
       var attribs = new DsDivAttribs()
@@ -88,7 +107,7 @@ namespace Application.Builders
     }
     public IDsDiv CreateBlossoms(int base_grid_sector)
     {
-      var base_grid_comp = new DsDivGrid(3, 3);
+      var base_grid_comp = new DsDivGrid( _grid_layout_algorithmn, 3, 3);
       base_grid_comp.SetDivSpacing(CellBorder);
 
       for (int i = 0; i < 9; i++)
@@ -117,26 +136,9 @@ namespace Application.Builders
       return div;
     }
 
-    public DsLotusBuilder(IDeviceRepo device_repo, SKRect pic_rect)
-    {
-      _device_repo = device_repo;
-      _pic_rect = pic_rect;
-      _grid_texts = new string[9, 9];
-
-      // Initialize Array
-      for (var i = 0; i < 9; i++)
-      {
-        for (var j = 0; j < 9; j++)
-        {
-          _grid_texts[i, j] = "";
-        }
-      }
-      _grid_texts[4, 4] = "ROOT";
-    }
-
     public DsRoot Build()
     {
-      var base_grid = new DsDivGrid(3, 3);
+      var base_grid = new DsDivGrid( _grid_layout_algorithmn, 3, 3);
       base_grid.SetDivSpacing(Spacing);
 
       for (int i = 0; i < 9; i++)
@@ -257,6 +259,8 @@ namespace Application.Builders
     DsPalette _palette_algo = new DsPalette();
 
     IDeviceRepo _device_repo;
+
+     IGridLayoutAlgorithmn _grid_layout_algorithmn;
   }
 
 }

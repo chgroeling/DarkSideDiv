@@ -1,6 +1,7 @@
 ﻿using SkiaSharp; // TODO: Move to Infrastructure
 using Application.Common.Interfaces;
 using Application.Device;
+using DarkSideDiv.Common;
 
 namespace Application;
 
@@ -28,9 +29,9 @@ public class UseCaseCreateLotusDiagram
     device_repo.DivDeviceSkia = new DsDivSkia();
     device_repo.SetCanvas(canvas);
 
-
+    var grid_layout_algorithmn = new GridLayoutAlgorithmn();
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
-    var lotus_builder = new Builders.DsLotusBuilder(device_repo, graph_rect);
+    var lotus_builder = new Builders.DsLotusBuilder(device_repo,grid_layout_algorithmn,  graph_rect);
 
     // Read Markdown File
     var text = _read_text_file.Read(input_filename);

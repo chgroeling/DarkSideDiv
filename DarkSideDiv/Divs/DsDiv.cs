@@ -6,11 +6,7 @@ namespace DarkSideDiv.Divs
   public class DsDiv : IDsDiv
   {
 
-    public DsDiv(IDsDivDevice device) : this(device, new DsDivAttribs())
-    {
-    }
-
-    public DsDiv(IDsDivDevice device, DsDivAttribs div_attribs)
+    public DsDiv(IDsDivDevice device,  DsDivAttribs div_attribs)
     {
       _device = device;
       _div_attribs = div_attribs;

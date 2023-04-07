@@ -2,7 +2,7 @@ using DarkSideDiv.Enums;
 
 namespace DarkSideDiv.Common
 {
-  internal class GridLayoutAlgorithmn
+  public class GridLayoutAlgorithmn : IGridLayoutAlgorithmn
   {
     public GridLayoutAlgorithmn()
     {
@@ -168,7 +168,7 @@ namespace DarkSideDiv.Common
     }
 
 
-    static public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutOptions options, Rect draw_rect)
+     public IEnumerable<(int col, int row, Rect rect)> GetRects(GridLayoutOptions options, Rect draw_rect)
     {
       var gridlayout = new GridLayoutAlgorithmn();
       return gridlayout.GetRectsObj(options, draw_rect);
