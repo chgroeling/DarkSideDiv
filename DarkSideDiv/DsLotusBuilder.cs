@@ -4,50 +4,8 @@ using System.Collections.Generic;
 
 namespace DarkSideDiv
 {
-
   public class DsLotusBuilder
   {
-    public SKColor GetColorByIdx(int idx)
-    {
-      var fill_color = SKColor.Parse("#FFFFFF");
-      switch (idx)
-      {
-        case 0:
-          fill_color = SKColor.Parse("#dbd4d0");
-          break;
-        case 1:
-          fill_color = SKColor.Parse("#ded9c1");
-          break;
-        case 2:
-          fill_color = SKColor.Parse("#c3d9f4");
-          break;
-        case 3:
-          fill_color = SKColor.Parse("#dae5f2");
-          break;
-        case 4:
-          fill_color = SKColor.Parse("#fffeff");
-          break;
-        case 5:
-          fill_color = SKColor.Parse("#f4dbd9");
-          break;
-        case 6:
-          fill_color = SKColor.Parse("#eaf1dd");
-          break;
-        case 7:
-          fill_color = SKColor.Parse("#e5dfed");
-          break;
-        case 8:
-          fill_color = SKColor.Parse("#d7eef3");
-          break;
-
-
-        default:
-          fill_color = SKColor.Parse("#FFFFFF");
-          break;
-      }
-      return fill_color;
-    }
-
     private static DsDivRectDistance CalculateCellBorder(int col, int row, float value, float value_outline)
     {
       var border = new DsDivRectDistance();
@@ -60,7 +18,6 @@ namespace DarkSideDiv
       border.distance_from_bottom = row < 2 ? value_outline : border.distance_from_bottom;
       return border;
     }
-
 
     public IDsDiv CreateCornerDiv(int base_grid_idx, int idx, int col, int row, SKColor fill_color)
     {
@@ -88,7 +45,7 @@ namespace DarkSideDiv
       var attribs = new DsDivAttribs()
       {
         Border = CalculateCellBorder(col, row, 2f, 2f),
-        content_fill_color = GetColorByIdx(idx),
+        content_fill_color = _palette_algo.GetColorByIdx(idx),
         border_color = SKColor.Parse("#000000")
       };
       var ds_div = new DsDiv(attribs);
@@ -109,10 +66,10 @@ namespace DarkSideDiv
       // if the div is in the middle use the color of the base_grid_sector
       if (grid_sector != 4)
       {
-        return GetColorByIdx(base_grid_sector);
+        return _palette_algo.GetColorByIdx(base_grid_sector);
       }
 
-      return GetColorByIdx(grid_sector);
+      return _palette_algo.GetColorByIdx(grid_sector);
     }
 
     public IDsDiv CreateUnderlaidGridDiv(int base_grid_sector, int grid_sector)
@@ -274,6 +231,8 @@ namespace DarkSideDiv
       get;
       set;
     } = DsAlignment.Center;
+
+    DsPalette _palette_algo = new DsPalette();
   }
 
 }
