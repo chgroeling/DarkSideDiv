@@ -4,9 +4,8 @@ using System;
 
 internal class Program
 {
-  private static void Main(string[] args)
-  {
-    // Create an image and fill it blue
+  private static void example() {
+        // Create an image and fill it blue
     SKBitmap bmp = new SKBitmap(1024, 800);
     using SKCanvas canvas = new SKCanvas(bmp);
     canvas.Clear(SKColor.Parse("#003366"));
@@ -54,6 +53,26 @@ internal class Program
     
     dsroot.Attach(ds_grid1);
     dsroot.Draw(canvas);
+    // Save the image to disk
+    SKFileWStream fs = new SKFileWStream("quickstart.jpg");
+    bmp.Encode(fs, SKEncodedImageFormat.Jpeg, quality: 85);
+  }
+
+  private static void Main(string[] args)
+  {
+    // Create an image and fill it blue
+    SKBitmap bmp = new SKBitmap(1024, 800);
+    using SKCanvas canvas = new SKCanvas(bmp);
+    canvas.Clear(SKColor.Parse("#003366"));
+
+    var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
+    var lotus_builder = new DsLotusBuilder(graph_rect);
+
+    var ds_root = lotus_builder.Build();
+
+    // Draw Lotus
+    ds_root.Draw(canvas);
+
     // Save the image to disk
     SKFileWStream fs = new SKFileWStream("quickstart.jpg");
     bmp.Encode(fs, SKEncodedImageFormat.Jpeg, quality: 85);

@@ -217,7 +217,5 @@ public class DsDiv : IDsDiv
   private DsRectDimensions dim_algo =  new DsRectDimensions();
 
   private List<IDsDivComponent> _components;
-
-
 }
 }
