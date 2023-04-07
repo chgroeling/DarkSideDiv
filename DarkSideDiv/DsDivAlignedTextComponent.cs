@@ -32,8 +32,7 @@ namespace DarkSideDiv
     private Line[] SplitLines(string text, SKPaint paint)
     {
       var lines = text.Split('\n');
-
-      return lines.SelectMany((line) =>
+      var ret = lines.SelectMany((line) =>
       {
         var result = new List<Line>();
         SKRect textBounds = new SKRect();
@@ -42,6 +41,8 @@ namespace DarkSideDiv
 
         return result.ToArray();
       }).ToArray();
+
+      return ret;
     }
     public void Draw(SKCanvas canvas, SKRect draw_rect)
     {
