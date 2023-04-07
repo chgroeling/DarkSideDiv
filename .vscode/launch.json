@@ -11,7 +11,7 @@
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
       "program": "${workspaceFolder}/Cli/bin/Debug/net7.0/Cli.dll",
-      "args": ["-i","testfile.md", "-o", "lotus.jpg"],
+      "args": ["tracker", "-i","testfile.md", "-o", "lotus.jpg"],
       "cwd": "${workspaceFolder}/Cli",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
       "console": "internalConsole",

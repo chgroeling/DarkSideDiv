@@ -111,11 +111,9 @@ namespace DarkSideDiv.Common
         row_factors_sum = row_attribs.Sum(i => i.QType == QuantityType.Weight ? i.Value : 0f);
       }
 
-
       float col_offset = 0f;
       float reduced_width = draw_rect.Width;
 
-  
 
       // Calculate reduced width due to fixed cols
       for (int col = 0; col < options.Cols; col++)
@@ -128,8 +126,6 @@ namespace DarkSideDiv.Common
 
       // Remove the spacing from the reduced height
       reduced_width -= (options.Cols - 1) * options.DivSpacing;
-
-
 
       for (int col = 0; col < options.Cols; col++)
       {
