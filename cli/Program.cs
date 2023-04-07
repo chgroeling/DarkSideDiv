@@ -69,9 +69,9 @@ internal class Program
 
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
     var lotus_builder = new DsLotusBuilder(graph_rect);
-    lotus_builder.AddLevel1("I");
+    lotus_builder.AddLevel1("I\nMultiline");
     lotus_builder.AddLevel2("A");
-    lotus_builder.AddLevel3("A1");
+    lotus_builder.AddLevel3("A1\nMultiline");
     lotus_builder.AddLevel3("A2");
     lotus_builder.AddLevel3("A3");
     lotus_builder.AddLevel3("A4");
@@ -87,7 +87,7 @@ internal class Program
     lotus_builder.AddLevel2("G");
     lotus_builder.AddLevel3("I");
     lotus_builder.AddLevel3("II");
-    lotus_builder.AddLevel3("III");
+    lotus_builder.AddLevel3("III\nABCD\nDEF2");
 
     lotus_builder.AddLevel2("H");
 

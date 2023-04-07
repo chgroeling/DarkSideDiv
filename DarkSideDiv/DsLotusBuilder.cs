@@ -76,7 +76,7 @@ namespace DarkSideDiv
       {
         text = _grid_texts[base_grid_idx, idx],
         text_size = FontSize,
-        alignment = DsAlignment.Center
+        alignment = Alignment
       };
       var text_comp = new DsDivAlignedTextComponent(text_attribs);
       ds_div.Append(text_comp);
@@ -96,7 +96,7 @@ namespace DarkSideDiv
       {
         text = _grid_texts[4, idx],
         text_size = FontSize,
-        alignment = DsAlignment.Center
+        alignment = Alignment
       };
       var text_comp = new DsDivAlignedTextComponent(text_attribs);
       ds_div.Append(text_comp);
@@ -270,6 +270,10 @@ namespace DarkSideDiv
 
     string[,] _grid_texts;
 
+    DsAlignment Alignment {
+      get;
+      set;
+    } = DsAlignment.Bottom;
   }
 
 }
