@@ -13,9 +13,9 @@ namespace Test.Common
     {
       var attribs = new DsDivComponentAlignedTextAttribs()
       {
-        text = text,
-        alignment = DarkSideDiv.Enums.DsAlignment.Center,
-        text_size = 15
+        Text = text,
+        Alignment = DarkSideDiv.Enums.DsAlignment.Center,
+        TextSize = 15
       };
 
       return attribs;

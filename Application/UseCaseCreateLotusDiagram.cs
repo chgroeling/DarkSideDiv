@@ -19,7 +19,7 @@ public class UseCaseCreateLotusDiagram
   public void Execute(string input_filename, string output_filename)
   {
     // Create an image and fill it blue
-    SKBitmap bmp = new SKBitmap(1600, 900); // 5::3
+    SKBitmap bmp = new SKBitmap(3200, 1800); // 5::3
     using SKCanvas canvas = new SKCanvas(bmp);
     canvas.Clear(SKColor.Parse("#003366"));
 

@@ -38,13 +38,13 @@ namespace Application.Builders
 
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
-        text = _grid_texts[base_grid_idx, idx],
-        text_size = FontSize,
-        alignment = Alignment
+        Text = _grid_texts[base_grid_idx, idx],
+        TextSize = FontSize,
+        Alignment = Alignment
       };
 
       if (idx==4) {
-        text_attribs.font_weight = FontWeight.Bold;
+        text_attribs.FontWeight = FontWeight.Bold;
       }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
@@ -62,14 +62,14 @@ namespace Application.Builders
       var ds_div = new DsDiv(_device_repo.DivDevice, attribs);
       var text_attribs = new DsDivComponentAlignedTextAttribs()
       {
-        text = _grid_texts[4, idx],
-        text_size = FontSize,
-        font_weight = FontWeight.Bold,
-        alignment = Alignment
+        Text = _grid_texts[4, idx],
+        TextSize = FontSize,
+        FontWeight = FontWeight.Bold,
+        Alignment = Alignment
       };
 
       if (idx==4) {
-        text_attribs.text_size = FontSize+4f;
+        text_attribs.TextSize = FontSize+4f*2f;
       }
       var text_comp = new DsDivComponentAlignedText(_device_repo.DivTextDevice, text_attribs);
       ds_div.Append(text_comp);
@@ -112,15 +112,19 @@ namespace Application.Builders
         base_grid_comp.Attach(i % 3, i / 3, grid_div);
       }
 
-
+      
       // Attributes of the base grid
       var attribs = new DsDivAttribs()
       {
         Border = 0f,
         Margin = CalculateCellBorder(base_grid_col, base_grid_row, Border, Spacing),
         content_fill_color = new ColorString("#ffffff"),
-        border_color = new ColorString("#fffeff")
+        border_color = new ColorString("#000000")
       };
+
+      if (base_grid_sector==4) {
+        attribs.Border = 5f;
+      }
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       div.Append(base_grid_comp);
@@ -159,8 +163,8 @@ namespace Application.Builders
 
       var attribs = new DsDivAttribs()
       {
-        Border = 1f,
-        //border_color = SKColor.Parse("#ff0000"),
+        Border = 2f,
+        //border_color = new ColorString("#ff0000"),
         content_fill_color = new ColorString("#ffffff")
       };
 
@@ -243,19 +247,19 @@ namespace Application.Builders
     {
       get;
       set;
-    } = 19.0f;
+    } = 19.0f *2f;
 
     public float Border
     {
       get;
       set;
-    } = 5.0f;
+    } = 5.0f *2f;
 
     public float Spacing
     {
       get;
       set;
-    } = 15.0f;
+    } = 15.0f*2f;
 
     string[,] _grid_texts;
 

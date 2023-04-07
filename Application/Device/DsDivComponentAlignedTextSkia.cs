@@ -21,7 +21,7 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
   {
     var sk_font_weight = SKFontStyleWeight.Normal;
 
-    switch (attribs.font_weight)
+    switch (attribs.FontWeight)
     {
       case FontWeight.Normal:
         sk_font_weight = SKFontStyleWeight.Normal;
@@ -39,8 +39,8 @@ public class DsDivComponentAlignedTextSkia : IDsDivComponentAlignedTextDevice
       IsAntialias = true,
       TextAlign = SKTextAlign.Left,
       Color = SKColors.Black,
-      TextSize = attribs.text_size,
-      Typeface = SKTypeface.FromFamilyName("Arial",
+      TextSize = attribs.TextSize,
+      Typeface = SKTypeface.FromFamilyName("Roboto",
             sk_font_weight,
             SKFontStyleWidth.Normal,
             SKFontStyleSlant.Upright)

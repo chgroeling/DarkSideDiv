@@ -107,7 +107,7 @@ namespace DarkSideDiv.Components
       var font_metrics = _device.Setup(_attribs);
       var line_height = -font_metrics.Ascent + font_metrics.Descent + font_metrics.Leading;
 
-      var text = _attribs.text;
+      var text = _attribs.Text;
 
       var lines = SplitLines(text, _device);
 
@@ -145,7 +145,7 @@ namespace DarkSideDiv.Components
       // |
       // | y
       // V
-      var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.alignment, 0f, 0f);
+      var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.Alignment, 0f, 0f);
 
 
       var row_options = new List<Quantity>();
@@ -197,7 +197,7 @@ namespace DarkSideDiv.Components
     {
       float x_offset;
 
-      switch (_attribs.alignment)
+      switch (_attribs.Alignment)
       {
         case DsAlignment.TopLeft:
         case DsAlignment.Left:
