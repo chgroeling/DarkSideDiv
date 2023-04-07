@@ -5,16 +5,6 @@ namespace DarkSideDiv
   public struct DsDivAlignedTextComponentAttribs
   {
 
-    public static DsDivAlignedTextComponentAttribs Default()
-    {
-      var attribs = new DsDivAlignedTextComponentAttribs()
-      {
-        alignment = DsAlignment.TopLeft,
-        text = "",
-        text_size = 20
-      };
-      return attribs;
-    }
     public string text;
 
     public DsAlignment alignment;
@@ -24,7 +14,7 @@ namespace DarkSideDiv
   public class DsDivAlignedTextComponent : IDsDivComponent
   {
 
-    public DsDivAlignedTextComponent() : this(DsDivAlignedTextComponentAttribs.Default())
+    public DsDivAlignedTextComponent() 
     {
     }
 

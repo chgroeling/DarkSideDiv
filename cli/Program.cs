@@ -13,9 +13,9 @@ internal class Program
 
     var dsroot = new DsRoot(new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height));
 
-    var dstext_attribs1 = DsDivAlignedTextComponentAttribs.Default();
+    /* var dstext_attribs1 = DsDivAlignedTextComponentAttribs.Default();
     dstext_attribs1.text = "TopLeft";
-    var dstext_attribs2 = DsDivAlignedTextComponentAttribs.Default();
+   // var dstext_attribs2 = DsDivAlignedTextComponentAttribs.Default();
     dstext_attribs2.text = "BottomRight";
     dstext_attribs2.alignment = DsAlignment.BottomRight;
 
@@ -30,7 +30,7 @@ internal class Program
     dsdiv1.Append(dstext2);
 
     var dsdiv2 = new DsDiv();
-
+ */
     /*
     var grid_attribs = DsUniformDivAttribs.Default();
     grid_attribs.rows = 4;
