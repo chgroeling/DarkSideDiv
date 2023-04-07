@@ -59,7 +59,7 @@ namespace DarkSideDiv.Components
     {
       _grid[col, row] = div;
     }
-    public void Draw(Rect draw_rect, Rect root_rect)
+    public void Draw(Rect parent_content, Rect nearest_positioned_ancestor)
     {
       var options = new GridLayoutOptions
       {
@@ -70,7 +70,7 @@ namespace DarkSideDiv.Components
         DivSpacing = _div_spacing,
       };
 
-      foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, draw_rect))
+      foreach (var tuple in GridLayoutAlgorithmn.GetRects(options, parent_content))
       {
         (int col, int row, Rect rect) = tuple;
         if (_grid[col, row] is null)

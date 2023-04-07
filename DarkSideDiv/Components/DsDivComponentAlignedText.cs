@@ -102,7 +102,7 @@ namespace DarkSideDiv.Components
       return new_lines;
     }
 
-    public void Draw(Rect draw_rect, Rect root_rect)
+    public void Draw(Rect parent_content, Rect nearest_positioned_ancestor)
     {
       var font_metrics = _device.Setup(_attribs);
       var line_height = -font_metrics.Ascent + font_metrics.Descent + font_metrics.Leading;
@@ -115,7 +115,7 @@ namespace DarkSideDiv.Components
       for (int i = 0; i < lines.Count(); i++)
       {
         var line_width = lines[i].TextBounds.Width;
-        var rect_width = draw_rect.Width;
+        var rect_width = parent_content.Width;
         if (line_width > rect_width)
         {
           var splitted_lines = SplitString(lines[i].Value, rect_width);
@@ -145,7 +145,7 @@ namespace DarkSideDiv.Components
       // |
       // | y
       // V
-      var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(draw_rect, combined_rect, _attribs.Alignment, 0f, 0f);
+      var abs_rect = AbsoluteLayoutAlgorithmn.GetAbsRect(parent_content, combined_rect, _attribs.Alignment, 0f, 0f);
 
 
       var row_options = new List<Quantity>();

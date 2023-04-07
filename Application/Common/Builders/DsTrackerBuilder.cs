@@ -31,7 +31,6 @@ namespace Application.Builders
 
       var div = new DsDiv(_device_repo.DivDevice, attribs);
       return div;
-
     }
 
 
@@ -75,11 +74,9 @@ namespace Application.Builders
         Border = 0f,
         Position = PositionType.Absolute, // place it absolute to new rect
         Height = HeightType.Zero,
-        ContentFillColor = new ColorString("#ffffff"),
-        //border_color = new ColorString("#ffffff"),
         Padding = (
           (QuantityType.FixedInPixel, 0.0f),  // left
-          (QuantityType.FixedInPixel, 0.0f), // top
+          (QuantityType.FixedInPixel, 0.0f),  // top
           (QuantityType.FixedInPixel, 0.0f),  // right
           (QuantityType.Percent, 100f / (WEEKS / DAYS)))   // bottom
       };

@@ -40,10 +40,10 @@ namespace Test.Common
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_device.Verify(call => call.DrawContentRect(new Rect(0f, 0f, 300f, 300f)));
@@ -60,10 +60,10 @@ namespace Test.Common
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_device.Verify(call => call.DrawContentRect(new Rect(0f, 0f, 1000f, 1000f)));
@@ -79,10 +79,10 @@ namespace Test.Common
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_device.Verify(call => call.DrawBorderRect(It.IsAny<Rect>()), Times.Never());
@@ -98,17 +98,14 @@ namespace Test.Common
       };
       var mock_device = new Mock<IDsDivDevice>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act 
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_device.Verify(call => call.DrawContentRect(It.IsAny<Rect>()), Times.Never());
     }
-
-
-
 
     [Fact]
     void Draw_PercentPadding_CorrectDrawCallToFillContentArea()
@@ -169,10 +166,10 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(It.IsAny<Rect>(), new Rect(0f, 0f, 300f, 300f)));
@@ -191,10 +188,10 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 300f, 0f), It.IsAny<Rect>()));
@@ -213,14 +210,38 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 1000f, 0f), It.IsAny<Rect>()));
     }
+
+    [Fact]
+    void Draw_HeightTypeZeroAndAbsolutePositionWithBorder_CorrectDrawCalls()
+    {
+      // Arrange
+      var div_attribs = new DsDivAttribs()
+      {
+        Border = 10f,
+        Position = PositionType.Absolute
+      };
+      var mock_device = new Mock<IDsDivDevice>();
+      var mock_component = new Mock<IDsDivComponent>();
+      var dut = new DsDiv(mock_device.Object, div_attribs);
+      dut.Append(mock_component.Object);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
+      // Act
+      dut.Draw(parent_content, nearest_positioned_ancestor);
+
+      // Assert
+      // anchor for abs position is nearest_positioned_ancestor ..
+      mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 1000f, 1000f), It.IsAny<Rect>()));
+    }
+
 
     [Fact]
     void Draw_HeightTypeZeroAndAbsolutePositionWithBottomPadding_CorrectDrawCalls()
@@ -241,10 +262,10 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 1000f, 100f), It.IsAny<Rect>()));
@@ -269,10 +290,10 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 1000f, 250f), It.IsAny<Rect>()));
@@ -303,16 +324,13 @@ namespace Test.Common
       var mock_component = new Mock<IDsDivComponent>();
       var dut = new DsDiv(mock_device.Object, div_attribs);
       dut.Append(mock_component.Object);
-      var parent_rect = new Rect(0f, 0f, 300f, 300f);
-      var root_rect = new Rect(0f, 0f, 1000f, 1000f);
+      var parent_content = new Rect(0f, 0f, 300f, 300f);
+      var nearest_positioned_ancestor = new Rect(0f, 0f, 1000f, 1000f);
       // Act
-      dut.Draw(parent_rect, root_rect);
+      dut.Draw(parent_content, nearest_positioned_ancestor);
 
       // Assert
       mock_component.Verify(call => call.Draw(new Rect(0f, 0f, 1000f, 102f), It.IsAny<Rect>()));
     }
-
-
-
   }
 }
