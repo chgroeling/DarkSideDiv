@@ -14,7 +14,7 @@ public class UseCaseCreateLotusDiagram
     _document_converter = document_converter;
   }
 
-  public void Execute( string filename)
+  public void Execute( string input_filename, string output_filename)
   {
     // Create an image and fill it blue
     SKBitmap bmp = new SKBitmap(1600, 900); // 5::3
@@ -24,7 +24,7 @@ public class UseCaseCreateLotusDiagram
     var graph_rect = new SKRect(0.0f, 0.0f, bmp.Width, bmp.Height);
     var lotus_builder = new Builders.DsLotusBuilder(graph_rect);
 
-    var text = _read_text_file.Read(filename);
+    var text = _read_text_file.Read(input_filename);
     var topic_list = _document_converter.GetTableOfContents(text);
 
     foreach(var i in topic_list) {
@@ -37,7 +37,7 @@ public class UseCaseCreateLotusDiagram
     ds_root.Draw(canvas);
 
     // Save the image to disk
-    SKFileWStream fs = new SKFileWStream("test.jpg");
+    SKFileWStream fs = new SKFileWStream(output_filename);
     bmp.Encode(fs, SKEncodedImageFormat.Jpeg, quality: 90);
   }
 

@@ -8,12 +8,21 @@ internal class Program
   {
     // Required option: Set a input filename
     // E.g.:
-    // -f filename
-    // --filename filename
-    [Option('f', "filename", Required = true, HelpText = "Input filename.")]
+    // -i filename
+    // --inputfile filename
+    [Option('i', "inputfile", Required = true, HelpText = "Input filename.")]
     // C# wants that the property of an immutable type is initialized.
     // Therefore I set the default value via the equal sign.
     public string InputFilename { get; set; } = string.Empty;
+
+    // Required option: Set a output filename
+    // E.g.:
+    // -o filename
+    // --outputfile filename
+    [Option('o', "outputfile", Required = true, HelpText = "Output filename.")]
+    // C# wants that the property of an immutable type is initialized.
+    // Therefore I set the default value via the equal sign.
+    public string OutputFilename { get; set; } = string.Empty;
 
 
     // Used to enable verbose messages. Usually associated with logging.
@@ -34,7 +43,7 @@ internal class Program
     var read_text_file = new ReadTextFile();
 
     var use_case_create_lotus_diag = new UseCaseCreateLotusDiagram(markdig_facade, read_text_file);
-    use_case_create_lotus_diag.Execute(opts.InputFilename);
+    use_case_create_lotus_diag.Execute(opts.InputFilename, opts.OutputFilename);
   }
 
   private static void HandleParseError(IEnumerable<Error> errors)
